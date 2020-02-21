@@ -9,7 +9,6 @@ export const Navbar = (props) => {
     }
 
     return (
-        // <div className="navbar">
         <div className={props.class ? "navbar" : "navbar slide"}>
             <ul>
                 <Link style={{color: 'white', textDecoration: 'none'}} to="/">

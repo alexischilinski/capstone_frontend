@@ -8,6 +8,7 @@ import {Friends} from './components/Friends'
 import Home from './components/Home'
 import Form from './components/Form'
 import HalfMarathon from './components/HalfMarathon';
+import DayShowPage from './components/DayShowPage'
 
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
   state = {
     isNav: false,
     loggedin: false,
+    activities: []
   }
 
   // componentWillMount(){
@@ -28,9 +30,21 @@ class App extends Component {
   //   }
   // }
 
+  componentDidMount(){
+    fetch('http://localhost:8000/api/activities/')
+      .then(response=>response.json())
+      .then(activities=>this.setState({activities}))
+  }
+
   toggleNav = () => {
     this.setState({
       isNav: !this.state.isNav
+    })
+  }
+
+  exitNav = () => {
+    this.setState({
+      isNav: false
     })
   }
 
@@ -55,6 +69,7 @@ class App extends Component {
     })
   }
 
+
   render(){
     return (
       <Router>
@@ -63,9 +78,10 @@ class App extends Component {
 
           <Navbar toggleNav={this.toggleNav} logOut={this.logOut} class={this.state.isNav}/>
           
-          <Route exact path="/" render={()=><Home toggleLogin={this.toggleLogin}/>}/>
-          <Route exact path="/calendar" render={()=><CalendarPage/>}/>
-          <Route exact path="/friends" render={()=><Friends/>}/>
+          <Route exact path="/" render={()=><Home onClick={this.exitNav}  toggleLogin={this.toggleLogin}/>}/>
+          <Route exact path="/calendar" render={(props)=><CalendarPage activities={this.state.activities}/>}/>
+          <Route exact path="/friends" render={(props)=><Friends/>}/>
+          <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities}/>}/>
         </div>
       </Router>
     );
