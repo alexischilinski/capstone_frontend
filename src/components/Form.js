@@ -7,7 +7,14 @@ class Form extends Component {
         email: "",
         password: "",
         login: true,
-        distance: ""
+        distance: "",
+        workout_type: "",
+        pace: "",
+        duration: "",
+        location: "",
+        race: this.props.race,
+        week: this.props.week,
+        day: this.props.day
     }
 
     handleChange = (event) => (
@@ -38,6 +45,15 @@ class Form extends Component {
             event.preventDefault()
             const {username, password} = this.state 
             this.props.logIn({username, password})
+        }else if(event.target.className === "add-workout"){
+            event.preventDefault()
+            const {race, week, day, workout_type, pace, duration, location} = this.state
+            this.props.addWorkout({race, week, day, workout_type, pace, duration, location})
+        }else if(event.target.className === "distances"){
+            event.preventDefault()
+            event.preventDefault()
+            const {distance} = this.state
+            this.props.addUserRace({distance})
         }
     }
 
@@ -61,23 +77,25 @@ class Form extends Component {
                         <button onClick={this.handleClick} className="form-button">Login</button>
                     </form>
             }
-        }else if(this.props.race){
+        }else if(this.props.race_type){
             return <div>
-                    <form className="distances">
-                    <button onClick={this.handleClick} className="race-button" value="5k">5k</button>
-                    <button onClick={this.handleClick} className="race-button" value="10k">10k</button>
-                    <button onClick={this.handleClick} className="race-button" value="half marathon">Half Marathon</button>
-                    <button onClick={this.handleClick} className="race-button" value="full marathon">Full Marathon</button>
+                    <form onSubmit={this.handleSubmit} className="distances">
+                    <div>
+                        <button onClick={this.handleClick} className="race-button" value="5k">5k</button>
+                        <button onClick={this.handleClick} className="race-button" value="10k">10k</button>
+                        <button onClick={this.handleClick} className="race-button" value="half marathon">Half Marathon</button>
+                        <button onClick={this.handleClick} className="race-button" value="full marathon">Full Marathon</button>
+                    </div>
+                        <input className="submit-race" type="submit" value="Submit"></input>
                     </form>
-                    <input className="submit-race" type="submit" value="Submit"></input>
                 </div>
         }else if(this.props.workout){
             return <div>
-                    <form className="add-workout">
-                        <input className="workout-input" type="text" placeholder="workout type (run, bike, etc)" name="workout_type"></input>
-                        <input className="workout-input" type="text" placeholder="pace (00:00)" name="pace"></input>
-                        <input className="workout-input" type="text" placeholder="duration (00:00:00)" name="duration"></input>
-                        <input className="workout-input" type="text" placeholder="location (Boston, Denver, etc)" name="location"></input>
+                    <form onSubmit={this.handleSubmit} className="add-workout">
+                        <input onChange={this.handleChange} className="workout-input" type="text" placeholder="workout type (run, bike, etc)" name="workout_type"></input>
+                        <input onChange={this.handleChange} className="workout-input" type="text" placeholder="pace (00:00)" name="pace"></input>
+                        <input onChange={this.handleChange} className="workout-input" type="text" placeholder="duration (00:00:00)" name="duration"></input>
+                        <input onChange={this.handleChange} className="workout-input" type="text" placeholder="location (Boston, Denver, etc)" name="location"></input>
                         <input className="workout-submit" type="submit" value="Complete Workout"></input>
                     </form>
                 </div>

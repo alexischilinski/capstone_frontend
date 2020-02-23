@@ -17,7 +17,8 @@ class App extends Component {
     isNav: false,
     loggedin: false,
     activities: [],
-    workouts: []
+    workouts: [],
+    userRaces: []
   }
 
   // componentWillMount(){
@@ -38,6 +39,9 @@ class App extends Component {
     fetch('http://localhost:8000/api/workouts')
       .then(response=>response.json())
       .then(workouts=>this.setState({workouts}))
+    fetch('http://localhost:8000/api/schedules/')
+      .then(response=>response.json())
+      .then(userRaces=>this.setState({userRaces}))
   }
 
   toggleNav = () => {
@@ -73,6 +77,30 @@ class App extends Component {
     })
   }
 
+  addWorkout = (workout) => {
+    fetch('http://localhost:8000/api/cdworkouts/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.token}`
+      },
+      body:JSON.stringify(workout)
+    }).then(response=>response.json())
+    .then(workout=>this.setState({workouts: [...this.state.workouts, workout]}))
+  }
+
+  addUserRace = (userRace) => {
+    fetch('http://localhost:8000/api/cdschedules/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.token}`
+      },
+      body:JSON.stringify(userRace)
+    }).then(response=>response.json())
+    .then(result=>this.setState({userRaces: [...this.state.userRaces, result]}))
+  }
+
 
   render(){
     return (
@@ -82,10 +110,10 @@ class App extends Component {
 
           <Navbar toggleNav={this.toggleNav} logOut={this.logOut} class={this.state.isNav}/>
           
-          <Route exact path="/" render={()=><Home onClick={this.exitNav}  toggleLogin={this.toggleLogin}/>}/>
+          <Route exact path="/" render={()=><Home onClick={this.exitNav} toggleLogin={this.toggleLogin} addUserRace={this.addUserRace} userRaces={this.state.userRaces}/>}/>
           <Route exact path="/calendar" render={(props)=><CalendarPage activities={this.state.activities} workouts={this.state.workouts}/>}/>
           <Route exact path="/friends" render={(props)=><Friends/>}/>
-          <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities} workouts={this.state.workouts}/>}/>
+          <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities} workouts={this.state.workouts} addWorkout={this.addWorkout}/>}/>
         </div>
       </Router>
     );

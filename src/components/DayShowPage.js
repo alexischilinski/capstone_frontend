@@ -37,11 +37,11 @@ export const DayShowPage = (props) => {
                 ]
             }else return [
                 <h2>Completed this workout?</h2>,
-                <Form workout={true}/>
+                <Form workout={true} addWorkout={props.addWorkout} week={thisWorkout[0]["week"]} day={thisWorkout[0]["day"]} race={thisWorkout[0]["race"]}/>
             ]
         }else return [
             <h2>Completed this workout?</h2>,
-            <Form workout={true}/>
+            <Form workout={true} addWorkout={props.addWorkout} week={thisWorkout[0]["week"]} day={thisWorkout[0]["day"]} race={thisWorkout[0]["race"]}/>
         ]
     }
 

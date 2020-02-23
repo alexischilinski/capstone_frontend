@@ -216,15 +216,9 @@ li {
   text-decoration: underline;
 }
 
-.distances {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-}
-
 .race-button {
-  height: 10rem;
-  width: 10rem;
+  height: 15rem;
+  width: 15rem;
   font-family: 'Sarabun', sans-serif;
   font-size: 2rem;
   border: solid black 0.2rem;
@@ -232,11 +226,11 @@ li {
 }
 
 .submit-race {
-  margin-top: 2rem;
   height: 10rem;
   width: 10rem;
   font-family: 'Sarabun', sans-serif;
   font-size: 2rem;
+  align-self: center;
 }
 
 .race {
@@ -275,11 +269,11 @@ li {
 }
 
 .completed {
-  /* background-image: url('https://www.freeiconspng.com/uploads/checkmark-symbol-png-background-12.png');
+  background-image: url('https://www.freeiconspng.com/uploads/checkmark-symbol-png-background-12.png');
   background-position: center;
-  background-size: 50% 95%;
-  background-repeat: no-repeat; */
-  background-color: lightgreen;
+  background-size: 15% 45%;
+  background-repeat: no-repeat;
+  /* background-color: lightgreen; */
 }
 
 .checkmark {
