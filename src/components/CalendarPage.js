@@ -28,7 +28,7 @@ class CalendarPage extends Component {
             <>
                 {localStorage.token ? [
                     <div className="today">
-                        <HalfMarathon activities={this.props.activities}/>
+                        <HalfMarathon activities={this.props.activities} workouts={this.props.workouts}/>
                     </div>
                 ]: null}
             </>

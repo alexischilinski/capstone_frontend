@@ -8,7 +8,7 @@ import {Friends} from './components/Friends'
 import Home from './components/Home'
 import Form from './components/Form'
 import HalfMarathon from './components/HalfMarathon';
-import DayShowPage from './components/DayShowPage'
+import {DayShowPage} from './components/DayShowPage'
 
 
 class App extends Component {
@@ -16,7 +16,8 @@ class App extends Component {
   state = {
     isNav: false,
     loggedin: false,
-    activities: []
+    activities: [],
+    workouts: []
   }
 
   // componentWillMount(){
@@ -34,6 +35,9 @@ class App extends Component {
     fetch('http://localhost:8000/api/activities/')
       .then(response=>response.json())
       .then(activities=>this.setState({activities}))
+    fetch('http://localhost:8000/api/workouts')
+      .then(response=>response.json())
+      .then(workouts=>this.setState({workouts}))
   }
 
   toggleNav = () => {
@@ -79,9 +83,9 @@ class App extends Component {
           <Navbar toggleNav={this.toggleNav} logOut={this.logOut} class={this.state.isNav}/>
           
           <Route exact path="/" render={()=><Home onClick={this.exitNav}  toggleLogin={this.toggleLogin}/>}/>
-          <Route exact path="/calendar" render={(props)=><CalendarPage activities={this.state.activities}/>}/>
+          <Route exact path="/calendar" render={(props)=><CalendarPage activities={this.state.activities} workouts={this.state.workouts}/>}/>
           <Route exact path="/friends" render={(props)=><Friends/>}/>
-          <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities}/>}/>
+          <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities} workouts={this.state.workouts}/>}/>
         </div>
       </Router>
     );

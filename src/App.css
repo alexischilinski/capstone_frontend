@@ -94,7 +94,7 @@ table {
 }
 
 .navbutton {
-  margin-right: 85rem;
+  margin-right: 95%;
   width: 3rem;
   height: 3rem;
   background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png');
@@ -121,7 +121,7 @@ table {
 }
 
 .slide {
-  transform: translate(0, -20rem);
+  transform: translate(0, -100%);
   transition: 0.5s;
 }
 
@@ -269,7 +269,67 @@ li {
 
 .day {
   border: solid black;
-  height: 2rem;
+  height: 3rem;
   width: 7rem;
   align-content: center;
+}
+
+.completed {
+  /* background-image: url('https://www.freeiconspng.com/uploads/checkmark-symbol-png-background-12.png');
+  background-position: center;
+  background-size: 50% 95%;
+  background-repeat: no-repeat; */
+  background-color: lightgreen;
+}
+
+.checkmark {
+  height: 1rem;
+  width: 1rem;
+}
+
+.goback {
+  font-family: 'Sarabun', sans-serif;
+  margin-left: 93%;
+  font-weight: bold;
+}
+
+.dayshow {
+  font-family: 'Sarabun', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.dayinfo {
+  margin: 3rem;
+  height: 25rem;
+  width: 30rem;
+}
+
+.dayshow h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.completed-workout {
+  color: green;
+}
+
+.dayshow h1 {
+  font-size: 1.5rem;
+}
+
+.add-workout {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-workout input {
+  width: 75%;
+  height: 2rem;
+  margin: 0.5rem;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 1.5rem;
 }

@@ -18,8 +18,10 @@ class Day extends Component {
     render(){
         return(
             <Link style={{color: 'black', textDecoration: 'none'}} to={`/day/${this.state.id}`}>
-                <div className="day">
+                <div className={this.props.userworkout ? "day completed" : "day"}>
                     <h3>{this.props.workout.distance}</h3>
+                    {this.props.workout.workout_type !== "run" ? <h3>{this.props.workout.workout_type}</h3> : null}
+                    {/* {this.props.userworkout ? <img className="checkmark" src="https://www.freeiconspng.com/uploads/checkmark-symbol-png-background-12.png"></img>: null} */}
                 </div>
             </Link>
         )

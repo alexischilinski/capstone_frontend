@@ -71,6 +71,16 @@ class Form extends Component {
                     </form>
                     <input className="submit-race" type="submit" value="Submit"></input>
                 </div>
+        }else if(this.props.workout){
+            return <div>
+                    <form className="add-workout">
+                        <input className="workout-input" type="text" placeholder="workout type (run, bike, etc)" name="workout_type"></input>
+                        <input className="workout-input" type="text" placeholder="pace (00:00)" name="pace"></input>
+                        <input className="workout-input" type="text" placeholder="duration (00:00:00)" name="duration"></input>
+                        <input className="workout-input" type="text" placeholder="location (Boston, Denver, etc)" name="location"></input>
+                        <input className="workout-submit" type="submit" value="Complete Workout"></input>
+                    </form>
+                </div>
         }
     }
 

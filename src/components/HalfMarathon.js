@@ -12,13 +12,25 @@ class HalfMarathon extends Component {
 
     showWeek = (number) => {
         const filteredAct = this.props.activities.filter(activity=>activity["week"] === number)
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["week"] == number)
         return filteredAct.map(activity=>{
-            return <Day workout={activity}/>
+            if(userWorkouts.length > 0){
+                const thisUserWorkout = userWorkouts.filter(user=>user["day"] == activity["day"])
+                if(thisUserWorkout.length > 0){
+                    return <Day workout={activity} userworkout={thisUserWorkout[0]} />
+                }else return <Day workout={activity}/>
+            }else return <Day workout={activity}/>
         })
+    }
+
+    userWorkouts = (number) => {
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["week"] == number)
+        return userWorkouts
     }
 
 
     render(){
+        console.log(this.userWorkouts(1))
         return(
             <div className="race">
                 <div className="week">
