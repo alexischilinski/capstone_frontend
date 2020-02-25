@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Day from './Day'
 
-class HalfMarathon extends Component {
+class TenK extends Component {
 
     showDayNames = () => {
         const dayArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -11,9 +11,9 @@ class HalfMarathon extends Component {
     }
 
     showWeek = (number) => {
-        const halfActivities = this.props.activities.filter(activity=>activity["race"] === "half")
+        const halfActivities = this.props.activities.filter(activity=>activity["race"] === "10k")
         const filteredAct = halfActivities.filter(activity=>activity["week"] === number)
-        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["week"] == number && workout["race"] === "half")
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["week"] == number && workout["race"] === "10k")
         return filteredAct.map(activity=>{
             if(userWorkouts.length > 0){
                 const thisUserWorkout = userWorkouts.filter(user=>user["day"] == activity["day"])
@@ -85,13 +85,9 @@ class HalfMarathon extends Component {
                     <div className="space">Week 12</div>
                     {this.showWeek(12)}
                 </div>
-                <div className="week">
-                    <div className="space">Week 13</div>
-                    {this.showWeek(13)}
-                </div>
             </div>
         )
     }
 }
 
-export default HalfMarathon;
+export default TenK;

@@ -1,93 +1,52 @@
 import React, { Component } from 'react'
 import Form from './Form'
-import { isThisSecond } from 'date-fns'
 
 class Home extends Component {
 
-state = {
-    isNav: false,
-    loggedin: false,
+    state = {
+        races: [],
+        newRace: false,
     }
 
-signUp = (user) => {
-    fetch('http://localhost:8000/api/auth/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body:JSON.stringify(user)
-    }).then(response=>response.json())
-        .then((result) => {
-            return result.error ? alert(result.error) : localStorage.setItem('user', result.user.id), localStorage.setItem('token', result.token)
-        })
-        this.props.toggleLogin()
+    componentDidMount(){
         this.setState({
-        loggedin: true,
-    })
-}
-
-logIn = (user) => {
-    fetch('http://localhost:8000/api/auth/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body:JSON.stringify(user)
-    }).then(response=>response.json())
-        .then((result) => {
-            return result.error ? alert(result.error) : localStorage.setItem('user', result.user.id), localStorage.setItem('token', result.token)
+            races: this.props.userRaces
         })
-        this.props.toggleLogin()
-        this.setState({
-        loggedin: true,
-    })
-}
+    }
 
-addRace = (race) => {
-    fetch('http://localhost:8000/api/cdschedules/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Token ${localStorage.token}`
-        },
-        body:JSON.stringify({user: localStorage.user, distance: race})
-    })
-}
-
-    showComponent = () => {
-        const thisUserRace = this.props.userRaces.filter(userRace=>userRace["user"] == localStorage.user)
-        if(localStorage.token || this.state.loggedin){
-            if(thisUserRace.length > 0){
-                return <p>View Calendar</p>
-            }else return [
-                <p className="prompt">What distance are you training for? (choose one)</p>,
-                <Form race_type={true} addUserRace={this.props.addUserRace}/>
-            ]
-        }else if(!localStorage.token && !this.state.loggedin){
-            return [
-                <p className="prompt-first">Welcome to OnTrack</p>,
-                <p className="prompt">a training schedule management app</p>,
-                <p className="prompt-auth">Sign up or login to get started:</p>,
-                <Form loginreg={true} signUp={this.signUp} logIn={this.logIn}/>
-            ]
+    componentDidUpdate(nextProps){
+        if(nextProps.userRaces !== this.state.races){
+            this.setState({
+                races: nextProps.userRaces
+            })
         }
     }
 
+    toggleNewRace = () => {
+        this.setState({
+            newRace: true,
+        })
+    }
+
+    showRaces = () => {
+        return this.props.userRaces.map(userRace=>{
+            return <p className="prompt race-name">{userRace["distance"]}</p>
+        })
+    }
+
     render(){
-        // console.log(this.showComponent())
         return(
             <div>
-                {/* {localStorage.token || this.state.loggedin ? [
+                {this.props.userRaces.length === 0 ? [
                 <p className="prompt">What distance are you training for? (choose one)</p>,
-                <Form race_type={true} addUserRace={this.props.addUserRace}/>
-            ] : null} */}
-            {this.showComponent()}
-
-            {/* {!localStorage.token && !this.state.loggedin ? [
-                <p className="prompt-first">Welcome to OnTrack</p>,
-                <p className="prompt">a training schedule management app</p>,
-                <p className="prompt-auth">Sign up or login to get started:</p>,
-            <Form loginreg={true} signUp={this.signUp} logIn={this.logIn}/>] : null} */}
+                <Form race_type={true} addUserRace={this.props.addUserRace}/>,
+                ]: [
+                    <p className="prompt">You're in the middle of training for:</p>,
+                    this.showRaces(),
+                    <p className="prompt">Use the navigation bar to view your or your friends' progress.</p>
+                ]}
+                {!this.state.newRace ? <p className="prompt">Training for another race? <button onClick={this.toggleNewRace} className="another-race">add it here</button></p> : null}
+                {this.state.newRace ? <Form race_type={true} addUserRace={this.props.addUserRace} toggleNewRace={this.toggleNewRace}/> : null}
             </div>
         )
     }

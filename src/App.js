@@ -9,6 +9,8 @@ import Home from './components/Home'
 import Form from './components/Form'
 import HalfMarathon from './components/HalfMarathon';
 import {DayShowPage} from './components/DayShowPage'
+import Login from './components/Login'
+import {PrivateRoute} from './components/PrivateRoute'
 
 
 class App extends Component {
@@ -109,10 +111,18 @@ class App extends Component {
           <Header toggleNav={this.toggleNav} loggedin={this.state.loggedin}/>
 
           <Navbar toggleNav={this.toggleNav} logOut={this.logOut} class={this.state.isNav}/>
-          
-          <Route exact path="/" render={()=><Home onClick={this.exitNav} toggleLogin={this.toggleLogin} addUserRace={this.addUserRace} userRaces={this.state.userRaces}/>}/>
-          <Route exact path="/calendar" render={(props)=><CalendarPage activities={this.state.activities} workouts={this.state.workouts}/>}/>
-          <Route exact path="/friends" render={(props)=><Friends/>}/>
+          <Route exact path="/login" render={(props)=><Login {...props} onClick={this.exitNav} toggleLogin={this.toggleLogin} userRaces={this.state.userRaces} signUp={this.signUp} logIn={this.logIn}/>}/>
+          {/* <Route exact path="/" render={()=><Home onClick={this.exitNav} toggleLogin={this.toggleLogin} addUserRace={this.addUserRace} userRaces={this.state.userRaces} signUp={this.signUp} logIn={this.logIn}/>}/> */}
+          <PrivateRoute exact path="/" onClick={this.exitNav}
+                                      toggleLogin={this.toggleLogin}
+                                      addUserRace={this.addUserRace}
+                                      userRaces={this.state.userRaces.filter(userRace=>userRace["user"] == localStorage.user)}
+                                      signUp={this.signUp}
+                                      logIn={this.logIn}/>
+          <Route exact path="/calendar" render={(props)=><CalendarPage {...props} activities={this.state.activities}
+                                                                                  workouts={this.state.workouts}
+                                                                                  userRaces={this.state.userRaces.filter(userRace=>userRace["user"] == localStorage.user)}/>}/>
+          <Route exact path="/friends" render={(props)=><Friends {...props}/>}/>
           <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities} workouts={this.state.workouts} addWorkout={this.addWorkout}/>}/>
         </div>
       </Router>

@@ -44,7 +44,7 @@ class Form extends Component {
         }else if(event.target.className === "login"){
             event.preventDefault()
             const {username, password} = this.state 
-            this.props.logIn({username, password})
+            this.props.logIn({username, password}, this.props.history)
         }else if(event.target.className === "add-workout"){
             event.preventDefault()
             const {race, week, day, workout_type, pace, duration, location} = this.state
@@ -53,6 +53,7 @@ class Form extends Component {
             event.preventDefault()
             event.preventDefault()
             const {distance} = this.state
+            this.props.toggleNewRace()
             this.props.addUserRace({distance})
         }
     }

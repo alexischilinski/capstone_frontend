@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Day from './Day'
 
-class HalfMarathon extends Component {
+class FullMarathon extends Component {
 
     showDayNames = () => {
         const dayArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -11,9 +11,9 @@ class HalfMarathon extends Component {
     }
 
     showWeek = (number) => {
-        const halfActivities = this.props.activities.filter(activity=>activity["race"] === "half")
+        const halfActivities = this.props.activities.filter(activity=>activity["race"] === "full")
         const filteredAct = halfActivities.filter(activity=>activity["week"] === number)
-        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["week"] == number && workout["race"] === "half")
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["week"] == number && workout["race"] === "full")
         return filteredAct.map(activity=>{
             if(userWorkouts.length > 0){
                 const thisUserWorkout = userWorkouts.filter(user=>user["day"] == activity["day"])
@@ -89,9 +89,21 @@ class HalfMarathon extends Component {
                     <div className="space">Week 13</div>
                     {this.showWeek(13)}
                 </div>
+                <div className="week">
+                    <div className="space">Week 14</div>
+                    {this.showWeek(14)}
+                </div>
+                <div className="week">
+                    <div className="space">Week 15</div>
+                    {this.showWeek(15)}
+                </div>
+                <div className="week">
+                    <div className="space">Week 16</div>
+                    {this.showWeek(16)}
+                </div>
             </div>
         )
     }
 }
 
-export default HalfMarathon;
+export default FullMarathon;

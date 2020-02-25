@@ -233,6 +233,19 @@ li {
   align-self: center;
 }
 
+.race-option, .another-race {
+  width: 10rem;
+  margin-top: 1%;
+  font-family: 'Sarabun', sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: transparent
+}
+
+.race-name {
+  font-weight: bold;
+}
+
 .race {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -271,7 +284,7 @@ li {
 .completed {
   background-image: url('https://www.freeiconspng.com/uploads/checkmark-symbol-png-background-12.png');
   background-position: center;
-  background-size: 15% 45%;
+  background-size: 40% 75%;
   background-repeat: no-repeat;
   /* background-color: lightgreen; */
 }

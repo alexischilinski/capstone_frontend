@@ -19,7 +19,8 @@ export const DayShowPage = (props) => {
             }else
                 return [
                     <h2>Week {thisWorkout[0]["week"]}, {weekObject[thisWorkout[0]["day"]]}</h2>,
-                    <h1>{thisWorkout[0]["workout_type"]}</h1>
+                    <h1>{thisWorkout[0]["workout_type"]}</h1>,
+                    <h1>{thisWorkout[0]["distance"]}</h1>
                 ]
         }
     }
