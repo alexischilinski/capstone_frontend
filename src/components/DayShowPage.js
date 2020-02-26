@@ -27,7 +27,7 @@ export const DayShowPage = (props) => {
 
     const showWorkoutOrForm = () => {
         if(userWorkouts.length > 0){
-            const userWorkout = userWorkouts.filter(workout=>workout["week"] === thisWorkout[0]["week"] && workout["day"] === thisWorkout[0]["day"])
+            const userWorkout = userWorkouts.filter(workout=>workout["week"] === thisWorkout[0]["week"] && workout["day"] === thisWorkout[0]["day"] && workout["race"] === thisWorkout[0]["race"])
             if(userWorkout.length > 0){
                 return [
                     <h2 className="completed-workout">Completed Workout</h2>,

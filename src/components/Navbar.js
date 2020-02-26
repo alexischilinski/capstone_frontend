@@ -12,7 +12,7 @@ export const Navbar = (props) => {
         <div className={props.class ? "navbar" : "navbar slide"}>
             <ul>
                 <Link style={{color: 'white', textDecoration: 'none'}} to="/">
-                    <li>Home</li>
+                    <li>Dashboard</li>
                 </Link>
                 <Link style={{color: 'white', textDecoration: 'none'}} to="/calendar">
                     <li>Your Plans</li>

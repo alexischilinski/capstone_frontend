@@ -55,18 +55,33 @@ class Login extends Component {
     showComponent = () => {
         if(!localStorage.token && !this.state.loggedin){
             return [
-                <p className="prompt-first">Welcome to OnTrack</p>,
-                <p className="prompt">a training schedule management app</p>,
-                <p className="prompt-auth">Sign up or login to get started:</p>,
-                <Form history={this.props.history} loginreg={true} signUp={this.signUp} logIn={this.logIn}/>
+                <div className="description">
+                    <p className="prompt-first">Welcome to OnTrack</p>
+                    <p className="prompt">a training schedule management app</p>
+                    <br></br>
+                    <p className="prompt">If you need a better tactic for keeping yourself</p>
+                    <p className="prompt">accountable while training for a race,</p>
+                    <p className="prompt">you've come to the right place!</p>
+                    <br></br>
+                    <p className="prompt">Once registered, you will be able to:</p>
+                    <ul>
+                        <li>Choose a training schedule</li>
+                        <li>Update the schedule when you complete a workout</li>
+                        <li>Follow other runners and view their progress</li>
+                    </ul>
+                </div>,
+                <div>
+                    <p className="prompt-auth">Sign up or login to get started:</p>
+                    <Form history={this.props.history} loginreg={true} signUp={this.signUp} logIn={this.logIn}/>
+                </div>
             ]
         }else return null
     }
 
     render(){
         return(
-            <div>
-            {this.showComponent()}
+            <div className="login-page-div">
+                    {this.showComponent()}
             </div>
         )
     }

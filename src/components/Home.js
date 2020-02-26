@@ -39,7 +39,9 @@ class Home extends Component {
 
     showRaces = () => {
         return this.props.userRaces.map(userRace=>{
-            return <p className="prompt race-name">{userRace["distance"]}</p>
+            if(userRace["race_name"]){
+                return <p className="prompt race-name">{userRace["race_name"]}</p>
+            }else return <p className="prompt race-name">{userRace["distance"]}</p>
         })
     }
     
@@ -68,15 +70,15 @@ class Home extends Component {
                     {this.showPhoto()}
                     {this.state.addPhoto ? <Form photo={true} addPhoto={this.props.addPhoto}/> : null}
                     {typeof this.props.user !== "undefined" ? <p className="welcome">Welcome, {this.props.user["first_name"]}!</p> : null}
+                    <p className="dashboard-prompt">↖ Open the navigation bar to view your schedule, follow friends, and view friends' progress.</p>
                 </div>
                     <div>
                         {this.props.userRaces.length === 0 ? [
                         <p className="prompt">What distance are you training for? (choose one)</p>,
                         <Form race_type={true} addUserRace={this.props.addUserRace} toggleNewRace={this.toggleNewRace} showPreview={this.showPreview}/>,
                         ]: [
-                            <p className="prompt">You're in the middle of training for:</p>,
-                            this.showRaces(),
-                            <p className="prompt">Open the navigation bar on the left to view your or your friends' progress.</p>
+                            <p className="prompt">You're training for:</p>,
+                            this.showRaces()
                         ]}
                         {!this.state.newRace && this.props.userRaces.length > 0 ? <p className="prompt">Training for another race? <button onClick={this.toggleNewRace} className="another-race">add it here</button></p> : null}
                         {this.state.newRace ? <Form race_type={true} addUserRace={this.props.addUserRace} toggleNewRace={this.toggleNewRace} showPreview={this.showPreview}/> : null}

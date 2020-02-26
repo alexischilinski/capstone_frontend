@@ -3,6 +3,8 @@ import HalfMarathon from './HalfMarathon'
 import FiveK from './FiveK'
 import TenK from './TenK'
 import FullMarathon from './FullMarathon'
+import {Link} from 'react-router-dom'
+import { isThisSecond } from 'date-fns'
 
 class CalendarPage extends Component {
 
@@ -43,7 +45,10 @@ class CalendarPage extends Component {
     }
 
     chooseRace = () => {
-        if(this.props.userRaces.length === 1){
+        if(this.props.userRaces.length === 0){
+         return [<p className="prompt">You don't have a training schedule yet.</p>,
+            <p className="prompt">Go to your {<Link style={{color: 'blue', textDecoration: 'none'}} to="/">dashboard</Link>} to select a schedule.</p>]
+        }else if(this.props.userRaces.length === 1){
             if(this.props.userRaces[0]["distance"] === "half marathon"){
                 return <HalfMarathon activities={this.props.activities} workouts={this.props.workouts}/>
             }else if(this.props.userRaces[0]["distance"] === "full marathon"){

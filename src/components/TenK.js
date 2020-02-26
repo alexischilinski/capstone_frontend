@@ -29,63 +29,64 @@ class TenK extends Component {
         return userWorkouts
     }
 
+    showDays = () => {
+        const numberArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        return numberArray.map(number=>{
+            return <div className="week">
+                        <div className="space">Week {number}</div>
+                        {this.showWeek(number)}
+                    </div>
+        })
+    }
+
+    showUserWeek = (id, number) => {
+        const halfActivities = this.props.activities.filter(activity=>activity["race"] === "10k")
+        const filteredAct = halfActivities.filter(activity=>activity["week"] === number)
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == id && workout["week"] == number && workout["race"] === "10k")
+        return filteredAct.map(activity=>{
+            if(userWorkouts.length > 0){
+                const thisUserWorkout = userWorkouts.filter(user=>user["day"] == activity["day"])
+                if(thisUserWorkout.length > 0){
+                    return <Day friend={true} workout={activity} userworkout={thisUserWorkout[0]} />
+                }else return <Day friend={true} workout={activity}/>
+            }else return <Day friend={true} workout={activity}/>
+        })
+    }
+
+    showUserDays = () => {
+        const numberArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        return numberArray.map(number=>{
+            return <div className="user-week">
+                        <div className="user-space">Week {number}</div>
+                        {this.showUserWeek(this.props.thisFriend, number)}
+                    </div>
+        })
+    }
+
 
     render(){
         return(
-            <div className="race">
-                <div className="week">
-                    <div className="space"></div>
-                    {this.showDayNames()}
+            <>
+            {!this.props.friend ?
+                <div className="race">
+                    <h1>10k Training Schedule</h1>
+                    <div className="week">
+                        <div className="space"></div>
+                        {this.showDayNames()}
+                    </div>
+                    {this.showDays()}
                 </div>
-                <div className="week">
-                    <div className="space">Week 1</div>
-                    {this.showWeek(1)}
+            : null}
+            {this.props.friend ?
+                <div className="user-race">
+                    <div className="user-week">
+                        <div className="dayname-space"></div>
+                        {this.showDayNames()}
+                    </div>
+                    {this.showUserDays()}
                 </div>
-                <div className="week">
-                    <div className="space">Week 2</div>
-                    {this.showWeek(2)}
-                </div>
-                <div className="week">
-                    <div className="space">Week 3</div>
-                    {this.showWeek(3)}
-                </div>
-                <div className="week">
-                    <div className="space">Week 4</div>
-                    {this.showWeek(4)}
-                </div>
-                <div className="week">
-                    <div className="space">Week 5</div>
-                    {this.showWeek(5)}
-                </div>
-                <div className="week">
-                    <div className="space">Week 6</div>
-                    {this.showWeek(6)}
-                </div>
-                <div className="week">
-                    <div className="space">Week 7</div>
-                    {this.showWeek(7)}
-                </div>
-                <div className="week">
-                    <div className="space">Week 8</div>
-                    {this.showWeek(8)}
-                </div>
-                <div className="week">
-                    <div className="space">Week 9</div>
-                    {this.showWeek(9)}
-                </div>
-                <div className="week">
-                    <div className="space">Week 10</div>
-                    {this.showWeek(10)}
-                </div>
-                <div className="week">
-                    <div className="space">Week 11</div>
-                    {this.showWeek(11)}
-                </div>
-                <div className="week">
-                    <div className="space">Week 12</div>
-                    {this.showWeek(12)}
-                </div>
-            </div>
+            : null}
+            </>
         )
     }
 }

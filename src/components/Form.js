@@ -10,6 +10,7 @@ class Form extends Component {
         password: "",
         login: true,
         distance: "",
+        race_name: "",
         workout_type: "",
         pace: "",
         duration: "",
@@ -54,8 +55,8 @@ class Form extends Component {
             this.props.addWorkout({race, week, day, workout_type, pace, duration, location})
         }else if(event.target.className === "distances"){
             event.preventDefault()
-            const {distance} = this.state
-            this.props.addUserRace({distance})
+            const {race_name, distance} = this.state
+            this.props.addUserRace({race_name, distance})
         }else if(event.target.className === "add-photo"){
             const {photo} = this.state
             event.preventDefault()
@@ -91,13 +92,16 @@ class Form extends Component {
         }else if(this.props.race_type){
             return <div>
                     <form onSubmit={this.handleSubmit} className="distances">
-                    <div className="race-div">
-                        <button onClick={this.handleClick} className="race-button" value="5k">5k</button>
-                        <button onClick={this.handleClick} className="race-button" value="10k">10k</button>
-                        <button onClick={this.handleClick} className="race-button" value="half marathon">Half Marathon</button>
-                        <button onClick={this.handleClick} className="race-button" value="full marathon">Full Marathon</button>
-                    </div>
-                        <input className="submit-race" type="submit" value="Submit"></input>
+                        <div className="race-div">
+                            <button onClick={this.handleClick} className="race-button" value="5k">5k</button>
+                            <button onClick={this.handleClick} className="race-button" value="10k">10k</button>
+                            <button onClick={this.handleClick} className="race-button" value="half marathon">Half Marathon</button>
+                            <button onClick={this.handleClick} className="race-button" value="full marathon">Full Marathon</button>
+                        </div>
+                        <div className="submit-div">
+                            <input onChange={this.handleChange} className="race-name-input" type="text" placeholder="enter race name" name="race_name"></input>
+                            <input className="submit-race" type="submit" value="Submit"></input>
+                        </div>
                     </form>
                 </div>
         }else if(this.props.workout){

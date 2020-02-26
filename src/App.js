@@ -22,7 +22,7 @@ class App extends Component {
     activities: [],
     workouts: [],
     userRaces: [],
-    users: [],
+    users: [{}],
     friends: [],
     photos: []
   }
@@ -48,13 +48,9 @@ class App extends Component {
     fetch('http://localhost:8000/api/schedules/')
       .then(response=>response.json())
       .then(userRaces=>this.setState({userRaces}))
-    fetch('http://localhost:8000/api/users', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      }
-    }).then(response=>response.json())
-    .then(users=>this.setState({users}))
+    fetch('http://localhost:8000/api/users')
+      .then(response=>response.json())
+      .then(users=>this.setState({users}))
     fetch('http://localhost:8000/api/friends/')
       .then(response=>response.json())
       .then(friends=>this.setState({friends}))
@@ -64,7 +60,7 @@ class App extends Component {
   }
 
   // componentDidUpdate(prevState){
-  //   if(this.state.loggedin !== prevState.loggedin){
+  //   if(this.state.loggedin){
   //     if(localStorage.token){
   //       fetch('http://localhost:8000/api/users', {
   //         headers: {
@@ -181,12 +177,13 @@ class App extends Component {
                                       logIn={this.logIn}
                                       photos={this.state.photos.find(photo=>photo["user"] == localStorage.user)}
                                       addPhoto={this.addPhoto}
-                                      user={this.state.users.find(user=>user["id"] == localStorage.user)}/>
+                                      user={this.state.users.find(user=>user["id"] == localStorage.user)}
+                                      />
           <Route exact path="/calendar" render={(props)=><CalendarPage {...props} activities={this.state.activities}
                                                                                   workouts={this.state.workouts}
                                                                                   userRaces={this.state.userRaces.filter(userRace=>userRace["user"] == localStorage.user)}/>}/>
-          <Route exact path="/friends" render={(props)=><Friends {...props} photos={this.state.photos} users={this.state.users} friends={this.state.friends} followUser={this.followUser}/>}/>
-          <Route exact path="/friends/:id" render={(props)=><Friend {...props} photos={this.state.photos} users={this.state.users} friends={this.state.friends} followUser={this.followUser} userRaces={this.state.userRaces}/>}/>
+          <Route exact path="/friends" render={(props)=><Friends {...props} activities ={this.state.activities} workouts={this.state.workouts} photos={this.state.photos} users={this.state.users} friends={this.state.friends} followUser={this.followUser}/>}/>
+          <Route exact path="/friends/:id" render={(props)=><Friend {...props} activities ={this.state.activities} workouts={this.state.workouts} photos={this.state.photos} users={this.state.users} friends={this.state.friends} followUser={this.followUser} userRaces={this.state.userRaces}/>}/>
           <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities} workouts={this.state.workouts} addWorkout={this.addWorkout}/>}/>
         </div>
       </Router>
