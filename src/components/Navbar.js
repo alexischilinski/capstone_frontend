@@ -15,10 +15,10 @@ export const Navbar = (props) => {
                     <li>Home</li>
                 </Link>
                 <Link style={{color: 'white', textDecoration: 'none'}} to="/calendar">
-                    <li>Your Training Plan</li>
+                    <li>Your Plans</li>
                 </Link>
                 <Link style={{color: 'white', textDecoration: 'none'}} to="/friends">
-                    <li>Friends' Activities</li>
+                    <li>Friends</li>
                 </Link>
                 <Link onClick={logout} style={{color: 'white', textDecoration: 'none'}} to="/">
                     <li>Logout</li>

@@ -6,6 +6,9 @@ class Home extends Component {
     state = {
         races: [],
         newRace: false,
+        preview: true,
+        previewType: "",
+        addPhoto: false,
     }
 
     componentDidMount(){
@@ -24,7 +27,13 @@ class Home extends Component {
 
     toggleNewRace = () => {
         this.setState({
-            newRace: true,
+            newRace: !this.state.newRace,
+        })
+    }
+
+    togglePhotoForm = () => {
+        this.setState({
+            addPhoto: true,
         })
     }
 
@@ -33,20 +42,47 @@ class Home extends Component {
             return <p className="prompt race-name">{userRace["distance"]}</p>
         })
     }
+    
+    showPreview = (race) => {
+        this.setState({
+            preview: true,
+            previewType: race
+        })
+    }
+
+    showPhoto = () => {
+        if(!this.props.photos){
+            return [
+                <img className="no-photo" src="https://affordableamericaninsurance.com/wp-content/uploads/2017/04/no-image-icon-hi.png"></img>,
+                <button onClick={this.togglePhotoForm} className="add-photo">Add a Profile Photo</button>
+            ]
+        }else return [
+                <img className="has-photo" src={this.props.photos["photo"]}></img>
+            ]
+    }
 
     render(){
         return(
-            <div>
-                {this.props.userRaces.length === 0 ? [
-                <p className="prompt">What distance are you training for? (choose one)</p>,
-                <Form race_type={true} addUserRace={this.props.addUserRace}/>,
-                ]: [
-                    <p className="prompt">You're in the middle of training for:</p>,
-                    this.showRaces(),
-                    <p className="prompt">Use the navigation bar to view your or your friends' progress.</p>
-                ]}
-                {!this.state.newRace ? <p className="prompt">Training for another race? <button onClick={this.toggleNewRace} className="another-race">add it here</button></p> : null}
-                {this.state.newRace ? <Form race_type={true} addUserRace={this.props.addUserRace} toggleNewRace={this.toggleNewRace}/> : null}
+            <div className="profile">
+                <div className="user-photo">
+                    {this.showPhoto()}
+                    {this.state.addPhoto ? <Form photo={true} addPhoto={this.props.addPhoto}/> : null}
+                    {typeof this.props.user !== "undefined" ? <p className="welcome">Welcome, {this.props.user["first_name"]}!</p> : null}
+                </div>
+                    <div>
+                        {this.props.userRaces.length === 0 ? [
+                        <p className="prompt">What distance are you training for? (choose one)</p>,
+                        <Form race_type={true} addUserRace={this.props.addUserRace} toggleNewRace={this.toggleNewRace} showPreview={this.showPreview}/>,
+                        ]: [
+                            <p className="prompt">You're in the middle of training for:</p>,
+                            this.showRaces(),
+                            <p className="prompt">Open the navigation bar on the left to view your or your friends' progress.</p>
+                        ]}
+                        {!this.state.newRace && this.props.userRaces.length > 0 ? <p className="prompt">Training for another race? <button onClick={this.toggleNewRace} className="another-race">add it here</button></p> : null}
+                        {this.state.newRace ? <Form race_type={true} addUserRace={this.props.addUserRace} toggleNewRace={this.toggleNewRace} showPreview={this.showPreview}/> : null}
+                        {/* {this.state.preview && this.state.previewType === "5k" ? <img src="../photos/5k.png"></img> : null} */}
+                        {/* <img src='./photos/10k.jpg'></img> */}
+                    </div>
             </div>
         )
     }

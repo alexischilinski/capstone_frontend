@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 class Form extends Component {
 
     state = {
+        first_name: "",
+        last_name: "",
         username: "",
         email: "",
         password: "",
@@ -14,7 +16,8 @@ class Form extends Component {
         location: "",
         race: this.props.race,
         week: this.props.week,
-        day: this.props.day
+        day: this.props.day,
+        photo: ""
     }
 
     handleChange = (event) => (
@@ -39,8 +42,8 @@ class Form extends Component {
     handleSubmit = (event) => {
         if(event.target.className === "signup"){
             event.preventDefault()
-            const {username, email, password} = this.state
-            this.props.signUp({username, email, password})
+            const {first_name, last_name, username, email, password} = this.state
+            this.props.signUp({first_name, last_name, username, email, password}, this.props.history)
         }else if(event.target.className === "login"){
             event.preventDefault()
             const {username, password} = this.state 
@@ -51,10 +54,15 @@ class Form extends Component {
             this.props.addWorkout({race, week, day, workout_type, pace, duration, location})
         }else if(event.target.className === "distances"){
             event.preventDefault()
-            event.preventDefault()
             const {distance} = this.state
-            this.props.toggleNewRace()
             this.props.addUserRace({distance})
+        }else if(event.target.className === "add-photo"){
+            const {photo} = this.state
+            event.preventDefault()
+            this.props.addPhoto({photo})
+            this.setState({
+                photo: ""
+            })
         }
     }
 
@@ -70,6 +78,8 @@ class Form extends Component {
                     </form>
             }else if (!this.state.login){
                     return <form onSubmit={this.handleSubmit} className="signup">
+                        <input onChange={this.handleChange} className="signup-input" type="text" placeholder="first name" name="first_name" value={this.state.first_name}></input>
+                        <input onChange={this.handleChange} className="signup-input" type="text" placeholder="last name" name="last_name" value={this.state.last_name}></input>
                         <input onChange={this.handleChange} className="signup-input" type="text" placeholder="username" name="username" value={this.state.username}></input>
                         <input onChange={this.handleChange} className="signup-input" type="text" placeholder="email" name="email" value={this.state.email}></input>
                         <input onChange={this.handleChange} className="signup-input" type="password" placeholder="password" name="password" value={this.state.password}></input>
@@ -81,7 +91,7 @@ class Form extends Component {
         }else if(this.props.race_type){
             return <div>
                     <form onSubmit={this.handleSubmit} className="distances">
-                    <div>
+                    <div className="race-div">
                         <button onClick={this.handleClick} className="race-button" value="5k">5k</button>
                         <button onClick={this.handleClick} className="race-button" value="10k">10k</button>
                         <button onClick={this.handleClick} className="race-button" value="half marathon">Half Marathon</button>
@@ -100,6 +110,11 @@ class Form extends Component {
                         <input className="workout-submit" type="submit" value="Complete Workout"></input>
                     </form>
                 </div>
+        }else if(this.props.photo){
+            return <form onSubmit={this.handleSubmit} className="add-photo">
+                    <input onChange={this.handleChange} className="photo-input" type="text" name="photo" value={this.state.photo}></input>
+                    <input className="photo-submit" type="submit" value="add photo"></input>
+                </form>
         }
     }
 

@@ -104,15 +104,15 @@ table {
 }
 
 .navbar {
-  width: 15rem;
+  width: 10rem;
   background-color: darkred;
-  height: 20rem;
+  height: 12rem;
   color: white;
   display: flex;
   flex-direction: column;
   text-align: left;
   font-family: 'Changa', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   position: absolute;
   overflow-y: hidden;
   z-index: 2;
@@ -137,6 +137,37 @@ li {
   color: black;
   font-size: 1.5rem;
   margin-left: 80rem;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.user-photo {
+  font-family: 'Sarabun', sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
+.no-photo, .has-photo {
+  width: 30%;
+  height: auto;
+  margin: 1%;
+  align-self: center;
+  border: solid 0.3rem black;
+}
+
+.welcome {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 1.5rem;
+}
+
+.add-photo {
+  border: none;
+  color: blue;
+  font-size: 1rem;
 }
 
 .prompt-first {
@@ -168,20 +199,13 @@ li {
   border: solid black 0.1rem;
   width: 30rem;
   height: 20rem;
-}
-
-.login-input {
-  width: 24rem;
-  height: 2rem;
-  margin: 0.5rem;
-  font-size: 1.5rem;
   font-family: 'Sarabun', sans-serif;
 }
 
-.signup-input {
+.login-input, .signup-input {
   width: 24rem;
   height: 2rem;
-  margin: 0.5rem;
+  margin: 1%;
   font-size: 1.5rem;
   font-family: 'Sarabun', sans-serif;
 }
@@ -192,7 +216,7 @@ li {
   font-weight: bold;
   font-size: 1.2rem;
   text-decoration: underline;
-  margin-top: 3.4rem;
+  margin-top: 30%;
 }
 
 .signup-button {
@@ -201,11 +225,6 @@ li {
   font-weight: bold;
   font-size: 1.2rem;
   text-decoration: underline;
-}
-
-.account {
-  margin-top: 4rem;
-  font-family: 'Sarabun', sans-serif;
 }
 
 .form-button {
@@ -217,10 +236,10 @@ li {
 }
 
 .race-button {
-  height: 15rem;
-  width: 15rem;
+  height: 9rem;
+  width: 9rem;
   font-family: 'Sarabun', sans-serif;
-  font-size: 2rem;
+  font-size: 1.2rem;
   border: solid black 0.2rem;
   margin: 1rem;
 }
@@ -233,17 +252,33 @@ li {
   align-self: center;
 }
 
-.race-option, .another-race {
+/* .race-option, .another-race {
   width: 10rem;
   margin-top: 1%;
   font-family: 'Sarabun', sans-serif;
   font-weight: bold;
   font-size: 1rem;
   background-color: transparent
+} */
+
+.race-option, .another-race{
+  border: none;
+  font-family: 'Sarabun', sans-serif;
+  color: blue;
+  font-size: 1.5rem;
+  margin: 1%;
+}
+
+.today {
+  width: 100%;
 }
 
 .race-name {
   font-weight: bold;
+}
+
+.today {
+  align-content: center;
 }
 
 .race {
@@ -339,4 +374,76 @@ li {
   margin: 0.5rem;
   font-family: 'Sarabun', sans-serif;
   font-size: 1.5rem;
+}
+
+.friends, .friend {
+  display: flex;
+  justify-content: center;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.all-users, .your-friends {
+  width: 35%;
+}
+
+.friends h1 {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.friends p {
+  margin: 2%;
+  font-size: 1.5rem;
+}
+
+.friends p button {
+  border: none;
+  font-size: 1rem;
+  color: blue;
+}
+
+.friend-photo {
+  height: auto;
+  width: 5%;
+}
+
+.friend {
+  display: flex;
+}
+
+.friend h2 {
+  font-size: 1.5rem;
+}
+
+.friend p {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 1%;
+}
+
+.friend button, .back {
+  border: none;
+  font-size: 1rem;
+  color: blue;
+}
+
+.back {
+  margin-right: 65%;
+}
+
+.friend-profile {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  width: 100%;
+}
+
+.friend-profile div {
+  margin: 5%;
+}
+
+.friend-profile img {
+  height: auto;
+  width: 10%;
+  align-self: center;
 }

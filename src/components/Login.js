@@ -9,7 +9,7 @@ class Login extends Component {
         loggedin: false,
         }
 
-    signUp = (user) => {
+    signUp = (user, history) => {
         fetch('http://localhost:8000/api/auth/register', {
             method: 'POST',
             headers: {
@@ -20,11 +20,14 @@ class Login extends Component {
             .then((result) => {
                 localStorage.setItem('user', result.user.id)
                 localStorage.setItem('token', result.token)
+                localStorage.setItem('username', result.user.username)
             })
-            this.props.toggleLogin()
-            this.setState({
-            loggedin: true,
-        })
+            .then(()=>{this.props.toggleLogin()
+                this.setState({
+                    loggedin: true,
+                })
+                history.push('/')
+            })
     }
 
     logIn = (user, history) => {
@@ -39,12 +42,14 @@ class Login extends Component {
             .then((result) => {
                 localStorage.setItem('user', result.user.id)
                 localStorage.setItem('token', result.token)
+                localStorage.setItem('username', result.user.username)
+            })
+            .then(()=>{this.props.toggleLogin()
+                this.setState({
+                    loggedin: true,
+                })
                 history.push('/')
             })
-            this.props.toggleLogin()
-            this.setState({
-            loggedin: true,
-        })
     }
 
     showComponent = () => {
