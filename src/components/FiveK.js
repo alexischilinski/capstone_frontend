@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import Day from './Day'
+import { NavLink } from 'react-router-dom'
 
 class FiveK extends Component {
+
+    state = {
+        weeks: 6,
+        completed_days: 0,
+    }
 
     showDayNames = () => {
         const dayArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -18,6 +24,7 @@ class FiveK extends Component {
             if(userWorkouts.length > 0){
                 const thisUserWorkout = userWorkouts.filter(user=>user["day"] == activity["day"])
                 if(thisUserWorkout.length > 0){
+                    // this.setState({completed_days: this.state.completed_days + 1})
                     return <Day workout={activity} userworkout={thisUserWorkout[0]} />
                 }else return <Day workout={activity}/>
             }else return <Day workout={activity}/>
@@ -65,6 +72,7 @@ class FiveK extends Component {
 
 
     render(){
+        console.log(this.showDays().length * 7)
         return(
             <>
                 {!this.props.friend ?

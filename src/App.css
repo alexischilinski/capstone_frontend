@@ -165,15 +165,37 @@ li {
 }
 
 .dashboard-prompt {
-  margin: 2%;
+  margin-top: 20%;
   font-family: 'Sarabun', sans-serif;
   font-size: 1.2rem;
+}
+
+.followers {
+  margin-top: 1%;
+  display: flex;
+  justify-content: center;
+}
+
+.followers p {
+  margin: 4%;
+}
+
+.followers h4 {
+  font-weight: bold;
+}
+
+.separator {
+  font-weight: bold;
 }
 
 .add-photo {
   border: none;
   color: blue;
   font-size: 1rem;
+}
+
+.new-race {
+  margin: 5%;
 }
 
 .prompt-first {
@@ -302,15 +324,16 @@ li {
   margin: 1%;
 }
 
-.today {
+/* .today {
   width: 100%;
-}
+} */
 
 .race-name {
   font-weight: bold;
 }
 
 .today {
+  width: 100%;
   align-content: center;
 }
 
@@ -421,8 +444,30 @@ li {
   font-family: 'Sarabun', sans-serif;
 }
 
-.all-users, .your-friends {
-  width: 35%;
+.all-users, .following-followers {
+  width: 30rem;
+}
+
+.showfollowers {
+  border: solid black;
+  height: 10rem;
+  margin-top: 1rem;
+  margin-right: 2rem;
+  overflow-y: auto;
+  background-color: lightgoldenrodyellow;
+}
+
+.showusers {
+  border: solid black;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  height: 21.4rem;
+  background-color: lightgoldenrodyellow;
+  overflow-y: auto;
+}
+
+.view-profile, .follow-button, .unfollow-button {
+  background-color: transparent;
 }
 
 .friends h1 {
@@ -431,7 +476,7 @@ li {
 }
 
 .friends p {
-  margin: 2%;
+  margin: 0.5rem;
   font-size: 1.5rem;
 }
 

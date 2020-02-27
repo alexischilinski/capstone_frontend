@@ -14,7 +14,8 @@ export const PrivateRoute = (props) => {
                 logIn={props.logIn}
                 photos={props.photos}
                 addPhoto={props.addPhoto}
-                user={props.user}/>
+                user={props.user}
+                friends={props.friends}/>
         : <Redirect to="/login"/>
     }}/>
 }

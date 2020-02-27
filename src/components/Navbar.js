@@ -15,7 +15,7 @@ export const Navbar = (props) => {
                     <li>Dashboard</li>
                 </Link>
                 <Link style={{color: 'white', textDecoration: 'none'}} to="/calendar">
-                    <li>Your Plans</li>
+                    <li>Your Training</li>
                 </Link>
                 <Link style={{color: 'white', textDecoration: 'none'}} to="/friends">
                     <li>Friends</li>

@@ -145,6 +145,21 @@ class App extends Component {
     }))
   }
 
+  unfollowUser = (id) => {
+    fetch(`http://localhost:8000/api/following/${id}/`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.token}`
+      },
+    })
+  }
+
+  removeFollowing = (id) => {
+    const newFriends = this.state.friends.filter(friend=>friend["id"] != id)
+    this.setState({friends: newFriends})
+  }
+
   addPhoto = (photo) => {
     fetch('http://localhost:8000/api/cudphotos/', {
       method: 'POST',
@@ -178,11 +193,11 @@ class App extends Component {
                                       photos={this.state.photos.find(photo=>photo["user"] == localStorage.user)}
                                       addPhoto={this.addPhoto}
                                       user={this.state.users.find(user=>user["id"] == localStorage.user)}
-                                      />
+                                      friends={this.state.friends}/>
           <Route exact path="/calendar" render={(props)=><CalendarPage {...props} activities={this.state.activities}
                                                                                   workouts={this.state.workouts}
                                                                                   userRaces={this.state.userRaces.filter(userRace=>userRace["user"] == localStorage.user)}/>}/>
-          <Route exact path="/friends" render={(props)=><Friends {...props} activities ={this.state.activities} workouts={this.state.workouts} photos={this.state.photos} users={this.state.users} friends={this.state.friends} followUser={this.followUser}/>}/>
+          <Route exact path="/friends" render={(props)=><Friends {...props} activities ={this.state.activities} unFollow={this.unfollowUser} removeFollowing={this.removeFollowing} workouts={this.state.workouts} photos={this.state.photos} users={this.state.users} friends={this.state.friends} followUser={this.followUser}/>}/>
           <Route exact path="/friends/:id" render={(props)=><Friend {...props} activities ={this.state.activities} workouts={this.state.workouts} photos={this.state.photos} users={this.state.users} friends={this.state.friends} followUser={this.followUser} userRaces={this.state.userRaces}/>}/>
           <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities} workouts={this.state.workouts} addWorkout={this.addWorkout}/>}/>
         </div>
