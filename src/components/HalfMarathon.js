@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import Day from './Day'
+import {ProgressBar} from './ProgressBar'
 
 class HalfMarathon extends Component {
 
     state = {
-        complete: true
+        complete: true,
+        weeks: 13,
+        progressPercent: 0,
     }
 
     showDayNames = () => {
@@ -72,12 +75,33 @@ class HalfMarathon extends Component {
         this.props.completeRace(thisSchedule["id"], this.state.complete, this.props.history)
     }
 
+    calculateProgress = () => {
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["race"] === "half")
+        const numberWorkouts = userWorkouts.length
+        const numberTrainingDays = this.state.weeks * 7
+        const progressPercentage = (numberWorkouts / numberTrainingDays) * 100
+        if(Math.round(progressPercentage) !== 'NaN'){
+            return Math.round(progressPercentage)
+        }else return 0
+    }
+
+    calculateUserProgress = (id) => {
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == id && workout["race"] === "half")
+        const numberWorkouts = userWorkouts.length
+        const numberTrainingDays = this.state.weeks * 7
+        const progressPercentage = (numberWorkouts / numberTrainingDays) * 100
+        if(Math.round(progressPercentage) !== 'NaN'){
+            return Math.round(progressPercentage)
+        }else return 0
+    }
+
     render(){
         return(
             <>
             {!this.props.friend ?
                 [<div className="race">
                     <h1>Half Marathon Training Schedule</h1>
+                    <ProgressBar progress={this.calculateProgress()}/>
                     <div className="week">
                         <div className="space"></div>
                         {this.showDayNames()}
@@ -86,7 +110,9 @@ class HalfMarathon extends Component {
                 </div>,
                 <button onClick={this.handleClick} className="complete-button">Click to Complete Race</button>]
             : null}
-            {this.props.friend ? 
+            {this.props.friend ? [
+            <p className="friend-training-schedule">Half Marathon</p>,
+            <ProgressBar progress={this.calculateUserProgress(this.props.thisFriend)}/>,
             <div className="user-race">
                 <div className="user-week">
                     <div className="dayname-space"></div>
@@ -94,6 +120,7 @@ class HalfMarathon extends Component {
                 </div>
                 {this.showUserDays()}
             </div>
+            ]
             : null}
             </>
         )

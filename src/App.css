@@ -361,6 +361,36 @@ li {
   align-content: center;
 }
 
+.progress-bar {
+  border: solid black;
+  margin-top: 1%;
+  width: 20rem;
+  height: 1.5rem;
+  border-radius: 5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.progress-filler {
+  border-radius: inherit;
+  height: inherit;
+  background-color: lightblue;
+  height: 100%;
+  transition: width 1s ease-in;
+  position: relative;
+  z-index: -1;
+}
+
+.percentage-p {
+  font-family: 'Sarabun', sans-serif;
+  margin: 1%;
+}
+
+.friend-training-schedule {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 .race {
   margin-top: 1rem;
   margin-bottom: 1rem;

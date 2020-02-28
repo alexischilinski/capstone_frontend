@@ -49,13 +49,13 @@ class CalendarPage extends Component {
          return [<p className="prompt">You don't have a training schedule yet.</p>,
             <p className="prompt">Go to your {<Link style={{color: 'blue', textDecoration: 'none'}} to="/">dashboard</Link>} to select a schedule.</p>]
         }else if(incompleteRaces.length === 1){
-            if(this.props.userRaces[0]["distance"] === "half marathon"){
+            if(incompleteRaces[0]["distance"] === "half marathon"){
                 return <HalfMarathon history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/>
-            }else if(this.props.userRaces[0]["distance"] === "full marathon"){
+            }else if(incompleteRaces[0]["distance"] === "full marathon"){
                 return <FullMarathon history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/>
-            }else if(this.props.userRaces[0]["distance"] === "10k"){
+            }else if(incompleteRaces[0]["distance"] === "10k"){
                 return <TenK history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/>
-            }else if(this.props.userRaces[0]["distance"] === "5k"){
+            }else if(incompleteRaces[0]["distance"] === "5k"){
                 return <FiveK history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/>
             }
         }else if(this.props.userRaces.length > 1){
