@@ -36,11 +36,12 @@ class Login extends Component {
                     localStorage.setItem('token', result.token)
                     localStorage.setItem('username', result.user.username)
                     this.props.toggleLogin()
-                        this.setState({
-                            loggedin: true,
-                            user: result
-                        })
-                        history.push('/')
+                    this.setState({
+                        loggedin: true,
+                        user: result
+                    })
+                    this.props.addNewUser(result.user)
+                    history.push('/')
                     }
                 }else if(result["password"] == "This field may not be blank."){
                     alert(result["password"])

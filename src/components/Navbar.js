@@ -11,16 +11,16 @@ export const Navbar = (props) => {
     return (
         <div className={props.class ? "navbar" : "navbar slide"}>
             <ul>
-                <Link style={{color: 'white', textDecoration: 'none'}} to="/">
+                <Link onClick={props.toggleNav} style={{color: 'white', textDecoration: 'none'}} to="/">
                     <li>Dashboard</li>
                 </Link>
-                <Link style={{color: 'white', textDecoration: 'none'}} to="/calendar">
+                <Link onClick={props.toggleNav} style={{color: 'white', textDecoration: 'none'}} to="/calendar">
                     <li>Your Training</li>
                 </Link>
-                <Link style={{color: 'white', textDecoration: 'none'}} to="/friends">
+                <Link onClick={props.toggleNav} style={{color: 'white', textDecoration: 'none'}} to="/friends">
                     <li>Friends</li>
                 </Link>
-                <Link onClick={logout} style={{color: 'white', textDecoration: 'none'}} to="/">
+                <Link onClick={props.toggleNav} onClick={logout} style={{color: 'white', textDecoration: 'none'}} to="/">
                     <li>Logout</li>
                 </Link>
             </ul>

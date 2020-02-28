@@ -103,6 +103,16 @@ table {
   border: none;
 }
 
+.navclose {
+  margin-right: 95%;
+  width: 3rem;
+  height: 3rem;
+  background-image: url('https://cdn3.iconfinder.com/data/icons/ui-icons-5/16/cross-small-01-512.png');
+  background-position: center;
+  background-size: 100%;
+  border: none;
+}
+
 .navbar {
   width: 10rem;
   background-color: darkblue;
@@ -155,10 +165,22 @@ li {
 
 .no-photo, .has-photo {
   width: 50%;
-  height: auto;
+  height: 7rem;
   margin: 1%;
+  margin-left: auto;
+  margin-right: auto;
   align-self: center;
-  border: solid 0.3rem black;
+  border: solid 0.1rem black;
+}
+
+.profile-photo {
+  width: 7rem;
+  height: 7rem;
+  margin: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: center;
+  border: solid 0.1rem black;
 }
 
 .welcome {
@@ -369,6 +391,7 @@ li {
   border-radius: 5rem;
   margin-left: auto;
   margin-right: auto;
+  overflow: hidden;
 }
 
 .progress-filler {
@@ -549,6 +572,11 @@ li {
   width: 9em;
   height: auto;
   margin: 1%;
+}
+
+.follow-icon div {
+  margin-left: auto;
+  margin-right: auto
 }
 
 .view-profile, .follow-button, .unfollow-button {

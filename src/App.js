@@ -22,9 +22,9 @@ class App extends Component {
     activities: [],
     workouts: [],
     userRaces: [],
-    users: [{}],
+    users: [],
     friends: [],
-    photos: []
+    photos: [],
   }
 
   // componentWillMount(){
@@ -155,6 +155,12 @@ class App extends Component {
     })
   }
 
+  addNewUser = (user) => {
+    this.setState({
+      users: [...this.state.users, user]
+    })
+  }
+
   removeFollowing = (id) => {
     const newFriends = this.state.friends.filter(friend=>friend["id"] != id)
     this.setState({friends: newFriends})
@@ -196,10 +202,10 @@ class App extends Component {
   render(){
     return (
         <div className="App">
-          <Header toggleNav={this.toggleNav} loggedin={this.state.loggedin}/>
+          <Header toggleNav={this.toggleNav} class={this.state.isNav} loggedin={this.state.loggedin}/>
 
           <Navbar toggleNav={this.toggleNav} logOut={this.logOut} class={this.state.isNav}/>
-          <Route exact path="/login" render={(props)=><Login {...props} onClick={this.exitNav} toggleLogin={this.toggleLogin} userRaces={this.state.userRaces} signUp={this.signUp} logIn={this.logIn}/>}/>
+          <Route exact path="/login" render={(props)=><Login {...props} onClick={this.exitNav} addNewUser={this.addNewUser} toggleLogin={this.toggleLogin} userRaces={this.state.userRaces} signUp={this.signUp} logIn={this.logIn}/>}/>
           {/* <Route exact path="/" render={()=><Home onClick={this.exitNav} toggleLogin={this.toggleLogin} addUserRace={this.addUserRace} userRaces={this.state.userRaces} signUp={this.signUp} logIn={this.logIn}/>}/> */}
           <PrivateRoute exact path="/" onClick={this.exitNav}
                                       toggleLogin={this.toggleLogin}

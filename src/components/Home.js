@@ -34,7 +34,7 @@ class Home extends Component {
 
     togglePhotoForm = () => {
         this.setState({
-            addPhoto: true,
+            addPhoto: !this.state.addPhoto,
         })
     }
 
@@ -67,11 +67,13 @@ class Home extends Component {
     showPhoto = () => {
         if(!this.props.photos){
             return [
-                <img className="no-photo" src="https://affordableamericaninsurance.com/wp-content/uploads/2017/04/no-image-icon-hi.png"></img>,
+                <div className="no-photo" style={{backgroundImage: `url('https://i.imgflip.com/1slnr0.jpg')`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div>,
+                // <img className="no-photo" src="https://affordableamericaninsurance.com/wp-content/uploads/2017/04/no-image-icon-hi.png"></img>,
                 <button onClick={this.togglePhotoForm} className="add-photo">Add a Profile Photo</button>
             ]
         }else return [
-                <img className="has-photo" src={this.props.photos["photo"]}></img>
+                <div className="has-photo" style={{backgroundImage: `url(${this.props.photos["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div>
+                // <img className="has-photo" src={this.props.photos["photo"]}></img>
             ]
     }
 
@@ -89,12 +91,12 @@ class Home extends Component {
         const incompleteRaces = this.props.userRaces.filter(userRace=>!userRace["completed"])
         return(
             <>
-                <div className="profile">
+                <div onClick={this.props.onClick} className="profile">
                     <div className="user-photo">
                         {typeof this.props.user !== "undefined" ? [
                                                         <p className="welcome">Welcome, {this.props.user["first_name"]}!</p>,
                                                         this.showPhoto(),
-                                                        this.state.addPhoto ? <Form photo={true} addPhoto={this.props.addPhoto}/> : null,
+                                                        this.state.addPhoto ? <Form photo={true} addPhoto={this.props.addPhoto} togglePhotoForm={this.togglePhotoForm}/> : null,
                                                         <div className="followers">
                                                             <p>followers {this.showFollowers()}</p>
                                                             <p> following {this.showFollowing()}</p>

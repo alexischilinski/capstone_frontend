@@ -71,7 +71,11 @@ export const Friend = (props) => {
             <div className="friend">
                 <div className="friend-profile">
                     <div className="friend-info">
-                        {typeof userPhoto !== "undefined" ? <img className="profile-photo" src={userPhoto["photo"]}></img> : <img src="https://i.imgflip.com/1slnr0.jpg"></img>}
+                        {typeof userPhoto !== "undefined" 
+                            ? <div className="profile-photo" style={{backgroundImage: `url(${userPhoto["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div> 
+                            : <div className="profile-photo" style={{backgroundImage: `url('https://i.imgflip.com/1slnr0.jpg')`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div>
+                            }
+                        {/* {typeof userPhoto !== "undefined" ? <img className="profile-photo" src={userPhoto["photo"]}></img> : <img src="https://i.imgflip.com/1slnr0.jpg"></img>} */}
                         {typeof thisUser !== "undefined"? <p className="heading">{`${thisUser["first_name"]} ${thisUser["last_name"]}`}</p> : null}
                         <div className="friend-followers">
                             <p className="follow-p">followers {showFollowers()}</p>

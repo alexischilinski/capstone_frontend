@@ -62,6 +62,7 @@ class Form extends Component {
             const {user, photo} = this.state
             event.preventDefault()
             this.props.addPhoto({user, photo})
+            this.props.togglePhotoForm()
             this.setState({
                 photo: ""
             })
