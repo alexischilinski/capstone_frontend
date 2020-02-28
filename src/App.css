@@ -336,6 +336,7 @@ li {
 
 .race-name {
   font-weight: bold;
+  margin: 1%;
 }
 
 .user-race-div {
@@ -348,6 +349,11 @@ li {
 .completed-race {
   border: solid black;
   background-color: lightblue;
+}
+
+.completed-race p {
+  margin: 1%;
+  font-size: 1.5rem;
 }
 
 .today {
@@ -463,10 +469,16 @@ li {
   font-size: 1.5rem;
 }
 
-.friends, .friend {
+.friends {
   display: flex;
   justify-content: center;
   font-family: 'Sarabun', sans-serif;
+}
+
+.friend {
+  font-family: 'Sarabun', sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .all-users, .following-followers {
@@ -544,7 +556,7 @@ li {
   font-size: 1.5rem;
 }
 
-.friend p {
+.heading {
   font-weight: bold;
   font-size: 1.5rem;
 }
@@ -553,6 +565,7 @@ li {
   border: none;
   font-size: 1rem;
   color: blue;
+  background-color: transparent;
 }
 
 .back {
@@ -561,25 +574,42 @@ li {
 
 .friend-profile {
   display: flex;
-  flex-direction: column;
   width: 100%;
+  justify-content: center;
 }
 
-/* .friend-profile div {
+.friend-info {
+  width: 30%;
   margin: 5%;
-} */
+}
+
+.friend-followers {
+  display: flex;
+  justify-content: center;
+}
+
+.friend-followers h4 {
+  font-weight: bold;
+}
 
 .friend-profile img {
   height: auto;
-  width: 10%;
+  width: 50%;
   align-self: center;
+  border: solid black 0.1rem;
+}
+
+.follow-p {
+  font-size: 1rem;
+  margin: 1%;
 }
 
 .friend-schedule {
   width: auto;
   height: auto;
   align-self: center;
-  margin-top:1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 .friend-race {

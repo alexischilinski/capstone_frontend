@@ -33,7 +33,7 @@ export const Friends = (props) => {
                     ]
                 }else return [
                         <div className="friend-icon">
-                            <img className="friend-photo" src="https://www.ismp.org/sites/default/files/profiles/2018-02/default_0.jpeg"></img>
+                            <img className="friend-photo" src="https://i.imgflip.com/1slnr0.jpg"></img>
                             <p>{user["first_name"]} {user["last_name"]}
                             <button className="follow-button" onClick={handleClick} value={user["id"]}>Follow</button>
                             {/* <Link to={`/friends/${user["id"]}`}><button className="view-profile" value={user["id"]}>View Profile</button></Link> */}
