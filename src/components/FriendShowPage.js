@@ -23,8 +23,12 @@ export const Friend = (props) => {
 
     const showRaces = () => {
             return findRaces.map(race=>{
-                return [
-                        <p>{race["distance"]} <button onClick={() => {handleClick(race["distance"])}} value={race["distance"]}>View Progress</button></p>
+                if(race["race_name"]){
+                    return [
+                            <p>{race["race_name"]} <button onClick={() => {handleClick(race["distance"])}} value={race["distance"]}>View Progress</button></p>
+                    ]
+                }else return [
+                    <p>{race["distance"]} <button onClick={() => {handleClick(race["distance"])}} value={race["distance"]}>View Progress</button></p>
                 ]
             })
         }

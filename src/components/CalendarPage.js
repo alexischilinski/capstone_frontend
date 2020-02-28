@@ -4,7 +4,6 @@ import FiveK from './FiveK'
 import TenK from './TenK'
 import FullMarathon from './FullMarathon'
 import {Link} from 'react-router-dom'
-import { isThisSecond } from 'date-fns'
 
 class CalendarPage extends Component {
 
@@ -45,36 +44,43 @@ class CalendarPage extends Component {
     }
 
     chooseRace = () => {
-        if(this.props.userRaces.length === 0){
+        const incompleteRaces = this.props.userRaces.filter(userRace=>!userRace["completed"])
+        if(incompleteRaces.length === 0){
          return [<p className="prompt">You don't have a training schedule yet.</p>,
             <p className="prompt">Go to your {<Link style={{color: 'blue', textDecoration: 'none'}} to="/">dashboard</Link>} to select a schedule.</p>]
-        }else if(this.props.userRaces.length === 1){
+        }else if(incompleteRaces.length === 1){
             if(this.props.userRaces[0]["distance"] === "half marathon"){
-                return <HalfMarathon activities={this.props.activities} workouts={this.props.workouts}/>
+                return <HalfMarathon history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/>
             }else if(this.props.userRaces[0]["distance"] === "full marathon"){
-                return <FullMarathon activities={this.props.activities} workouts={this.props.workouts}/>
+                return <FullMarathon history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/>
             }else if(this.props.userRaces[0]["distance"] === "10k"){
-                return <TenK activities={this.props.activities} workouts={this.props.workouts}/>
+                return <TenK history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/>
             }else if(this.props.userRaces[0]["distance"] === "5k"){
-                return <FiveK activities={this.props.activities} workouts={this.props.workouts}/>
+                return <FiveK history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/>
             }
-        }else return this.props.userRaces.map(userRace=>{
-                return <button onClick={this.handleClick} className="race-option" value={userRace["distance"]}>{userRace["distance"]}</button>
-            })
+        }else if(this.props.userRaces.length > 1){
+             return this.props.userRaces.map(userRace=>{
+                if(!userRace["completed"]){
+                    return <button onClick={this.handleClick} className="race-option" value={userRace["distance"]}>{userRace["distance"]}</button>
+                    }
+                })
+        }
+            
     }
 
     render(){
+        const incompleteRaces = this.props.userRaces.filter(userRace=>!userRace["completed"])
         return(
             <>
                 {localStorage.token ? [
                     <div className="today">
-                        {this.props.userRaces.length > 1 && !this.state.showRace ? <p className="prompt">Which training schedule would you like to view?</p> : null}
+                        {incompleteRaces.length > 1 && !this.state.showRace ? <p className="prompt">Which training schedule would you like to view?</p> : null}
                         {!this.state.showRace ? this.chooseRace() : null}
                         {this.state.showRace ? <button onClick={this.handleClick} className="another-race">{`<< view another schedule`}</button> : null }
-                        {this.state.race === "10k" ? <TenK activities={this.props.activities} workouts={this.props.workouts}/> : null}
-                        {this.state.race === "5k" ? <FiveK activities={this.props.activities} workouts={this.props.workouts}/> : null}
-                        {this.state.race === "half marathon" ? <HalfMarathon activities={this.props.activities} workouts={this.props.workouts}/> : null}
-                        {this.state.race === "full marathon" ? <FullMarathon activities={this.props.activities} workouts={this.props.workouts}/> : null}
+                        {this.state.race === "10k" ? <TenK history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/> : null}
+                        {this.state.race === "5k" ? <FiveK history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/> : null}
+                        {this.state.race === "half marathon" ? <HalfMarathon history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/> : null}
+                        {this.state.race === "full marathon" ? <FullMarathon history={this.props.history} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/> : null}
                     </div>
                 ]: null}
             </>

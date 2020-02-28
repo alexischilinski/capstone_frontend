@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import {Header} from './components/Header'
 import {Navbar} from './components/Navbar'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, useHistory} from 'react-router-dom'
 import CalendarPage from './components/CalendarPage';
 import {Friends} from './components/Friends'
 import Home from './components/Home'
@@ -108,7 +108,7 @@ class App extends Component {
   }
 
   addWorkout = (workout) => {
-    fetch('http://localhost:8000/api/cdworkouts/', {
+    fetch('http://localhost:8000/api/crudworkouts/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ class App extends Component {
   }
 
   addUserRace = (userRace) => {
-    fetch('http://localhost:8000/api/cdschedules/', {
+    fetch('http://localhost:8000/api/crudschedules/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ class App extends Component {
   }
 
   followUser = (userid) => {
-    fetch('http://localhost:8000/api/cdfriends/', {
+    fetch('http://localhost:8000/api/following/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -161,7 +161,7 @@ class App extends Component {
   }
 
   addPhoto = (photo) => {
-    fetch('http://localhost:8000/api/cudphotos/', {
+    fetch('http://localhost:8000/api/crudphotos/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -174,10 +174,27 @@ class App extends Component {
     }))
   }
 
+  completeRace = (id, completed, history) => {
+    fetch(`http://localhost:8000/api/crudschedules/${id}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.token}`
+      },
+      body:JSON.stringify({completed})
+    }).then(response=>response.json())
+    .then(result=>{
+      const newRaces = this.state.userRaces.filter(userRace=>userRace["id"] != result["id"])
+      this.setState({
+        userRaces: [...newRaces, result]
+      })
+      history.push('/')
+    })
+  }
+
 
   render(){
     return (
-      <Router>
         <div className="App">
           <Header toggleNav={this.toggleNav} loggedin={this.state.loggedin}/>
 
@@ -196,12 +213,12 @@ class App extends Component {
                                       friends={this.state.friends}/>
           <Route exact path="/calendar" render={(props)=><CalendarPage {...props} activities={this.state.activities}
                                                                                   workouts={this.state.workouts}
-                                                                                  userRaces={this.state.userRaces.filter(userRace=>userRace["user"] == localStorage.user)}/>}/>
+                                                                                  userRaces={this.state.userRaces.filter(userRace=>userRace["user"] == localStorage.user)}
+                                                                                  completeRace={this.completeRace}/>}/>
           <Route exact path="/friends" render={(props)=><Friends {...props} activities ={this.state.activities} unFollow={this.unfollowUser} removeFollowing={this.removeFollowing} workouts={this.state.workouts} photos={this.state.photos} users={this.state.users} friends={this.state.friends} followUser={this.followUser}/>}/>
           <Route exact path="/friends/:id" render={(props)=><Friend {...props} activities ={this.state.activities} workouts={this.state.workouts} photos={this.state.photos} users={this.state.users} friends={this.state.friends} followUser={this.followUser} userRaces={this.state.userRaces}/>}/>
           <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities} workouts={this.state.workouts} addWorkout={this.addWorkout}/>}/>
         </div>
-      </Router>
     );
   }
 }

@@ -82,7 +82,7 @@ table {
   background-color: black;
   z-index: 10;
   color: white;
-  padding-top: 4rem;
+  padding-top: 2rem;
   font-family: 'Bowlby One SC', cursive;
   font-size: 6rem;
 }
@@ -105,7 +105,7 @@ table {
 
 .navbar {
   width: 10rem;
-  background-color: darkred;
+  background-color: darkblue;
   height: 12rem;
   color: white;
   display: flex;
@@ -142,6 +142,8 @@ li {
 .profile {
   display: flex;
   justify-content: space-evenly;
+  font-family: 'Sarabun', sans-serif;
+  margin-top: 1%;
 }
 
 .user-photo {
@@ -152,7 +154,7 @@ li {
 }
 
 .no-photo, .has-photo {
-  width: 30%;
+  width: 50%;
   height: auto;
   margin: 1%;
   align-self: center;
@@ -161,7 +163,9 @@ li {
 
 .welcome {
   font-family: 'Sarabun', sans-serif;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1%;
 }
 
 .dashboard-prompt {
@@ -177,7 +181,7 @@ li {
 }
 
 .followers p {
-  margin: 4%;
+  margin: 1%;
 }
 
 .followers h4 {
@@ -203,6 +207,7 @@ li {
   font-family: 'Sarabun', sans-serif;
   font-weight: bold;
   font-size: 2rem;
+  color: rgb(71, 194, 235);
 }
 
 .prompt {
@@ -241,12 +246,14 @@ li {
   width: 30rem;
   height: 20rem;
   font-family: 'Sarabun', sans-serif;
+  background-color: lightblue;
 }
 
 .login-input, .signup-input {
   width: 24rem;
   height: 2rem;
   margin: 1%;
+  margin-top: 1.5%;
   font-size: 1.5rem;
   font-family: 'Sarabun', sans-serif;
 }
@@ -258,6 +265,7 @@ li {
   font-size: 1.2rem;
   text-decoration: underline;
   margin-top: 30%;
+  background-color: transparent;
 }
 
 .signup-button {
@@ -266,6 +274,7 @@ li {
   font-weight: bold;
   font-size: 1.2rem;
   text-decoration: underline;
+  background-color: transparent;
 }
 
 .form-button {
@@ -274,6 +283,7 @@ li {
   font-weight: bold;
   font-size: 0.9rem;
   text-decoration: underline;
+  background-color: transparent;
 }
 
 .race-button {
@@ -324,12 +334,20 @@ li {
   margin: 1%;
 }
 
-/* .today {
-  width: 100%;
-} */
-
 .race-name {
   font-weight: bold;
+}
+
+.user-race-div {
+  height: 50%;
+  margin: 1%;
+  width: 25rem;
+  overflow-y: auto;
+}
+
+.completed-race {
+  border: solid black;
+  background-color: lightblue;
 }
 
 .today {
@@ -391,6 +409,13 @@ li {
   width: 1rem;
 }
 
+.complete-button {
+  font-size: 1.5rem;
+  border: none;
+  color: blue;
+  margin-bottom: 2%;
+}
+
 .goback {
   font-family: 'Sarabun', sans-serif;
   margin-left: 93%;
@@ -446,24 +471,42 @@ li {
 
 .all-users, .following-followers {
   width: 30rem;
+  margin: 1%;
 }
 
 .showfollowers {
   border: solid black;
-  height: 10rem;
+  height: 13rem;
   margin-top: 1rem;
-  margin-right: 2rem;
   overflow-y: auto;
-  background-color: lightgoldenrodyellow;
+  background-color: lightblue
 }
 
 .showusers {
   border: solid black;
   margin-top: 1rem;
-  margin-left: 2rem;
-  height: 21.4rem;
-  background-color: lightgoldenrodyellow;
+  height: 27.4rem;
+  background-color: lightblue;
   overflow-y: auto;
+}
+
+.followers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 2%;
+}
+
+.friend-icon {
+  width: 7em;
+  height: auto;
+  margin: 0.8%;
+}
+
+.follow-icon {
+  width: 9em;
+  height: auto;
+  margin: 1%;
 }
 
 .view-profile, .follow-button, .unfollow-button {
@@ -476,19 +519,21 @@ li {
 }
 
 .friends p {
-  margin: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 0.8rem;
 }
 
 .friends p button {
+  height: max-content;
   border: none;
-  font-size: 1rem;
+  font-size: 0.7rem;
   color: blue;
+  align-self: center;
 }
 
 .friend-photo {
-  height: auto;
-  width: 5%;
+  height: 7rem;
+  width: 7rem;
+  border: solid black 0.1rem;
 }
 
 .friend {
@@ -502,7 +547,6 @@ li {
 .friend p {
   font-weight: bold;
   font-size: 1.5rem;
-  margin: 1%;
 }
 
 .friend button, .back {
@@ -535,6 +579,7 @@ li {
   width: auto;
   height: auto;
   align-self: center;
+  margin-top:1%;
 }
 
 .friend-race {

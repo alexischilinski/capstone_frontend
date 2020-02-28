@@ -3,6 +3,10 @@ import Day from './Day'
 
 class TenK extends Component {
 
+    state = {
+        complete: true
+    }
+
     showDayNames = () => {
         const dayArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         return dayArray.map(day=>{
@@ -63,19 +67,25 @@ class TenK extends Component {
         })
     }
 
+    handleClick = () => {
+        const thisSchedule = this.props.userRaces.find(userRace=>userRace["user"] == localStorage.user && userRace["distance"] == "10k")
+        this.props.completeRace(thisSchedule["id"], this.state.complete, this.props.history)
+    }
+
 
     render(){
         return(
             <>
             {!this.props.friend ?
-                <div className="race">
+                [<div className="race">
                     <h1>10k Training Schedule</h1>
                     <div className="week">
                         <div className="space"></div>
                         {this.showDayNames()}
                     </div>
                     {this.showDays()}
-                </div>
+                </div>,
+                <button onClick={this.handleClick} className="complete-button">Click to Complete Race</button>]
             : null}
             {this.props.friend ?
                 <div className="user-race">

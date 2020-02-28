@@ -20,14 +20,28 @@ export const Friends = (props) => {
     const showRunners = () => {
         return props.users.map(user=>{
             if(user["username"] !== "alexischilinski" && user["username"] !== localStorage.username){
-                return [
-                    <p>{user["first_name"]} {user["last_name"]}
-                    <button className="follow-button" onClick={handleClick} value={user["id"]}>Follow</button>
-                    {/* <Link to={`/friends/${user["id"]}`}><button className="view-profile" value={user["id"]}>View Profile</button></Link> */}
-                    </p>
-                ]
-            }
-        })
+                const userPhoto = props.photos.find(photo=>photo["user"] == user["id"])
+                if(userPhoto){
+                    return [
+                        <div className="friend-icon">
+                            <img className="friend-photo" src={userPhoto["photo"]}></img>
+                            <p>{user["first_name"]} {user["last_name"]}
+                            <button className="follow-button" onClick={handleClick} value={user["id"]}>Follow</button>
+                            {/* <Link to={`/friends/${user["id"]}`}><button className="view-profile" value={user["id"]}>View Profile</button></Link> */}
+                            </p>
+                        </div>
+                    ]
+                }else return [
+                        <div className="friend-icon">
+                            <img className="friend-photo" src="https://www.ismp.org/sites/default/files/profiles/2018-02/default_0.jpeg"></img>
+                            <p>{user["first_name"]} {user["last_name"]}
+                            <button className="follow-button" onClick={handleClick} value={user["id"]}>Follow</button>
+                            {/* <Link to={`/friends/${user["id"]}`}><button className="view-profile" value={user["id"]}>View Profile</button></Link> */}
+                            </p>
+                        </div>
+                    ]
+                }
+            })
     }
 
 
@@ -46,12 +60,26 @@ export const Friends = (props) => {
             if(friend["follower"] == localStorage.user){
                 const findFriend = props.users.find(user=>user["id"] === friend["following"])
                 if(typeof findFriend !== 'undefined'){
-                    return <p>{findFriend["first_name"]} {findFriend["last_name"]} 
-                        <Link to={`/friends/${findFriend["id"]}`}>
-                        <button className="view-profile" value={findFriend["id"]}>View Profile</button>
-                        </Link>
-                        <button onClick={handleClick} className="unfollow-button" value={friend["id"]}>Unfollow</button>
-                        </p>
+                    const userPhoto = props.photos.find(photo=>photo["user"] == findFriend["id"])
+                    if(userPhoto){
+                        return <div className="follow-icon">
+                                <img className="friend-photo" src={userPhoto["photo"]}></img>
+                                <p>{findFriend["first_name"]} {findFriend["last_name"]} 
+                                <Link to={`/friends/${findFriend["id"]}`}>
+                                <button className="view-profile" value={findFriend["id"]}>View Profile</button>
+                                </Link>
+                                <button onClick={handleClick} className="unfollow-button" value={friend["id"]}>Unfollow</button>
+                                </p>
+                            </div>
+                    }else return<div className="follow-icon">
+                                <img className="friend-photo" src="https://i.imgflip.com/1slnr0.jpg"></img>
+                                <p>{findFriend["first_name"]} {findFriend["last_name"]}
+                                <Link to={`/friends/${findFriend["id"]}`}>
+                                <button className="view-profile" value={findFriend["id"]}>View Profile</button>
+                                </Link>
+                                <button onClick={handleClick} className="unfollow-button" value={friend["id"]}>Unfollow</button>
+                                </p>
+                            </div>
                 }
             }
         })
@@ -62,12 +90,24 @@ export const Friends = (props) => {
             if(friend["following"] == localStorage.user){
                 const findFriend = props.users.find(user=>user["id"] === friend["follower"])
                 if(typeof findFriend !== 'undefined'){
-                    return <p>{findFriend["first_name"]} {findFriend["last_name"]} 
-                        <Link to={`/friends/${findFriend["id"]}`}>
-                        <button className="view-profile" value={findFriend["id"]}>View Profile</button>
-                        </Link>
-                        {/* <button onClick={handleClick} className="unfollow-button" value={friend["id"]}>Unfollow</button> */}
-                        </p>
+                    const userPhoto = props.photos.find(photo=>photo["user"] == findFriend["id"])
+                    if(userPhoto){
+                        return <div className="follow-icon">
+                            <img className="friend-photo" src={userPhoto["photo"]}></img>
+                            <p>{findFriend["first_name"]} {findFriend["last_name"]} 
+                            <Link to={`/friends/${findFriend["id"]}`}>
+                            <button className="view-profile" value={findFriend["id"]}>View Profile</button>
+                            </Link>
+                            </p>
+                        </div>
+                    }else return <div className="follow-icon">
+                            <img className="friend-photo" src="https://i.imgflip.com/1slnr0.jpg"></img>
+                            <p>{findFriend["first_name"]} {findFriend["last_name"]} 
+                            <Link to={`/friends/${findFriend["id"]}`}>
+                            <button className="view-profile" value={findFriend["id"]}>View Profile</button>
+                            </Link>
+                            </p>
+                        </div>
                 }
             }
         })
@@ -82,20 +122,20 @@ export const Friends = (props) => {
                     <div className="your-friends">
                         <div className="showfollowers">
                         <h1>Following</h1>
-                        {showFollowing()}
+                        <div className="followers">{showFollowing()}</div>
                         </div>
                     </div>
                     <div className="your-friends">
                         <div className="showfollowers">
                         <h1>Followers</h1>
-                        {showFollowers()}
+                        <div className="followers">{showFollowers()}</div>
                         </div>
                     </div>
                 </div>,
                 <div className="all-users">
                     <div className="showusers">
                     <h1>All Runners</h1>
-                    {showRunners()}
+                    <div className="followers">{showRunners()}</div>
                     </div>
                 </div>
             ]: null}

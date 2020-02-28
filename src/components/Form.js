@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 class Form extends Component {
 
     state = {
+        user: localStorage.user,
         first_name: "",
         last_name: "",
         username: "",
@@ -51,16 +52,16 @@ class Form extends Component {
             this.props.logIn({username, password}, this.props.history)
         }else if(event.target.className === "add-workout"){
             event.preventDefault()
-            const {race, week, day, workout_type, pace, duration, location} = this.state
-            this.props.addWorkout({race, week, day, workout_type, pace, duration, location})
+            const {user, race, week, day, workout_type, pace, duration, location} = this.state
+            this.props.addWorkout({user, race, week, day, workout_type, pace, duration, location})
         }else if(event.target.className === "distances"){
             event.preventDefault()
-            const {race_name, distance} = this.state
-            this.props.addUserRace({race_name, distance})
+            const {user, race_name, distance} = this.state
+            this.props.addUserRace({user, race_name, distance})
         }else if(event.target.className === "add-photo"){
-            const {photo} = this.state
+            const {user, photo} = this.state
             event.preventDefault()
-            this.props.addPhoto({photo})
+            this.props.addPhoto({user, photo})
             this.setState({
                 photo: ""
             })

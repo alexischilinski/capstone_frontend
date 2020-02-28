@@ -17,17 +17,46 @@ class Login extends Component {
             },
             body:JSON.stringify(user)
         }).then(response=>response.json())
-            .then((result) => {
-                localStorage.setItem('user', result.user.id)
-                localStorage.setItem('token', result.token)
-                localStorage.setItem('username', result.user.username)
-            })
-            .then(()=>{this.props.toggleLogin()
-                this.setState({
-                    loggedin: true,
-                })
+        .then(result=>{
+            if(result["username"] == "This field may not be blank."){
+                if(result["password"] == "This field may not be blank."){
+                    alert(`USERNAME: ${result["username"]}, PASSWORD: ${result["password"]}`)
+                    history.push('/')
+                }else alert(`USERNAME: ${result["username"]}`)
                 history.push('/')
+            }else if(result["password"] == "This field may not be blank."){
+                if(result["username"] == "This field may not be blank."){
+                    alert(`USERNAME: ${result["username"]}, PASSWORD: ${result["password"]}`)
+                    history.push('/')
+                }else alert(`PASSWORD: ${result["username"]}`)
+                history.push('/')
+            }else if(result["username"] != "This field may not be blank."){
+                if(result["password"] != "This field may not be blank."){
+                    localStorage.setItem('user', result.user.id)
+                    localStorage.setItem('token', result.token)
+                    localStorage.setItem('username', result.user.username)
+                    this.props.toggleLogin()
+                        this.setState({
+                            loggedin: true,
+                            user: result
+                        })
+                        history.push('/')
+                    }
+                }else if(result["password"] == "This field may not be blank."){
+                    alert(result["password"])
+                }
             })
+            // .then((result) => {
+            //     localStorage.setItem('user', result.user.id)
+            //     localStorage.setItem('token', result.token)
+            //     localStorage.setItem('username', result.user.username)
+            // })
+            // .then(()=>{this.props.toggleLogin()
+            //     this.setState({
+            //         loggedin: true,
+            //     })
+            //     history.push('/')
+            // })
     }
 
     logIn = (user, history) => {
@@ -39,17 +68,33 @@ class Login extends Component {
             },
             body:JSON.stringify(user)
         }).then(response=>response.json())
-            .then((result) => {
+        .then(result=>{
+            if(result["non_field_errors"]){
+                alert(result["non_field_errors"])
+                history.push('/')
+            }else if(!result["non_field_errors"]){
                 localStorage.setItem('user', result.user.id)
                 localStorage.setItem('token', result.token)
                 localStorage.setItem('username', result.user.username)
-            })
-            .then(()=>{this.props.toggleLogin()
+                this.props.toggleLogin()
                 this.setState({
                     loggedin: true,
+                    user: result
                 })
                 history.push('/')
-            })
+            }
+        })
+            // .then((result) => {
+            //     localStorage.setItem('user', result.user.id)
+            //     localStorage.setItem('token', result.token)
+            //     localStorage.setItem('username', result.user.username)
+            // })
+            // .then(()=>{this.props.toggleLogin()
+            //     this.setState({
+            //         loggedin: true,
+            //     })
+            //     history.push('/')
+            // })
     }
 
     showComponent = () => {

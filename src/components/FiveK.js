@@ -7,6 +7,7 @@ class FiveK extends Component {
     state = {
         weeks: 6,
         completed_days: 0,
+        complete: true
     }
 
     showDayNames = () => {
@@ -70,20 +71,26 @@ class FiveK extends Component {
         })
     }
 
+    handleClick = () => {
+        const thisSchedule = this.props.userRaces.find(userRace=>userRace["user"] == localStorage.user && userRace["distance"] == "5k")
+        this.props.completeRace(thisSchedule["id"], this.state.complete, this.props.history)
+    }
+
 
     render(){
         console.log(this.showDays().length * 7)
         return(
             <>
                 {!this.props.friend ?
-                    <div className="race">
+                    [<div className="race">
                         <h1>5k Training Schedule</h1>
                         <div className="week">
                             <div className="space"></div>
                             {this.showDayNames()}
                         </div>
                         {this.showDays()}
-                    </div>
+                    </div>,
+                    <button onClick={this.handleClick} className="complete-button">Click to Complete Race</button>]
                 : null}
                 {this.props.friend ?
                     <div className="user-race">

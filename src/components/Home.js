@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Form from './Form'
+import {Link} from 'react-router-dom'
 
 class Home extends Component {
 
@@ -39,9 +40,20 @@ class Home extends Component {
 
     showRaces = () => {
         return this.props.userRaces.map(userRace=>{
-            if(userRace["race_name"]){
-                return <p className="prompt race-name">{userRace["race_name"]}</p>
-            }else return <p className="prompt race-name">{userRace["distance"]}</p>
+            if(!userRace["completed"]){
+                if(userRace["race_name"]){
+                    return <p className="prompt race-name">{userRace["race_name"]}</p>
+                }else return <p className="prompt race-name">{userRace["distance"]}</p>
+            }
+        })
+    }
+
+    showCompletedRaces = () => {
+        const completedRaces = this.props.userRaces.filter(userRace=>userRace["completed"])
+        if(completedRaces.length === 0){
+            return <p className="prompt-auth">You have not completed any races yet.</p>
+        }else return completedRaces.map(completedRace=>{
+            return <p className="prompt race-name">{completedRace["race_name"]}</p>
         })
     }
     
@@ -74,14 +86,15 @@ class Home extends Component {
     }
 
     render(){
+        const incompleteRaces = this.props.userRaces.filter(userRace=>!userRace["completed"])
         return(
             <>
                 <div className="profile">
                     <div className="user-photo">
-                        {this.showPhoto()}
-                        {this.state.addPhoto ? <Form photo={true} addPhoto={this.props.addPhoto}/> : null}
                         {typeof this.props.user !== "undefined" ? [
                                                         <p className="welcome">Welcome, {this.props.user["first_name"]}!</p>,
+                                                        this.showPhoto(),
+                                                        this.state.addPhoto ? <Form photo={true} addPhoto={this.props.addPhoto}/> : null,
                                                         <div className="followers">
                                                             <p>followers {this.showFollowers()}</p>
                                                             <p> following {this.showFollowing()}</p>
@@ -94,8 +107,15 @@ class Home extends Component {
                             <p className="prompt">What distance are you training for? (choose one)</p>,
                             <Form race_type={true} addUserRace={this.props.addUserRace} toggleNewRace={this.toggleNewRace} showPreview={this.showPreview}/>,
                             ]: [
-                                <p className="prompt">You're training for:</p>,
-                                this.showRaces()
+                            incompleteRaces.length > 0 ? <div className="user-race-div">
+                                <p className="prompt">You're training for:</p>
+                                {this.showRaces()}
+                                <Link style={{fontSize: '1.2rem', color: 'blue', textDecoration: 'none'}} to="/calendar">View Progress</Link>
+                                </div> : null,
+                                <div className="user-race-div completed-race">
+                                    <p className="prompt">Completed Races:</p>
+                                    {this.showCompletedRaces()}
+                                </div>
                             ]}
                         </div>
                 </div>
