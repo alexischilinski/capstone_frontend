@@ -10,6 +10,7 @@ class Home extends Component {
         preview: true,
         previewType: "",
         addPhoto: false,
+        updatePhoto: false,
     }
 
     componentDidMount(){
@@ -35,6 +36,12 @@ class Home extends Component {
     togglePhotoForm = () => {
         this.setState({
             addPhoto: !this.state.addPhoto,
+        })
+    }
+
+    toggleUpdatePhoto = () => {
+        this.setState({
+            updatePhoto: !this.state.updatePhoto
         })
     }
 
@@ -72,7 +79,8 @@ class Home extends Component {
                 <button onClick={this.togglePhotoForm} className="add-photo">Add a Profile Photo</button>
             ]
         }else return [
-                <div className="has-photo" style={{backgroundImage: `url(${this.props.photos["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div>
+                <div className="has-photo" style={{backgroundImage: `url(${this.props.photos["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div>,
+                <button onClick={this.toggleUpdatePhoto} className="add-photo">Update Profile Photo</button>
                 // <img className="has-photo" src={this.props.photos["photo"]}></img>
             ]
     }
@@ -97,6 +105,7 @@ class Home extends Component {
                                                         <p className="welcome">Welcome, {this.props.user["first_name"]}!</p>,
                                                         this.showPhoto(),
                                                         this.state.addPhoto ? <Form photo={true} addPhoto={this.props.addPhoto} togglePhotoForm={this.togglePhotoForm}/> : null,
+                                                        this.state.updatePhoto ? <Form updatePhoto={true} updatePhotoFunction={this.props.updatePhoto} toggleUpdatePhoto={this.toggleUpdatePhoto} togglePhotoForm={this.togglePhotoForm} photos={this.props.photos}/> : null,
                                                         <div className="followers">
                                                             <p>followers {this.showFollowers()}</p>
                                                             <p> following {this.showFollowing()}</p>

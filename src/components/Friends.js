@@ -25,7 +25,7 @@ export const Friends = (props) => {
                     return [
                         <div className="friend-icon">
                             {/* <img className="friend-photo" src={userPhoto["photo"]}></img> */}
-                            <div className="friend-photo" style={{backgroundImage: `url(${userPhoto["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div>
+                            <Link to={`/friends/${user["id"]}`}><div className="friend-photo" style={{backgroundImage: `url(${userPhoto["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
                             <p>{user["first_name"]} {user["last_name"]}
                             <button className="follow-button" onClick={handleClick} value={user["id"]}>Follow</button>
                             {/* <Link to={`/friends/${user["id"]}`}><button className="view-profile" value={user["id"]}>View Profile</button></Link> */}
@@ -34,7 +34,7 @@ export const Friends = (props) => {
                     ]
                 }else return [
                         <div className="friend-icon">
-                            <div className="friend-photo" style={{backgroundImage: `url('https://i.imgflip.com/1slnr0.jpg')`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div>
+                            <Link to={`/friends/${user["id"]}`}><div className="friend-photo" style={{backgroundImage: `url('https://i.imgflip.com/1slnr0.jpg')`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
                             {/* <img className="friend-photo" src="https://i.imgflip.com/1slnr0.jpg"></img> */}
                             <p>{user["first_name"]} {user["last_name"]}
                             <button className="follow-button" onClick={handleClick} value={user["id"]}>Follow</button>
@@ -65,7 +65,7 @@ export const Friends = (props) => {
                     const userPhoto = props.photos.find(photo=>photo["user"] == findFriend["id"])
                     if(userPhoto){
                         return <div className="follow-icon">
-                                <div className="friend-photo" style={{backgroundImage: `url(${userPhoto["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div>
+                                <Link to={`/friends/${findFriend["id"]}`}><div className="friend-photo" style={{backgroundImage: `url(${userPhoto["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
                                 {/* <img className="friend-photo" src={userPhoto["photo"]}></img> */}
                                 <p>{findFriend["first_name"]} {findFriend["last_name"]} 
                                 <Link to={`/friends/${findFriend["id"]}`}>
@@ -75,7 +75,7 @@ export const Friends = (props) => {
                                 </p>
                             </div>
                     }else return<div className="follow-icon">
-                                <div className="friend-photo" style={{backgroundImage: `url('https://i.imgflip.com/1slnr0.jpg')`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div>
+                                <Link to={`/friends/${findFriend["id"]}`}><div className="friend-photo" style={{backgroundImage: `url('https://i.imgflip.com/1slnr0.jpg')`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
                                 {/* <img className="friend-photo" src="https://i.imgflip.com/1slnr0.jpg"></img> */}
                                 <p>{findFriend["first_name"]} {findFriend["last_name"]}
                                 <Link to={`/friends/${findFriend["id"]}`}>
@@ -97,7 +97,7 @@ export const Friends = (props) => {
                     const userPhoto = props.photos.find(photo=>photo["user"] == findFriend["id"])
                     if(userPhoto){
                         return <div className="follow-icon">
-                            <div className="friend-photo" style={{backgroundImage: `url(${userPhoto["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div>
+                            <Link to={`/friends/${findFriend["id"]}`}><div className="friend-photo" style={{backgroundImage: `url(${userPhoto["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
                             {/* <img className="friend-photo" src={userPhoto["photo"]}></img> */}
                             <p>{findFriend["first_name"]} {findFriend["last_name"]} 
                             <Link to={`/friends/${findFriend["id"]}`}>
@@ -106,7 +106,7 @@ export const Friends = (props) => {
                             </p>
                         </div>
                     }else return <div className="follow-icon">
-                            <div className="friend-photo" style={{backgroundImage: `url('https://i.imgflip.com/1slnr0.jpg')`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div>
+                            <Link to={`/friends/${findFriend["id"]}`}><div className="friend-photo" style={{backgroundImage: `url('https://i.imgflip.com/1slnr0.jpg')`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
                             {/* <img className="friend-photo" src="https://i.imgflip.com/1slnr0.jpg"></img> */}
                             <p>{findFriend["first_name"]} {findFriend["last_name"]} 
                             <Link to={`/friends/${findFriend["id"]}`}>

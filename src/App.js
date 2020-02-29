@@ -180,6 +180,23 @@ class App extends Component {
     }))
   }
 
+  updatePhoto = (id, photo) => {
+    fetch(`http://localhost:8000/api/crudphotos/${id}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.token}`
+      },
+      body:JSON.stringify({photo})
+    }).then(response=>response.json())
+    .then(result=>{
+      const newPhotos = this.state.photos.filter(photo=>photo["user"] != result["id"])
+      this.setState({
+        photos: [...newPhotos, result]
+      })
+    })
+  }
+
   completeRace = (id, completed, history) => {
     fetch(`http://localhost:8000/api/crudschedules/${id}/`, {
       method: 'PUT',
@@ -215,6 +232,7 @@ class App extends Component {
                                       logIn={this.logIn}
                                       photos={this.state.photos.find(photo=>photo["user"] == localStorage.user)}
                                       addPhoto={this.addPhoto}
+                                      updatePhoto={this.updatePhoto}
                                       user={this.state.users.find(user=>user["id"] == localStorage.user)}
                                       friends={this.state.friends}/>
           <Route exact path="/calendar" render={(props)=><CalendarPage {...props} activities={this.state.activities}

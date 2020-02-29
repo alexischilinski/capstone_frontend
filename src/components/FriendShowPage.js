@@ -38,16 +38,22 @@ export const Friend = (props) => {
         }
 
     const showCompletedRaces = () => {
-            return findRaces.map(race=>{
-                if(race["race_name"]){
-                    if(race["completed"]){
-                        return [
-                                <p>{race["race_name"]}</p>
+        if(findRaces.length === 0){
+            if(typeof thisUser !== "undefined"){
+                return <p>{thisUser["first_name"]} has not completed any races yet.</p>
+            }
+        }else return findRaces.map(race=>{
+                if(race["completed"]){
+                    if(race["race_name"]){
+                            return [
+                                    <p>{race["race_name"]}</p>
+                            ]
+                    }else return [
+                            <p>{race["distance"]}</p>
                         ]
-                    }
-                }else return [
-                        <p>{race["distance"]}</p>
-                    ]
+                }else if(typeof thisUser !== "undefined"){
+                    return <p>{thisUser["first_name"]} has not completed any races yet.</p>
+                }
             })
         }
 

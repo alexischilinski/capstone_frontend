@@ -164,13 +164,14 @@ li {
 }
 
 .no-photo, .has-photo {
-  width: 50%;
-  height: 7rem;
+  width: 10rem;
+  height: 10rem;
   margin: 1%;
   margin-left: auto;
   margin-right: auto;
   align-self: center;
   border: solid 0.1rem black;
+  background-color: black;
 }
 
 .profile-photo {

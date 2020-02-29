@@ -66,6 +66,10 @@ class Form extends Component {
             this.setState({
                 photo: ""
             })
+        }else if(event.target.className === "update-photo"){
+            event.preventDefault()
+            this.props.updatePhotoFunction(this.props.photos["id"], this.state.photo)
+            this.props.toggleUpdatePhoto()
         }
     }
 
@@ -121,6 +125,11 @@ class Form extends Component {
                     <input onChange={this.handleChange} className="photo-input" type="text" name="photo" value={this.state.photo}></input>
                     <input className="photo-submit" type="submit" value="add photo"></input>
                 </form>
+        }else if(this.props.updatePhoto){
+            return <form onSubmit={this.handleSubmit} className="update-photo">
+                    <input onChange={this.handleChange} className="photo-input" type="text" name="photo" value={this.state.photo}></input>
+                    <input className="photo-submit" type="submit" value="update photo"></input>
+            </form>
         }
     }
 
