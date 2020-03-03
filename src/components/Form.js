@@ -30,6 +30,8 @@ class Form extends Component {
     componentDidMount(){
         if(typeof this.props.friend !=="undefined"){
             this.setState({receiver: this.props.friend["id"]})
+        }else if(this.props.recipient){
+            this.setState({receiver: this.props.recipient, subject: this.props.subject})
         }
     }
 
@@ -85,6 +87,11 @@ class Form extends Component {
             event.preventDefault()
             const {subject, message, sender, receiver} = this.state
             this.props.sendMessage({subject, message, sender, receiver})
+            this.props.toggleSent()
+        }else if(event.target.className === "reply-form"){
+            event.preventDefault()
+            const {subject, message, sender, receiver} = this.state 
+            this.props.reply({subject, message, sender, receiver})
             this.props.toggleSent()
         }
     }
@@ -150,6 +157,13 @@ class Form extends Component {
             return <form onSubmit={this.handleSubmit} className="message-form">
                     {/* <input onChange={this.handleChange} className="message-receiver" type="text" name="receiver" value={this.props.friend["id"]}></input> */}
                     <input onChange={this.handleChange} className="message-input" type="text" placeholder="subject" name="subject"></input>
+                    <textarea onChange={this.handleChange} className="message-input enter-message" type="text" placeholder="enter message" name="message"></textarea>
+                    <input type="submit" className="submit-message"></input>
+            </form>
+        }else if(this.props.reply){
+            return <form onSubmit={this.handleSubmit} className="reply-form">
+                    {/* <input onChange={this.handleChange} className="message-receiver" type="text" name="receiver" value={this.props.friend["id"]}></input> */}
+                    {/* <input onChange={this.handleChange} className="message-input" type="text" placeholder="subject" name="subject"></input> */}
                     <textarea onChange={this.handleChange} className="message-input enter-message" type="text" placeholder="enter message" name="message"></textarea>
                     <input type="submit" className="submit-message"></input>
             </form>

@@ -116,7 +116,8 @@ class Login extends Component {
                     <ul>
                         <li>Choose a training schedule</li>
                         <li>Update the schedule when you complete a workout</li>
-                        <li>Follow other runners and view their progress</li>
+                        <li>Follow other runners, view their progress, exchange messages</li>
+                        <li>Find others running the same race as you</li>
                     </ul>
                 </div>,
                 <div>

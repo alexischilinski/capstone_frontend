@@ -117,6 +117,18 @@ class App extends Component {
     .then(result=>this.setState({outgoingMessages: [...this.state.outgoingMessages, result]}))
   }
 
+  reply = (message) => {
+    fetch('http://localhost:8000/api/outgoing/', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.token}`
+      },
+      body:JSON.stringify(message)
+    }).then(response=>response.json())
+    .then(result=>this.setState({outgoingMessages: [...this.state.outgoingMessages, result]}))
+  }
+
 
   toggleNav = () => {
     this.setState({
@@ -316,7 +328,8 @@ class App extends Component {
                                                               incomingMessages={this.state.incomingMessages}
                                                               outgoingMessages={this.state.outgoingMessages}
                                                               users={this.state.users}
-                                                              readMessage={this.readMessage}/>}/>
+                                                              readMessage={this.readMessage}
+                                                              reply={this.reply}/>}/>
         </div>
     );
   }

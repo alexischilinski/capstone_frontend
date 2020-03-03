@@ -79,7 +79,7 @@ export const Friend = (props) => {
 
     return (
         <>
-            {typeof thisUser !== "undefined" ? <Modal show={modal} handleClick={handleClick} friend={thisUser} sendMessage={props.sendMessage}/> : null}
+            {typeof thisUser !== "undefined" ? <Modal sendMessage={true} show={modal} handleClick={handleClick} friend={thisUser} sendMessage={props.sendMessage}/> : null}
             <Link to="/friends"><button className="back">{`<< back to friends`}</button></Link>
             <div className="friend">
                 <div className="friend-profile">

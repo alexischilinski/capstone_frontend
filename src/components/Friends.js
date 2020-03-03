@@ -76,19 +76,19 @@ export const Friends = (props) => {
                                 <Link to={`/friends/${findFriend["id"]}`}><div className="friend-photo" style={{backgroundImage: `url(${userPhoto["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
                                 {/* <img className="friend-photo" src={userPhoto["photo"]}></img> */}
                                 <p>{findFriend["first_name"]} {findFriend["last_name"]} 
-                                <Link to={`/friends/${findFriend["id"]}`}>
+                                {/* <Link to={`/friends/${findFriend["id"]}`}>
                                 <button className="view-profile" value={findFriend["id"]}>View Profile</button>
-                                </Link>
-                                <button onClick={handleClick} className="unfollow-button" value={friend["id"]}>Unfollow</button>
+                                </Link> */}
                                 </p>
+                                <button onClick={handleClick} className="unfollow-button" value={friend["id"]}>Unfollow</button>
                             </div>
                     }else return<div className="follow-icon">
                                 <Link to={`/friends/${findFriend["id"]}`}><div className="friend-photo" style={{backgroundImage: `url('https://i.imgflip.com/1slnr0.jpg')`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
                                 {/* <img className="friend-photo" src="https://i.imgflip.com/1slnr0.jpg"></img> */}
                                 <p>{findFriend["first_name"]} {findFriend["last_name"]}
-                                <Link to={`/friends/${findFriend["id"]}`}>
+                                {/* <Link to={`/friends/${findFriend["id"]}`}>
                                 <button className="view-profile" value={findFriend["id"]}>View Profile</button>
-                                </Link>
+                                </Link> */}
                                 <button onClick={handleClick} className="unfollow-button" value={friend["id"]}>Unfollow</button>
                                 </p>
                             </div>
@@ -108,18 +108,18 @@ export const Friends = (props) => {
                             <Link to={`/friends/${findFriend["id"]}`}><div className="friend-photo" style={{backgroundImage: `url(${userPhoto["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
                             {/* <img className="friend-photo" src={userPhoto["photo"]}></img> */}
                             <p>{findFriend["first_name"]} {findFriend["last_name"]} 
-                            <Link to={`/friends/${findFriend["id"]}`}>
+                            {/* <Link to={`/friends/${findFriend["id"]}`}>
                             <button className="view-profile" value={findFriend["id"]}>View Profile</button>
-                            </Link>
+                            </Link> */}
                             </p>
                         </div>
                     }else return <div className="follow-icon">
                             <Link to={`/friends/${findFriend["id"]}`}><div className="friend-photo" style={{backgroundImage: `url('https://i.imgflip.com/1slnr0.jpg')`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
                             {/* <img className="friend-photo" src="https://i.imgflip.com/1slnr0.jpg"></img> */}
                             <p>{findFriend["first_name"]} {findFriend["last_name"]} 
-                            <Link to={`/friends/${findFriend["id"]}`}>
+                            {/* <Link to={`/friends/${findFriend["id"]}`}>
                             <button className="view-profile" value={findFriend["id"]}>View Profile</button>
-                            </Link>
+                            </Link> */}
                             </p>
                         </div>
                 }

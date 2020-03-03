@@ -216,7 +216,7 @@ li {
   font-size: 0.8rem;
   font-weight: bold;
   text-align: center;
-  margin-left: -4.5%;
+  margin-left: -4%;
   margin-top: 1%;
 }
 
@@ -602,6 +602,8 @@ li {
   width: 9em;
   height: auto;
   margin: 1%;
+  display: flex;
+  flex-direction: column;
 }
 
 .follow-icon div {
@@ -622,7 +624,7 @@ li {
   font-size: 0.8rem;
 }
 
-.friends p button {
+.unfollow-button, .follow-button {
   height: max-content;
   border: none;
   font-size: 0.7rem;
@@ -798,7 +800,7 @@ li {
 .incoming, .outgoing {
   border: solid black;
   width: 20rem;
-  height: 15rem;
+  height: 25rem;
   margin: 2%;
   background-color: lightblue;
   padding-left: 5%;
@@ -851,7 +853,7 @@ li {
   font-size: 1.5rem;
 }
 
-.read {
+.read, .outgoing-read {
   border: none;
   background-color: transparent;
   color: blue;
@@ -922,18 +924,21 @@ li {
   padding-top: 0;
 }
 
-.message-form {
+.message-form, .reply-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 1%;
 }
 
-.submit-message {
+.submit-message, .reply {
   width: 5rem;
   margin-left: auto;
   margin-right: auto;
   border: none;
   color: blue;
   font-size: 1rem;
+  margin: 1%;
+  margin-left: auto;
+  margin-right: auto;
 }
