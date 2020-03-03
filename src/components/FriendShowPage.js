@@ -5,12 +5,14 @@ import HalfMarathon from './HalfMarathon'
 import FiveK from './FiveK'
 import TenK from './TenK'
 import FullMarathon from './FullMarathon'
+import Modal from './Modal'
 
 
 export const Friend = (props) => {
 
     const [viewSchedule, setSchedule] = useState(false)
     const [schedule, setScheduleName] = useState("")
+    const [modal, showModal] = useState(false)
 
     const thisUser = props.users.find(user=>user["id"] == props.match.params.id)
     const findRaces = props.userRaces.filter(userRace=>userRace["user"] == props.match.params.id)
@@ -19,8 +21,17 @@ export const Friend = (props) => {
     const completedRaces = props.userRaces.filter(userRace=>userRace["user"] == props.match.params.id && userRace["completed"])
 
     const handleClick = (name) => {
+        // if(event.target.className === "view-progress"){
+        //     setSchedule(true)
+        //     setScheduleName(name)
+        // }
         setSchedule(true)
         setScheduleName(name)
+        // else if(event.target.className === "send-message"){
+        //     showModal(!modal)
+        // }else if(event.target.className === "close-button"){
+        //     showModal(!modal)
+        // }
     }
 
     const showRaces = () => {
@@ -28,21 +39,21 @@ export const Friend = (props) => {
                 if(race["race_name"]){
                     if(!race["completed"]){
                         return [
-                                <p className="heading">{race["race_name"]} <button onClick={() => {handleClick(race["distance"])}} value={race["distance"]}>View Progress</button></p>
+                                <p className="heading">{race["race_name"]} <button className="view-progress" onClick={() => {handleClick(race["distance"])}} value={race["distance"]}>View Progress</button></p>
                         ]
                     }
                 }else return [
-                        <p className="heading">{race["distance"]} <button onClick={() => {handleClick(race["distance"])}} value={race["distance"]}>View Progress</button></p>
+                        <p className="heading">{race["distance"]} <button className="view-progress" onClick={() => {handleClick(race["distance"])}} value={race["distance"]}>View Progress</button></p>
                     ]
             })
         }
 
     const showCompletedRaces = () => {
-        if(findRaces.length === 0){
+        if(completedRaces.length === 0){
             if(typeof thisUser !== "undefined"){
                 return <p>{thisUser["first_name"]} has not completed any races yet.</p>
             }
-        }else return findRaces.map(race=>{
+        }else return completedRaces.map(race=>{
                 if(race["completed"]){
                     if(race["race_name"]){
                             return [
@@ -51,8 +62,6 @@ export const Friend = (props) => {
                     }else return [
                             <p>{race["distance"]}</p>
                         ]
-                }else if(typeof thisUser !== "undefined"){
-                    return <p>{thisUser["first_name"]} has not completed any races yet.</p>
                 }
             })
         }
@@ -73,6 +82,7 @@ export const Friend = (props) => {
 
     return (
         <>
+            {typeof thisUser !== "undefined" ? <Modal show={modal} handleClick={handleClick} friend={thisUser} sendMessage={props.sendMessage}/> : null}
             <Link to="/friends"><button className="back">{`<< back to friends`}</button></Link>
             <div className="friend">
                 <div className="friend-profile">
@@ -87,6 +97,7 @@ export const Friend = (props) => {
                             <p className="follow-p">followers {showFollowers()}</p>
                             <p className="follow-p">following {showFollowing()}</p>
                         </div>
+                        <div><button onClick={handleClick} className="send-message">Send Message</button></div>
                         {typeof thisUser !== "undefined" && incompleteRaces.length > 0 ? <h2>{thisUser["first_name"]} is training for:</h2> : null}
                         {typeof thisUser !== "undefined" && incompleteRaces.length === 0 ? <h2>{thisUser["first_name"]} is not training for anything</h2> : null}
                         {showRaces()}

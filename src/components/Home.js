@@ -95,6 +95,13 @@ class Home extends Component {
         return <h4>{following.length}</h4>
     }
 
+    unreadMessages = () => {
+        if(!this.props.incomingMessages["detail"]){
+            const unreadMessages = this.props.incomingMessages.filter(incomingMessage=>!incomingMessage["read"])
+            return unreadMessages
+        }
+    }
+
     render(){
         const incompleteRaces = this.props.userRaces.filter(userRace=>!userRace["completed"])
         return(
@@ -111,6 +118,14 @@ class Home extends Component {
                                                             <p> following {this.showFollowing()}</p>
                                                         </div>
                                                         ] : null}
+                        <Link to={`/messages/${localStorage.user}`}>
+                            <div className="message-icon-div">
+                                <button className="message-icon"></button>
+                                {typeof this.unreadMessages() !== "undefined" ?
+                                this.unreadMessages().length > 0 ? <div className="notification">{this.unreadMessages().length}</div> : null
+                                : null}
+                            </div>
+                        </Link>
                         <p className="dashboard-prompt">↖ Open the navigation bar to view your schedule, follow friends, and view friends' progress.</p>
                     </div>
                         <div>

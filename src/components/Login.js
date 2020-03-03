@@ -40,6 +40,7 @@ class Login extends Component {
                         loggedin: true,
                         user: result
                     })
+                    this.props.fetchMessages()
                     this.props.addNewUser(result.user)
                     history.push('/')
                     }
@@ -78,10 +79,12 @@ class Login extends Component {
                 localStorage.setItem('token', result.token)
                 localStorage.setItem('username', result.user.username)
                 this.props.toggleLogin()
+                this.props.fetchMessages()
                 this.setState({
                     loggedin: true,
                     user: result
                 })
+                this.props.fetchMessages()
                 history.push('/')
             }
         })

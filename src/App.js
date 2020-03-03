@@ -12,6 +12,7 @@ import {DayShowPage} from './components/DayShowPage'
 import Login from './components/Login'
 import {PrivateRoute} from './components/PrivateRoute'
 import {Friend} from './components/FriendShowPage'
+import Messages from './components/Messages'
 
 
 class App extends Component {
@@ -25,18 +26,9 @@ class App extends Component {
     users: [],
     friends: [],
     photos: [],
+    incomingMessages: [],
+    outgoingMessages: []
   }
-
-  // componentWillMount(){
-  //   if(localStorage.token){
-  //     fetch('http://localhost:8000/api/auth/user', {
-  //       method: 'GET',
-  //       headers: {
-  //         'Authorization': `Token ${localStorage.token}`
-  //       }
-  //     })
-  //   }
-  // }
 
   componentDidMount(){
     fetch('http://localhost:8000/api/activities/')
@@ -57,21 +49,74 @@ class App extends Component {
     fetch('http://localhost:8000/api/photos/')
       .then(response=>response.json())
       .then(photos=>this.setState({photos}))
+    fetch('http://localhost:8000/api/incoming', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.token}`
+      }
+    }).then(response=>response.json())
+    .then(incomingMessages=>this.setState({incomingMessages}))
+    fetch('http://localhost:8000/api/outgoing', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.token}`
+      }
+    }).then(response=>response.json())
+    .then(outgoingMessages=>this.setState({outgoingMessages}))
   }
 
   // componentDidUpdate(prevState){
-  //   if(this.state.loggedin){
-  //     if(localStorage.token){
-  //       fetch('http://localhost:8000/api/users', {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Authorization': `Token ${localStorage.token}`
-  //         }
-  //       }).then(response=>response.json())
-  //       .then(users=>this.setState({users}))
-  //     }
+  //   if(prevState !== this.state){
+  //       this.fetchMessages()
   //   }
   // }
+
+  fetchMessages = () => {
+    fetch('http://localhost:8000/api/incoming/', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.token}`
+      }
+    }).then(response=>response.json())
+    .then(incomingMessages=>this.setState({incomingMessages}))
+    fetch('http://localhost:8000/api/outgoing', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.token}`
+      }
+    }).then(response=>response.json())
+    .then(outgoingMessages=>this.setState({outgoingMessages}))
+  }
+
+  readMessage = (id) => {
+    fetch(`http://localhost:8000/api/incoming/${id}/`, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${localStorage.token}`
+      },
+      body:JSON.stringify({read: true})
+  }).then(response=>response.json())
+  .then(result=>{
+    const newMessages = this.state.incomingMessages.filter(message=>message["id"] !== result["id"])
+    this.setState({
+      incomingMessages: [...newMessages, result]
+    })
+  })
+  }
+
+  sendMessage = (message) => {
+    fetch('http://localhost:8000/api/outgoing/', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.token}`
+      },
+      body:JSON.stringify(message)
+    }).then(response=>response.json())
+    .then(result=>this.setState({outgoingMessages: [...this.state.outgoingMessages, result]}))
+  }
+
 
   toggleNav = () => {
     this.setState({
@@ -87,7 +132,7 @@ class App extends Component {
 
   toggleLogin = () => {
     this.setState({
-      loggedin: true
+      loggedin: !this.state.loggedin
     })
   }
 
@@ -222,9 +267,17 @@ class App extends Component {
           <Header toggleNav={this.toggleNav} class={this.state.isNav} loggedin={this.state.loggedin}/>
 
           <Navbar toggleNav={this.toggleNav} logOut={this.logOut} class={this.state.isNav}/>
-          <Route exact path="/login" render={(props)=><Login {...props} onClick={this.exitNav} addNewUser={this.addNewUser} toggleLogin={this.toggleLogin} userRaces={this.state.userRaces} signUp={this.signUp} logIn={this.logIn}/>}/>
+          <Route exact path="/login" render={(props)=><Login {...props} onClick={this.exitNav} 
+                                                                        addNewUser={this.addNewUser}
+                                                                        toggleLogin={this.toggleLogin}
+                                                                        fetchMessages={this.fetchMessages}
+                                                                        userRaces={this.state.userRaces}
+                                                                        signUp={this.signUp}
+                                                                        logIn={this.logIn}/>}/>
           {/* <Route exact path="/" render={()=><Home onClick={this.exitNav} toggleLogin={this.toggleLogin} addUserRace={this.addUserRace} userRaces={this.state.userRaces} signUp={this.signUp} logIn={this.logIn}/>}/> */}
           <PrivateRoute exact path="/" onClick={this.exitNav}
+                                      incomingMessages={this.state.incomingMessages}
+                                      outgoingMessages={this.state.outgoingMessages}
                                       toggleLogin={this.toggleLogin}
                                       addUserRace={this.addUserRace}
                                       userRaces={this.state.userRaces.filter(userRace=>userRace["user"] == localStorage.user)}
@@ -239,9 +292,31 @@ class App extends Component {
                                                                                   workouts={this.state.workouts}
                                                                                   userRaces={this.state.userRaces.filter(userRace=>userRace["user"] == localStorage.user)}
                                                                                   completeRace={this.completeRace}/>}/>
-          <Route exact path="/friends" render={(props)=><Friends {...props} activities ={this.state.activities} unFollow={this.unfollowUser} removeFollowing={this.removeFollowing} workouts={this.state.workouts} photos={this.state.photos} users={this.state.users} friends={this.state.friends} followUser={this.followUser}/>}/>
-          <Route exact path="/friends/:id" render={(props)=><Friend {...props} activities ={this.state.activities} workouts={this.state.workouts} photos={this.state.photos} users={this.state.users} friends={this.state.friends} followUser={this.followUser} userRaces={this.state.userRaces}/>}/>
-          <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities} workouts={this.state.workouts} addWorkout={this.addWorkout}/>}/>
+          <Route exact path="/friends" render={(props)=><Friends {...props} activities ={this.state.activities}
+                                                                            unFollow={this.unfollowUser}
+                                                                            removeFollowing={this.removeFollowing}
+                                                                            workouts={this.state.workouts}
+                                                                            userRaces={this.state.userRaces}
+                                                                            photos={this.state.photos}
+                                                                            users={this.state.users}
+                                                                            friends={this.state.friends}
+                                                                            followUser={this.followUser}/>}/>
+          <Route exact path="/friends/:id" render={(props)=><Friend {...props} activities ={this.state.activities}
+                                                                                workouts={this.state.workouts} 
+                                                                                photos={this.state.photos} 
+                                                                                users={this.state.users} 
+                                                                                friends={this.state.friends} 
+                                                                                sendMessage={this.sendMessage}
+                                                                                followUser={this.followUser} 
+                                                                                userRaces={this.state.userRaces}/>}/>
+          <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities} 
+                                                                                workouts={this.state.workouts}
+                                                                                addWorkout={this.addWorkout}/>}/>
+          <Route exact path="/messages/:id" render={(props)=><Messages {...props}
+                                                              incomingMessages={this.state.incomingMessages}
+                                                              outgoingMessages={this.state.outgoingMessages}
+                                                              users={this.state.users}
+                                                              readMessage={this.readMessage}/>}/>
         </div>
     );
   }

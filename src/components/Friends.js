@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import {Link} from 'react-router-dom'
 
 export const Friends = (props) => {
+
+    const [viewUsers, setViewUsers] = useState(false)
+    const [raceName, setRaceName] = useState("")
 
     const handleClick = (event) => {
         if(event.target.className === "follow-button"){
@@ -15,6 +18,11 @@ export const Friends = (props) => {
             props.removeFollowing(event.target.value)
             props.unFollow(event.target.value)
         }
+    }
+
+    const sameRaceClick = (name) => {
+        setViewUsers(true)
+        setRaceName(name)
     }
 
     const showRunners = () => {
@@ -119,32 +127,67 @@ export const Friends = (props) => {
         })
     }
 
+    const sameRace = () => {
+        const yourRaces = props.userRaces.filter(userRace=>userRace["user"] == localStorage.user)
+        return yourRaces.map(yourRace=>{
+            return <button onClick={() => sameRaceClick(yourRace["race_name"])} className="same-race" value={yourRace["race_name"]}>{yourRace["race_name"]}</button>
+        })
+    }
+
+    const showSameRaceRunners = (name) => {
+        const otherUsers = props.users.filter(user=>user["id"] != localStorage.user)
+        return props.userRaces.map(userRace=>{
+            if(userRace["race_name"] == name){
+                const sameRaceUser = otherUsers.find(user=>user["id"] == userRace["user"])
+                if(typeof sameRaceUser != "undefined"){
+                    const userPhoto = props.photos.find(photo=>photo["user"] == sameRaceUser["id"])
+                    if(userPhoto){
+                        return <div className="friend-icon">
+                                <Link to={`/friends/${sameRaceUser["id"]}`}><div className="friend-photo same-race" style={{backgroundImage: `url(${userPhoto["photo"]})`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
+                                <p>{sameRaceUser["first_name"]} {sameRaceUser["last_name"]}</p>
+                            </div>
+                    }else return <div className="friend-icon">
+                            <Link to={`/friends/${sameRaceUser["id"]}`}><div className="friend-photo same-race" style={{backgroundImage: `url('https://i.imgflip.com/1slnr0.jpg')`, backgroundSize: "100%", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundColor: 'black'}}></div></Link>
+                            <p>{sameRaceUser["first_name"]} {sameRaceUser["last_name"]}</p>
+                        </div>
+                }
+            }
+        })
+    }
+
     // console.log(showRunners())
 
     return(
-        <div className="friends">
-            {localStorage.token ? [
-                <div className="following-followers">
-                    <div className="your-friends">
-                        <div className="showfollowers">
-                        <h1>Following</h1>
-                        <div className="followers">{showFollowing()}</div>
+        <>
+            <div className="friends">
+                {localStorage.token ? [
+                    <div className="following-followers">
+                        <div className="your-friends">
+                            <div className="showfollowers">
+                            <h1>Following</h1>
+                            <div className="followers">{showFollowing()}</div>
+                            </div>
+                        </div>
+                        <div className="your-friends">
+                            <div className="showfollowers">
+                            <h1>Followers</h1>
+                            <div className="followers">{showFollowers()}</div>
+                            </div>
+                        </div>
+                    </div>,
+                    <div className="all-users">
+                        <div className="showusers">
+                        <h1>All Runners</h1>
+                        <div className="followers">{showRunners()}</div>
                         </div>
                     </div>
-                    <div className="your-friends">
-                        <div className="showfollowers">
-                        <h1>Followers</h1>
-                        <div className="followers">{showFollowers()}</div>
-                        </div>
-                    </div>
-                </div>,
-                <div className="all-users">
-                    <div className="showusers">
-                    <h1>All Runners</h1>
-                    <div className="followers">{showRunners()}</div>
-                    </div>
-                </div>
-            ]: null}
-        </div>
+                ]: null}
+            </div>
+            <div className="same-race-div">
+                <h1>Find others training for the same race</h1>
+                <div>{sameRace()}</div>
+                <div>{viewUsers ? showSameRaceRunners(raceName) : null}</div>
+            </div>
+        </>
     )
 }

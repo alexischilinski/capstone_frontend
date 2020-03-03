@@ -19,7 +19,18 @@ class Form extends Component {
         race: this.props.race,
         week: this.props.week,
         day: this.props.day,
-        photo: ""
+        photo: "",
+        subject: "",
+        message: "",
+        receiver: 0,
+        // receiver: this.props.friend["id"],
+        sender: localStorage.user
+    }
+    
+    componentDidMount(){
+        if(typeof this.props.friend !=="undefined"){
+            this.setState({receiver: this.props.friend["id"]})
+        }
     }
 
     handleChange = (event) => (
@@ -70,6 +81,11 @@ class Form extends Component {
             event.preventDefault()
             this.props.updatePhotoFunction(this.props.photos["id"], this.state.photo)
             this.props.toggleUpdatePhoto()
+        }else if(event.target.className === "message-form"){
+            event.preventDefault()
+            const {subject, message, sender, receiver} = this.state
+            this.props.sendMessage({subject, message, sender, receiver})
+            this.props.toggleSent()
         }
     }
 
@@ -129,6 +145,13 @@ class Form extends Component {
             return <form onSubmit={this.handleSubmit} className="update-photo">
                     <input onChange={this.handleChange} className="photo-input" type="text" name="photo" value={this.state.photo}></input>
                     <input className="photo-submit" type="submit" value="update photo"></input>
+            </form>
+        }else if(this.props.message){
+            return <form onSubmit={this.handleSubmit} className="message-form">
+                    {/* <input onChange={this.handleChange} className="message-receiver" type="text" name="receiver" value={this.props.friend["id"]}></input> */}
+                    <input onChange={this.handleChange} className="message-input" type="text" placeholder="subject" name="subject"></input>
+                    <textarea onChange={this.handleChange} className="message-input enter-message" type="text" placeholder="enter message" name="message"></textarea>
+                    <input type="submit" className="submit-message"></input>
             </form>
         }
     }

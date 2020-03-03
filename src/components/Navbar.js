@@ -18,7 +18,7 @@ export const Navbar = (props) => {
                     <li>Your Training</li>
                 </Link>
                 <Link onClick={props.toggleNav} style={{color: 'white', textDecoration: 'none'}} to="/friends">
-                    <li>Friends</li>
+                    <li>Community</li>
                 </Link>
                 <Link onClick={props.toggleNav} onClick={logout} style={{color: 'white', textDecoration: 'none'}} to="/">
                     <li>Logout</li>

@@ -7,6 +7,8 @@ export const PrivateRoute = (props) => {
     return <Route {...props} render={() => {
         return localStorage.token
         ? <Home onClick={props.exitNav}
+                incomingMessages={props.incomingMessages}
+                outgoingMessages={props.outgoingMessages}
                 toggleLogin={props.toggleLogin}
                 addUserRace={props.addUserRace}
                 userRaces={props.userRaces}
