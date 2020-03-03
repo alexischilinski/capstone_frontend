@@ -20,18 +20,15 @@ export const Friend = (props) => {
     const userPhoto = props.photos.find(photo=>photo["user"] == props.match.params.id)
     const completedRaces = props.userRaces.filter(userRace=>userRace["user"] == props.match.params.id && userRace["completed"])
 
-    const handleClick = (name) => {
-        // if(event.target.className === "view-progress"){
-        //     setSchedule(true)
-        //     setScheduleName(name)
-        // }
-        setSchedule(true)
-        setScheduleName(name)
-        // else if(event.target.className === "send-message"){
-        //     showModal(!modal)
-        // }else if(event.target.className === "close-button"){
-        //     showModal(!modal)
-        // }
+    const handleClick = (event) => {
+        if(event.target.className === "view-progress"){
+            setSchedule(true)
+            setScheduleName(event.target.value)
+        }else if(event.target.className === "send-message"){
+            showModal(!modal)
+        }else if(event.target.className === "close-button"){
+            showModal(!modal)
+        }
     }
 
     const showRaces = () => {
@@ -39,11 +36,11 @@ export const Friend = (props) => {
                 if(race["race_name"]){
                     if(!race["completed"]){
                         return [
-                                <p className="heading">{race["race_name"]} <button className="view-progress" onClick={() => {handleClick(race["distance"])}} value={race["distance"]}>View Progress</button></p>
+                                <p className="heading">{race["race_name"]} <button className="view-progress" onClick={handleClick} value={race["distance"]}>View Progress</button></p>
                         ]
                     }
                 }else return [
-                        <p className="heading">{race["distance"]} <button className="view-progress" onClick={() => {handleClick(race["distance"])}} value={race["distance"]}>View Progress</button></p>
+                        <p className="heading">{race["distance"]} <button className="view-progress" onClick={handleClick} value={race["distance"]}>View Progress</button></p>
                     ]
             })
         }
