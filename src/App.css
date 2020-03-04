@@ -454,6 +454,10 @@ li {
   font-weight: bold;
 }
 
+.calendar-page {
+  display: flex;
+}
+
 .race {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -516,8 +520,11 @@ li {
 }
 
 .race-tips {
+  width: 68rem;
   font-family: 'Sarabun', sans-serif;
-  margin: 1%;
+  margin-right: 6rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
 }
 
 .race-tips h1{
@@ -528,7 +535,7 @@ li {
 .question {
   font-weight: bold;
   font-size: 1.2rem;
-  margin: 1%;
+  margin: 3%;
 }
 
 .goback {
@@ -753,14 +760,21 @@ li {
   cursor: pointer;
 }
 
-.same-race-div div {
+/* .same-race-div div {
   display: flex;
   flex-direction: column;
   align-self: center;
-}
+} */
 
 .same-race {
   align-self: center;
+}
+
+.same-race-runners {
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+  flex-flow: wrap;
 }
 
 .friend-schedule {

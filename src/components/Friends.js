@@ -192,7 +192,7 @@ export const Friends = (props) => {
             <div className="same-race-div">
                 <h1>Find others training for the same race</h1>
                 <div>{sameRace()}</div>
-                <div>{viewUsers ? showSameRaceRunners(raceName) : null}</div>
+                <div className="same-race-runners">{viewUsers ? showSameRaceRunners(raceName) : null}</div>
             </div>
         </>
     )

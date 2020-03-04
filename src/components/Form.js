@@ -93,6 +93,7 @@ class Form extends Component {
             if(!this.state.error){
                 const {user, race_name, distance} = this.state
                 this.props.addUserRace({user, race_name, distance})
+                this.props.toggleNewRace()
             }
         }else if(event.target.className === "add-photo"){
             const {user, photo} = this.state

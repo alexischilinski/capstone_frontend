@@ -10,7 +10,7 @@ class Modal extends Component {
 
     handleClick = () => {
         this.setState({
-            replyForm: true
+            replyForm: true,
         })
     }
 
@@ -28,14 +28,14 @@ class Modal extends Component {
                 ]
             }else return <h1>Message sent!</h1>
         }else if(this.props.showPreview){
-            if(!this.state.sent){
-                if(!this.state.replyForm){
+            if(!this.props.sent){
+                if(!this.props.replyForm){
                     if(!this.props.outgoing){
                         return [<p>{this.props.message}</p>,
-                            <button onClick={this.handleClick} className="reply">Reply</button>
+                            <button onClick={this.props.handleClick} className="reply">Reply</button>
                         ]
                     }else return <p>{this.props.message}</p>
-                }else return <Form reply={true} toggleSent={this.toggleSent} reply={this.props.reply} recipient={this.props.recipient} subject={this.props.subject}/>
+                }else return <Form reply={true} toggleSent={this.props.toggleSent} reply={this.props.reply} recipient={this.props.recipient} subject={this.props.subject}/>
             }else return <h1>Message sent!</h1>
         }
     }

@@ -9,7 +9,9 @@ class Messages extends Component{
         outgoing: false,
         message: [],
         recipient: [],
-        subject: "Reply"
+        subject: "Reply",
+        sent: false,
+        replyForm: false
     }
     
     handleClick = (event) => {
@@ -23,7 +25,9 @@ class Messages extends Component{
             this.props.readMessage(event.target.id)
         }else if(event.target.className === "close-button"){
             this.setState({
-                showMessage: false
+                showMessage: false,
+                sent: false,
+                replyForm: false
             })
         }else if(event.target.className === "outgoing-read"){
             this.setState({
@@ -31,7 +35,15 @@ class Messages extends Component{
                 message: event.target.value,
                 outgoing: true
             })
+        }else if(event.target.className === "reply"){
+            this.setState({
+                replyForm: true
+            })
         }
+    }
+
+    toggleSent = () => {
+        this.setState({sent: !this.state.sent})
     }
 
     sortDate = (a, b) => {
@@ -93,7 +105,7 @@ class Messages extends Component{
                         {this.showOutbox()}
                     </div>
                 </div>
-                <Modal showPreview={true} show={this.state.showMessage} subject={this.state.subject} message={this.state.message} recipient={this.state.recipient} handleClick={this.handleClick} outgoing={this.state.outgoing} reply={this.props.reply}/>
+                <Modal showPreview={true} replyForm={this.state.replyForm} sent={this.state.sent} toggleSent={this.toggleSent} show={this.state.showMessage} subject={this.state.subject} message={this.state.message} recipient={this.state.recipient} handleClick={this.handleClick} outgoing={this.state.outgoing} reply={this.props.reply}/>
                 {/* <div className="show-message">
                     {this.state.showMessage ? <p>{this.state.message}</p> : null}
                 </div> */}
