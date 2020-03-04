@@ -34,8 +34,14 @@ class Messages extends Component{
         }
     }
 
+    sortDate = (a, b) => {
+        if (a.created_at < b.created_at){return -1}
+        else if (a.created_at > b.created_at){return 1}
+        else {return 0}
+    }
+
     showInbox = () => {
-        return this.props.incomingMessages.map(incomingMessage=>{
+        return this.props.incomingMessages.sort(this.sortDate).map(incomingMessage=>{
             if(incomingMessage["read"]){
                 const messageSender = this.props.users.find(user=>user["id"] == incomingMessage["sender"])
                 if(typeof messageSender !== "undefined"){
@@ -59,7 +65,7 @@ class Messages extends Component{
     }
 
     showOutbox = () => {
-        return this.props.outgoingMessages.map(outgoingMessage=>{
+        return this.props.outgoingMessages.sort(this.sortDate).map(outgoingMessage=>{
             const messageRecipient = this.props.users.find(user=>user["id"] == outgoingMessage["receiver"])
             if(typeof messageRecipient != "undefined"){
                 return <div className="message-div">
