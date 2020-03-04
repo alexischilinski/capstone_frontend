@@ -338,8 +338,13 @@ li {
   background-color: transparent;
 }
 
+.race-div {
+  display: flex;
+  justify-content: center;
+}
+
 .race-button {
-  height: 9rem;
+  height: 1.5rem;
   width: 9rem;
   font-family: 'Sarabun', sans-serif;
   font-size: 1.2rem;

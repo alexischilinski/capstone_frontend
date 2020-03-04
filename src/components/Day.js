@@ -19,7 +19,7 @@ class Day extends Component {
         return(
             <>
             {!this.props.friend ?
-                <Link style={{color: 'black', textDecoration: 'none'}} to={`/day/${this.state.id}`}>
+                <Link race_name={this.props.race_name} style={{color: 'black', textDecoration: 'none'}} to={`/day/${this.state.id}`}>
                     <div className={this.props.userworkout ? "day completed" : "day"}>
                         {/* <div className="day"> */}
                         <h3>{this.props.workout.distance}</h3>

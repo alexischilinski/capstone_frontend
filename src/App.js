@@ -323,6 +323,7 @@ class App extends Component {
                                                                                 userRaces={this.state.userRaces}/>}/>
           <Route exact path="/day/:id" render={(props)=><DayShowPage {...props} activities={this.state.activities} 
                                                                                 workouts={this.state.workouts}
+                                                                                userRaces={this.state.userRaces}
                                                                                 addWorkout={this.addWorkout}/>}/>
           <Route exact path="/messages/:id" render={(props)=><Messages {...props}
                                                               incomingMessages={this.state.incomingMessages}

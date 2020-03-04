@@ -128,7 +128,7 @@ export const Friends = (props) => {
     }
 
     const sameRace = () => {
-        const yourRaces = props.userRaces.filter(userRace=>userRace["user"] == localStorage.user)
+        const yourRaces = props.userRaces.filter(userRace=>userRace["user"] == localStorage.user && !userRace["completed"])
         return yourRaces.map(yourRace=>{
             return <button onClick={() => sameRaceClick(yourRace["race_name"])} className="same-race" value={yourRace["race_name"]}>{yourRace["race_name"]}</button>
         })

@@ -19,14 +19,14 @@ class TenK extends Component {
     showWeek = (number) => {
         const halfActivities = this.props.activities.filter(activity=>activity["race"] === "10k")
         const filteredAct = halfActivities.filter(activity=>activity["week"] === number)
-        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["week"] == number && workout["race"] === "10k")
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["week"] == number && workout["race_name"] === this.props.race_name)
         return filteredAct.map(activity=>{
             if(userWorkouts.length > 0){
                 const thisUserWorkout = userWorkouts.filter(user=>user["day"] == activity["day"])
                 if(thisUserWorkout.length > 0){
-                    return <Day workout={activity} userworkout={thisUserWorkout[0]} />
-                }else return <Day workout={activity}/>
-            }else return <Day workout={activity}/>
+                    return <Day workout={activity} race_name={this.props.race_name} userworkout={thisUserWorkout[0]} />
+                }else return <Day workout={activity} race_name={this.props.race_name}/>
+            }else return <Day workout={activity} race_name={this.props.race_name}/>
         })
     }
 
@@ -75,7 +75,7 @@ class TenK extends Component {
     }
 
     calculateProgress = () => {
-        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["race"] === "10k")
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["race_name"] === this.props.race_name)
         const numberWorkouts = userWorkouts.length
         const numberTrainingDays = this.state.weeks * 7
         const progressPercentage = (numberWorkouts / numberTrainingDays) * 100

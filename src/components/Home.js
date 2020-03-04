@@ -147,7 +147,7 @@ class Home extends Component {
                 </div>
                 <div className="new-race">
                     {!this.state.newRace && this.props.userRaces.length > 0 ? <p className="prompt">Training for another race? <button onClick={this.toggleNewRace} className="another-race">add it here</button></p> : null}
-                    {this.state.newRace ? <Form race_type={true} addUserRace={this.props.addUserRace} toggleNewRace={this.toggleNewRace} showPreview={this.showPreview}/> : null}
+                    {this.state.newRace ? <Form userRaces={this.props.userRaces} race_type={true} addUserRace={this.props.addUserRace} toggleNewRace={this.toggleNewRace} showPreview={this.showPreview}/> : null}
                 </div>
             </>
         )

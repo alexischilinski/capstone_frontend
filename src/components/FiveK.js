@@ -19,18 +19,20 @@ class FiveK extends Component {
     }
 
     showWeek = (number) => {
-        const halfActivities = this.props.activities.filter(activity=>activity["race"] === "5k")
-        const filteredAct = halfActivities.filter(activity=>activity["week"] === number)
-        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["week"] == number && workout["race"] === "5k")
-        return filteredAct.map(activity=>{
-            if(userWorkouts.length > 0){
-                const thisUserWorkout = userWorkouts.filter(user=>user["day"] == activity["day"])
-                if(thisUserWorkout.length > 0){
-                    // this.setState({completed_days: this.state.completed_days + 1})
-                    return <Day workout={activity} userworkout={thisUserWorkout[0]} />
-                }else return <Day workout={activity}/>
-            }else return <Day workout={activity}/>
-        })
+        if(typeof this.props.race_name !== "undefined"){
+            const halfActivities = this.props.activities.filter(activity=>activity["race"] === "5k")
+            const filteredAct = halfActivities.filter(activity=>activity["week"] === number)
+            const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["week"] == number && workout["race_name"] === this.props.race_name)
+            return filteredAct.map(activity=>{
+                if(userWorkouts.length > 0){
+                    const thisUserWorkout = userWorkouts.filter(user=>user["day"] == activity["day"])
+                    if(thisUserWorkout.length > 0){
+                        // this.setState({completed_days: this.state.completed_days + 1})
+                        return <Day workout={activity} race_name={this.props.race_name} userworkout={thisUserWorkout[0]} />
+                    }else return <Day workout={activity} race_name={this.props.race_name}/>
+                }else return <Day workout={activity} race_name={this.props.race_name}/>
+            })
+        }
     }
 
     userWorkouts = (number) => {
@@ -78,7 +80,7 @@ class FiveK extends Component {
     }
 
     calculateProgress = () => {
-        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["race"] === "5k")
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == localStorage.user && workout["race_name"] === this.props.race_name)
         const numberWorkouts = userWorkouts.length
         const numberTrainingDays = this.state.weeks * 7
         const progressPercentage = (numberWorkouts / numberTrainingDays) * 100
@@ -99,7 +101,7 @@ class FiveK extends Component {
 
 
     render(){
-        console.log(this.showDays().length * 7)
+
         return(
             <>
                 {!this.props.friend ?
