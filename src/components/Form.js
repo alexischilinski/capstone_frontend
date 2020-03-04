@@ -85,8 +85,8 @@ class Form extends Component {
             this.props.logIn({username, password}, this.props.history)
         }else if(event.target.className === "add-workout"){
             event.preventDefault()
-            const {race_name, user, race, week, day, workout_type, pace, duration, location} = this.state
-            this.props.addWorkout({race_name, user, race, week, day, workout_type, pace, duration, location})
+            const {distance, race_name, user, race, week, day, workout_type, pace, duration, location} = this.state
+            this.props.addWorkout({distance, race_name, user, race, week, day, workout_type, pace, duration, location})
         }else if(event.target.className === "distances"){
             event.preventDefault()
             if(!this.state.error){
@@ -150,7 +150,7 @@ class Form extends Component {
                             <div onClick={this.handleClick} className="race-button" value="full marathon">Full Marathon</div>
                         </div>
                         <div className="submit-div">
-                            {this.state.error ? <p>{this.state.error_message}</p> : null}
+                            {this.state.error ? <p className="error">{this.state.error_message}</p> : null}
                             <input onChange={this.handleChange} className="race-name-input" type="text" placeholder="enter race name" name="race_name"></input>
                             <input className="submit-race" type="submit" value="Submit"></input>
                         </div>
@@ -160,6 +160,7 @@ class Form extends Component {
             return <div>
                     <form onSubmit={this.handleSubmit} className="add-workout">
                         <input onChange={this.handleChange} className="workout-input" type="text" placeholder="workout type (run, bike, etc)" name="workout_type"></input>
+                        <input onChange={this.handleChange} className="workout-input" type="text" placeholder="distance  (3 miles, 50 miles, etc)" name="distance"></input>
                         <input onChange={this.handleChange} className="workout-input" type="text" placeholder="pace (00:00)" name="pace"></input>
                         <input onChange={this.handleChange} className="workout-input" type="text" placeholder="duration (00:00:00)" name="duration"></input>
                         <input onChange={this.handleChange} className="workout-input" type="text" placeholder="location (Boston, Denver, etc)" name="location"></input>

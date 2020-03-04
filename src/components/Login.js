@@ -7,6 +7,8 @@ class Login extends Component {
     state = {
         isNav: false,
         loggedin: false,
+        error: false,
+        error_message: ""
         }
 
     signUp = (user, history) => {
@@ -20,16 +22,43 @@ class Login extends Component {
         .then(result=>{
             if(result["username"] == "This field may not be blank."){
                 if(result["password"] == "This field may not be blank."){
-                    alert(`USERNAME: ${result["username"]}, PASSWORD: ${result["password"]}`)
-                    history.push('/')
-                }else alert(`USERNAME: ${result["username"]}`)
-                history.push('/')
+                    this.setState({
+                        error: true,
+                        error_message: `USERNAME: ${result["username"]} PASSWORD: ${result["password"]}`
+                    })
+                    // alert(`USERNAME: ${result["username"]}, PASSWORD: ${result["password"]}`)
+                    // history.push('/')
+                }else {
+                    this.setState({
+                        error: true,
+                        error_message: `USERNAME: ${result["username"]}`
+                    })
+                }
+                // alert(`USERNAME: ${result["username"]}`)
+                // history.push('/')
             }else if(result["password"] == "This field may not be blank."){
                 if(result["username"] == "This field may not be blank."){
-                    alert(`USERNAME: ${result["username"]}, PASSWORD: ${result["password"]}`)
-                    history.push('/')
-                }else alert(`PASSWORD: ${result["username"]}`)
-                history.push('/')
+                    this.setState({
+                        error: true,
+                        error_message: `USERNAME: ${result["username"]} PASSWORD: ${result["password"]}`
+                    })
+                    // alert(`USERNAME: ${result["username"]}, PASSWORD: ${result["password"]}`)
+                    // history.push('/')
+                }else {
+                    this.setState({
+                        error: true,
+                        error_message: `PASSWORD: ${result["password"]}`
+                    })
+                }
+                // alert(`PASSWORD: ${result["username"]}`)
+                // history.push('/')
+            }else if(result["username"] == "A user with that username already exists."){
+                this.setState({
+                    error: true,
+                    error_message: result["username"]
+                })
+                // alert(result["username"])
+                // history.push('/')
             }else if(result["username"] != "This field may not be blank."){
                 if(result["password"] != "This field may not be blank."){
                     localStorage.setItem('user', result.user.id)
@@ -45,7 +74,11 @@ class Login extends Component {
                     history.push('/')
                     }
                 }else if(result["password"] == "This field may not be blank."){
-                    alert(result["password"])
+                    this.setState({
+                        error: true,
+                        error_message: result["password"]
+                    })
+                    // alert(result["password"])
                 }
             })
             // .then((result) => {
@@ -72,8 +105,12 @@ class Login extends Component {
         }).then(response=>response.json())
         .then(result=>{
             if(result["non_field_errors"]){
-                alert(result["non_field_errors"])
-                history.push('/')
+                this.setState({
+                    error: true,
+                    error_message: result["non_field_errors"]
+                })
+                // alert(result["non_field_errors"])
+                // history.push('/')
             }else if(!result["non_field_errors"]){
                 localStorage.setItem('user', result.user.id)
                 localStorage.setItem('token', result.token)
@@ -114,7 +151,7 @@ class Login extends Component {
                     <br></br>
                     <p className="prompt">Once registered, you will be able to:</p>
                     <ul>
-                        <li>Choose a training schedule</li>
+                        <li>Choose a pre-made training schedule for a 5k, 10k, half or full marathon</li>
                         <li>Update the schedule when you complete a workout</li>
                         <li>Follow other runners, view their progress, exchange messages</li>
                         <li>Find others running the same race as you</li>
@@ -123,6 +160,7 @@ class Login extends Component {
                 <div>
                     <p className="prompt-auth">Sign up or login to get started:</p>
                     <Form history={this.props.history} loginreg={true} signUp={this.signUp} logIn={this.logIn}/>
+                    {this.state.error ? <p className="error">{this.state.error_message}</p> : null}
                 </div>
             ]
         }else return null

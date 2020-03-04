@@ -105,10 +105,10 @@ export const Friend = (props) => {
                     </div>
                 </div>
                 <div className="friend-schedule">
-                    {viewSchedule && schedule === "half marathon" ? <HalfMarathon friend={true} thisFriend={thisUser["id"]} activities={props.activities} workouts={props.workouts}/> : null}
-                    {viewSchedule && schedule === "5k" ? <FiveK friend={true} thisFriend={thisUser["id"]} activities={props.activities} workouts={props.workouts}/> : null}
-                    {viewSchedule && schedule === "10k" ? <TenK friend={true} thisFriend={thisUser["id"]} activities={props.activities} workouts={props.workouts}/> : null}
-                    {viewSchedule && schedule === "full marathon" ? <FullMarathon friend={true} thisFriend={thisUser["id"]} activities={props.activities} workouts={props.workouts}/> : null}
+                    {viewSchedule && schedule === "half marathon" ? <HalfMarathon friend={true} thisFriend={thisUser["id"]} activities={props.activities} workouts={props.workouts} userRaces={findRaces}/> : null}
+                    {viewSchedule && schedule === "5k" ? <FiveK friend={true} thisFriend={thisUser["id"]} activities={props.activities} workouts={props.workouts} userRaces={findRaces}/> : null}
+                    {viewSchedule && schedule === "10k" ? <TenK friend={true} thisFriend={thisUser["id"]} activities={props.activities} workouts={props.workouts} userRaces={findRaces}/> : null}
+                    {viewSchedule && schedule === "full marathon" ? <FullMarathon friend={true} thisFriend={thisUser["id"]} activities={props.activities} workouts={props.workouts} userRaces={findRaces}/> : null}
                 </div>
             </div>
         </>

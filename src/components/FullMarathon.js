@@ -48,7 +48,8 @@ class FullMarathon extends Component {
     showUserWeek = (id, number) => {
         const halfActivities = this.props.activities.filter(activity=>activity["race"] === "full")
         const filteredAct = halfActivities.filter(activity=>activity["week"] === number)
-        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == id && workout["week"] == number && workout["race"] === "full")
+        const thisRace = this.props.userRaces.find(userRace=>userRace["user"] == id && userRace["distance"] === "full marathon" && !userRace["completed"])
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == id && workout["week"] == number && workout["race_name"] === thisRace["race_name"])
         return filteredAct.map(activity=>{
             if(userWorkouts.length > 0){
                 const thisUserWorkout = userWorkouts.filter(user=>user["day"] == activity["day"])
@@ -64,7 +65,7 @@ class FullMarathon extends Component {
         return numberArray.map(number=>{
             return <div className="user-week">
                         <div className="user-space">Week {number}</div>
-                        {this.showUserWeek(this.props.thisUser, number)}
+                        {this.showUserWeek(this.props.thisFriend, number)}
                     </div>
         })
     }
@@ -85,7 +86,8 @@ class FullMarathon extends Component {
     }
 
     calculateUserProgress = (id) => {
-        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == id && workout["race"] === "full")
+        const thisRace = this.props.userRaces.find(userRace=>userRace["user"] == id && userRace["distance"] === "full marathon" && !userRace["completed"])
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == id && workout["race_name"] === thisRace["race_name"])
         const numberWorkouts = userWorkouts.length
         const numberTrainingDays = this.state.weeks * 7
         const progressPercentage = (numberWorkouts / numberTrainingDays) * 100

@@ -5,13 +5,18 @@ export const Friends = (props) => {
 
     const [viewUsers, setViewUsers] = useState(false)
     const [raceName, setRaceName] = useState("")
+    const [alreadyFollow, setAlreadyFollow] = useState(false)
+    const [alreadyFollowMessage, setAlreadyFollowMessage] = useState("You are already following this runner")
 
     const handleClick = (event) => {
         if(event.target.className === "follow-button"){
             const findFollowing = props.friends.find(friend=>friend["follower"] == localStorage.user && friend["following"] == event.target.value)
             if(!findFollowing){
+                setAlreadyFollow(false)
                 props.followUser(event.target.value)
-            }else alert("you are already following this user")
+            }else {
+                setAlreadyFollow(true)
+            }
         }else if(event.target.className === "view-profile"){
             console.log(event.target.value)
         }else if(event.target.className === "unfollow-button"){
@@ -159,6 +164,7 @@ export const Friends = (props) => {
 
     return(
         <>
+            {alreadyFollow ? <p className="error">{alreadyFollowMessage}</p> : null}
             <div className="friends">
                 {localStorage.token ? [
                     <div className="following-followers">

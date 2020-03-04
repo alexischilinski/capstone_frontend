@@ -49,7 +49,8 @@ class HalfMarathon extends Component {
     showUserWeek = (id, number) => {
         const halfActivities = this.props.activities.filter(activity=>activity["race"] === "half")
         const filteredAct = halfActivities.filter(activity=>activity["week"] === number)
-        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == id && workout["week"] == number && workout["race"] === "half")
+        const thisRace = this.props.userRaces.find(userRace=>userRace["user"] == id && userRace["distance"] === "half marathon" && !userRace["completed"])
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == id && workout["week"] == number && workout["race_name"] === thisRace["race_name"])
         return filteredAct.map(activity=>{
             if(userWorkouts.length > 0){
                 const thisUserWorkout = userWorkouts.filter(user=>user["day"] == activity["day"])
@@ -86,7 +87,8 @@ class HalfMarathon extends Component {
     }
 
     calculateUserProgress = (id) => {
-        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == id && workout["race"] === "half")
+        const thisRace = this.props.userRaces.find(userRace=>userRace["user"] == id && userRace["distance"] === "half marathon" && !userRace["completed"])
+        const userWorkouts = this.props.workouts.filter(workout=>workout["user"] == id && workout["race_name"] === thisRace["race_name"])
         const numberWorkouts = userWorkouts.length
         const numberTrainingDays = this.state.weeks * 7
         const progressPercentage = (numberWorkouts / numberTrainingDays) * 100
