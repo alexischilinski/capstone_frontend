@@ -515,6 +515,22 @@ li {
   margin-bottom: 2%;
 }
 
+.race-tips {
+  font-family: 'Sarabun', sans-serif;
+  margin: 1%;
+}
+
+.race-tips h1{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.question {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 1%;
+}
+
 .goback {
   font-family: 'Sarabun', sans-serif;
   margin-left: 93%;

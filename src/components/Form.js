@@ -49,7 +49,7 @@ class Form extends Component {
         if(this.props.userRaces){
             if(event.target.className === "race-button"){
                 event.preventDefault()
-                const findUserRace = this.props.userRaces.find(userRace=>userRace["distance"] == event.target.innerText && !userRace["completed"])
+                const findUserRace = this.props.userRaces.find(userRace=>userRace["distance"] == (event.target.innerText).toLowerCase() && !userRace["completed"])
                 if(findUserRace){
                     this.setState({
                         error: true,
@@ -60,7 +60,8 @@ class Form extends Component {
                         distance: (event.target.innerText).toLowerCase(),
                         error: false,
                         error_message: ""
-                    })}
+                    })
+                }
             }
         }else if(event.target.className === "form-button"){
             this.setState({

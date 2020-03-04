@@ -126,7 +126,7 @@ class Home extends Component {
                                 : null}
                             </div>
                         </Link>
-                        <p className="dashboard-prompt">↖ Open the navigation bar to view your schedule, follow friends, and view friends' progress.</p>
+                        <p className="dashboard-prompt">↖ Open the navigation bar to view your schedule, follow other runners, and view others' progress.</p>
                     </div>
                         <div>
                             {this.props.userRaces.length === 0 ? [
