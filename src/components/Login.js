@@ -12,7 +12,7 @@ class Login extends Component {
         }
 
     signUp = (user, history) => {
-        fetch('http://localhost:8000/api/auth/register', {
+        fetch('https://capstone-ontrack.herokuapp.com/api/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ class Login extends Component {
 
     logIn = (user, history) => {
 
-        fetch('http://localhost:8000/api/auth/login', {
+        fetch('https://capstone-ontrack.herokuapp.com/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

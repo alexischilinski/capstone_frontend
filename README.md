@@ -2,6 +2,10 @@
 
 This app was created for runners by a runner. It is meant to help runners keep themselves accountable and track their progress while training for a race.
 
+## Deployment
+
+This app is deployed on Firebase: https://capstone-ontrack.firebaseapp.com/
+
 ## Getting Started
 
 This is the frontend for the project, and it is built in Javascript/React. Fork and clone this repo to get started. It is paired with the backend repo (https://github.com/alexiscait142/capstone_backend).

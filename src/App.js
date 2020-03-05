@@ -31,32 +31,32 @@ class App extends Component {
   }
 
   componentDidMount(){
-    fetch('http://localhost:8000/api/activities/')
+    fetch('https://capstone-ontrack.herokuapp.com/api/activities/')
       .then(response=>response.json())
       .then(activities=>this.setState({activities}))
-    fetch('http://localhost:8000/api/workouts')
+    fetch('https://capstone-ontrack.herokuapp.com/api/workouts/')
       .then(response=>response.json())
       .then(workouts=>this.setState({workouts}))
-    fetch('http://localhost:8000/api/schedules/')
+    fetch('https://capstone-ontrack.herokuapp.com/api/schedules/')
       .then(response=>response.json())
       .then(userRaces=>this.setState({userRaces}))
-    fetch('http://localhost:8000/api/users')
+    fetch('https://capstone-ontrack.herokuapp.com/api/users/')
       .then(response=>response.json())
       .then(users=>this.setState({users}))
-    fetch('http://localhost:8000/api/friends/')
+    fetch('https://capstone-ontrack.herokuapp.com/api/friends/')
       .then(response=>response.json())
       .then(friends=>this.setState({friends}))
-    fetch('http://localhost:8000/api/photos/')
+    fetch('https://capstone-ontrack.herokuapp.com/api/photos/')
       .then(response=>response.json())
       .then(photos=>this.setState({photos}))
-    fetch('http://localhost:8000/api/incoming', {
+    fetch('https://capstone-ontrack.herokuapp.com/api/incoming/', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Token ${localStorage.token}`
       }
     }).then(response=>response.json())
     .then(incomingMessages=>this.setState({incomingMessages}))
-    fetch('http://localhost:8000/api/outgoing', {
+    fetch('https://capstone-ontrack.herokuapp.com/api/outgoing/', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Token ${localStorage.token}`
@@ -72,14 +72,14 @@ class App extends Component {
   // }
 
   fetchMessages = () => {
-    fetch('http://localhost:8000/api/incoming/', {
+    fetch('https://capstone-ontrack.herokuapp.com/api/incoming/', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Token ${localStorage.token}`
       }
     }).then(response=>response.json())
     .then(incomingMessages=>this.setState({incomingMessages}))
-    fetch('http://localhost:8000/api/outgoing', {
+    fetch('https://capstone-ontrack.herokuapp.com/api/outgoing/', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Token ${localStorage.token}`
@@ -89,7 +89,7 @@ class App extends Component {
   }
 
   readMessage = (id) => {
-    fetch(`http://localhost:8000/api/incoming/${id}/`, {
+    fetch(`https://capstone-ontrack.herokuapp.com/api/incoming/${id}/`, {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ class App extends Component {
   }
 
   sendMessage = (message) => {
-    fetch('http://localhost:8000/api/outgoing/', {
+    fetch('https://capstone-ontrack.herokuapp.com/api/outgoing/', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ class App extends Component {
   }
 
   reply = (message) => {
-    fetch('http://localhost:8000/api/outgoing/', {
+    fetch('https://capstone-ontrack.herokuapp.com/api/outgoing/', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ class App extends Component {
   }
 
   logOut = () => {
-    fetch('http://localhost:8000/api/auth/logout', {
+    fetch('https://capstone-ontrack.herokuapp.com/api/auth/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ class App extends Component {
   }
 
   addWorkout = (workout) => {
-    fetch('http://localhost:8000/api/crudworkouts/', {
+    fetch('https://capstone-ontrack.herokuapp.com/api/crudworkouts/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -177,7 +177,7 @@ class App extends Component {
   }
 
   addUserRace = (userRace) => {
-    fetch('http://localhost:8000/api/crudschedules/', {
+    fetch('https://capstone-ontrack.herokuapp.com/api/crudschedules/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ class App extends Component {
   }
 
   followUser = (userid) => {
-    fetch('http://localhost:8000/api/following/', {
+    fetch('https://capstone-ontrack.herokuapp.com/api/following/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -203,7 +203,7 @@ class App extends Component {
   }
 
   unfollowUser = (id) => {
-    fetch(`http://localhost:8000/api/following/${id}/`, {
+    fetch(`https://capstone-ontrack.herokuapp.com/api/following/${id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -224,7 +224,7 @@ class App extends Component {
   }
 
   addPhoto = (photo) => {
-    fetch('http://localhost:8000/api/crudphotos/', {
+    fetch('https://capstone-ontrack.herokuapp.com/api/crudphotos/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -238,7 +238,7 @@ class App extends Component {
   }
 
   updatePhoto = (id, photo) => {
-    fetch(`http://localhost:8000/api/crudphotos/${id}/`, {
+    fetch(`https://capstone-ontrack.herokuapp.com/api/crudphotos/${id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -255,7 +255,7 @@ class App extends Component {
   }
 
   completeRace = (id, completed, history) => {
-    fetch(`http://localhost:8000/api/crudschedules/${id}/`, {
+    fetch(`https://capstone-ontrack.herokuapp.com/api/crudschedules/${id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
