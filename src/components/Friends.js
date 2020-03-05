@@ -142,7 +142,7 @@ export const Friends = (props) => {
     const showSameRaceRunners = (name) => {
         const otherUsers = props.users.filter(user=>user["id"] != localStorage.user)
         return props.userRaces.map(userRace=>{
-            if(userRace["race_name"] == name){
+            if(userRace["race_name"] == name && !userRace["completed"]){
                 const sameRaceUser = otherUsers.find(user=>user["id"] == userRace["user"])
                 if(typeof sameRaceUser != "undefined"){
                     const userPhoto = props.photos.find(photo=>photo["user"] == sameRaceUser["id"])

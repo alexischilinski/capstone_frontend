@@ -146,10 +146,10 @@ class Form extends Component {
             return <div>
                     <form onSubmit={this.handleSubmit} className="distances">
                         <div className="race-div">
-                            <div onClick={this.handleClick} className="race-button" value="5k">5k</div>
-                            <div onClick={this.handleClick} className="race-button" value="10k">10k</div>
-                            <div onClick={this.handleClick} className="race-button" value="half marathon">Half Marathon</div>
-                            <div onClick={this.handleClick} className="race-button" value="full marathon">Full Marathon</div>
+                            <div onClick={this.handleClick} className={this.state.distance === "5k" ? "selected-race-button" : "race-button"} value="5k">5k</div>
+                            <div onClick={this.handleClick} className={this.state.distance === "10k" ? "selected-race-button" : "race-button"} value="10k">10k</div>
+                            <div onClick={this.handleClick} className={this.state.distance === "half marathon" ? "selected-race-button" : "race-button"} value="half marathon">Half Marathon</div>
+                            <div onClick={this.handleClick} className={this.state.distance === "full marathon" ? "selected-race-button" : "race-button"} value="full marathon">Full Marathon</div>
                         </div>
                         <div className="submit-div">
                             {this.state.error ? <p className="error">{this.state.error_message}</p> : null}
