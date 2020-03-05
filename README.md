@@ -1,68 +1,48 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# OnTrack
 
-## Available Scripts
+This app was created for runners by a runner. It is meant to help runners keep themselves accountable and track their progress while training for a race.
 
-In the project directory, you can run:
+## Getting Started
 
-### `yarn start`
+This is the frontend for the project, and it is built in Javascript/React. Fork and clone this repo to get started. It is paired with the backend repo (https://github.com/alexiscait142/capstone_backend).
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Prerequisites
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+In order to successfully run this app, you will need Javascript and React installed.
 
-### `yarn test`
+#### Required libraries
+You will need to `npm install`
+```
+react-router-dom
+```
+if you do not have it globally installed.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installing
 
-### `yarn build`
+Once you have forked and cloned this repo and installed the proper packages, run `npm install` and it should automatically open in your browser. It will only work properly if you already have the backend running (see link above).
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## References
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+* [All About Marathon Training](https://www.all-about-marathon-training.com/half-marathon-training-summer.html) - Half Marathon Training Schedule
+* [Shape.com](https://www.shape.com/fitness/training-plans/beginners-guide-running-5k) - 5k Training Schedule
+* [How to Run Guide](https://howtorunguide.com/10k-training-schedule-for-beginners/) - 10k Training Schedule
+* [Mississippi Gulf Coast Marathon](https://mississippigulfcoastmarathon.com/wp-content/uploads/2018/07/training_full.pdf) - Full Marathon Training Schedule
+* [Runner's World](https://www.runnersworld.com/training/a20813186/eight-benefits-of-cross-training/) - Eight Benefits of Crosstraining
+* [Runner's World](https://www.runnersworld.com/health-injuries/a20864022/why-rest-days-are-important/) - Why Rest Days are Important
+* [OPTP](https://www.optp.com/blog/How-to-Choose-a-Foam-Roller) - How to Choose a Foam Roller
+* [Runner's World](https://www.runnersworld.com/training/a24843120/resistance-band-exercises/) - Resistance Band Exercises
+* [Business Insider](https://www.businessinsider.com/north-american-healthcare-foot-rocker-2017-2) - Foot Rocker
+* [Runner's World](https://www.runnersworld.com/health-injuries/a19578652/plantar-fasciitis/) - Plantar Fasciitis
+* [Runner's World](https://www.runnersworld.com/uk/health/injury/a775743/5-things-you-need-to-know-about-your-it-band/) - IT Band
+* [Runner's World](https://www.runnersworld.com/uk/health/a760484/the-rw-complete-guide-to-stretching-for-runners/) - Stretching for Runners
+* [Active.com](https://www.active.com/running/articles/14-running-specific-strength-training-exercises/) - Strength Training for Runners
+* [Runner's World](https://www.runnersworld.com/gear/a20842305/how-to-buy-the-right-running-shoes/) - How to Choose the Right Running Shoes
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Authors
 
-### `yarn eject`
+* **Alexis Chilinski** - [GitHub Profile](https://github.com/alexiscait142)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Acknowledgments
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+* Flatiron School
+* [Traversy Media](https://www.youtube.com/playlist?list=PLillGF-RfqbbRA-CIUxlxkUpbq0IFkX60)
