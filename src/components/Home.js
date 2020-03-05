@@ -33,6 +33,12 @@ class Home extends Component {
         })
     }
 
+    closeNewRace = () => {
+        this.setState({
+            newRace: false,
+        })
+    }
+
     togglePhotoForm = () => {
         this.setState({
             addPhoto: !this.state.addPhoto,
@@ -131,7 +137,7 @@ class Home extends Component {
                         <div>
                             {this.props.userRaces.length === 0 ? [
                             <p className="prompt">What distance are you training for? (choose one)</p>,
-                            <Form race_type={true} addUserRace={this.props.addUserRace} toggleNewRace={this.toggleNewRace} showPreview={this.showPreview}/>,
+                            <Form race_type={true} addUserRace={this.props.addUserRace} toggleNewRace={this.closeNewRace} showPreview={this.showPreview}/>,
                             ]: [
                             incompleteRaces.length > 0 ? <div className="user-race-div">
                                 <p className="prompt">You're training for:</p>

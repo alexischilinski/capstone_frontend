@@ -47,8 +47,8 @@ class Messages extends Component{
     }
 
     sortDate = (a, b) => {
-        if (a.created_at < b.created_at){return -1}
-        else if (a.created_at > b.created_at){return 1}
+        if (a.created_at > b.created_at){return -1}
+        else if (a.created_at < b.created_at){return 1}
         else {return 0}
     }
 

@@ -94,8 +94,8 @@ class CalendarPage extends Component {
                             <p className="question">So can I just get up and go for a run and that's it?</p>
                             <p>Well, no. It's really important to <a href={"https://www.runnersworld.com/uk/health/a760484/the-rw-complete-guide-to-stretching-for-runners/"} target="_blank">stretch</a> before and after a run, and to keep up with
                             proper <a href={"https://www.active.com/running/articles/14-running-specific-strength-training-exercises/"} target="_blank">conditioning</a>. Choosing not to warm up before and cool down after a run can increase your risk
-                            of injury. Also make sure you wear proper <a href={"https://www.runnersworld.com/gear/a20842305/how-to-buy-the-right-running-shoes/"} target="_blank">running shoes</a>--running stores typically have methods for checking your
-                            gait to help you find the right shoe for you (don't worry if the shoes your friend wears don't work for you; everyone is different!).</p>
+                            of injury. Also make sure you wear proper <a href={"https://www.runnersworld.com/gear/a20842305/how-to-buy-the-right-running-shoes/"} target="_blank">running shoes</a>. Running stores typically have methods for checking your
+                            gait to help you find the right shoe for you (don't worry if the shoes your friend wears don't work for you--everyone is different!).</p>
                             <p className="question">What is crosstraining?</p>
                             <p>Crosstraining is a way to strengthen muscles that don't get used while running. According to <a href={"https://www.runnersworld.com/training/a20813186/eight-benefits-of-cross-training/"} target="_blank">this article</a> by Runner's World,
                             there are eight reasons why crosstraining is important for runners. These reasons include injury prevention, rehabilitation, and enhanced motivation.
