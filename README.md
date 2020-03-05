@@ -13,7 +13,7 @@ In order to successfully run this app, you will need Javascript and React instal
 #### Required libraries
 You will need to `npm install`
 ```
-react-router
+react-router-dom
 ```
 if you do not have it globally installed.
 
