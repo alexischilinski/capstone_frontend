@@ -33,23 +33,28 @@ export const DayShowPage = (props) => {
         }
     }
 
+    // console.log(thisRace())
+    // console.log(props.userRaces)
+
     const showWorkoutOrForm = () => {
         if(thisRace().length > 0){
             if(userWorkouts.length > 0){
-                const userWorkout = userWorkouts.filter(workout=>workout["week"] === thisWorkout[0]["week"] && workout["day"] === thisWorkout[0]["day"] && workout["race"] === thisWorkout[0]["race"])
-                if(userWorkout.length > 0){
-                    return [
-                        <h2 className="completed-workout">Completed Workout</h2>,
-                        <h1>Workout Type: {userWorkout[0]["workout_type"]}</h1>,
-                        userWorkout[0]["distance"] ? <h1>Distance: {userWorkout[0]["distance"]}</h1> : null,
-                        userWorkout[0]["pace"] ? <h1>Average pace per mile: {userWorkout[0]["pace"]}</h1> : null,
-                        <h1>Duration: {userWorkout[0]["duration"]}</h1>,
-                        <h1>Location: {userWorkout[0]["location"]}</h1>
+                if(typeof thisRace() !== "undefined"){
+                    const userWorkout = userWorkouts.filter(workout=>workout["week"] === thisWorkout[0]["week"] && workout["day"] === thisWorkout[0]["day"] && workout["race_name"] == thisRace()[0]["race_name"])
+                    if(userWorkout.length > 0){
+                        return [
+                            <h2 className="completed-workout">Completed Workout</h2>,
+                            <h1>Workout Type: {userWorkout[0]["workout_type"]}</h1>,
+                            userWorkout[0]["distance"] ? <h1>Distance: {userWorkout[0]["distance"]}</h1> : null,
+                            userWorkout[0]["pace"] ? <h1>Average pace per mile: {userWorkout[0]["pace"]}</h1> : null,
+                            <h1>Duration: {userWorkout[0]["duration"]}</h1>,
+                            <h1>Location: {userWorkout[0]["location"]}</h1>
+                        ]
+                    }else return [
+                        <h2>Completed this workout?</h2>,
+                        <Form workout={true} race_name={thisRace()[0]["race_name"]} addWorkout={props.addWorkout} week={thisWorkout[0]["week"]} day={thisWorkout[0]["day"]} race={thisWorkout[0]["race"]}/>
                     ]
-                }else return [
-                    <h2>Completed this workout?</h2>,
-                    <Form workout={true} race_name={thisRace()[0]["race_name"]} addWorkout={props.addWorkout} week={thisWorkout[0]["week"]} day={thisWorkout[0]["day"]} race={thisWorkout[0]["race"]}/>
-                ]
+                }
             }else return [
                 <h2>Completed this workout?</h2>,
                 <Form workout={true} race_name={thisRace()[0]["race_name"]} addWorkout={props.addWorkout} week={thisWorkout[0]["week"]} day={thisWorkout[0]["day"]} race={thisWorkout[0]["race"]}/>

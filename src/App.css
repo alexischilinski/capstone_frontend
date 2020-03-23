@@ -530,11 +530,11 @@ li {
 }
 
 .race-tips {
-  width: 68rem;
-  /* width: 50%; */
+  /* width: 68rem; */
+  width: 50%;
   font-family: 'Sarabun', sans-serif;
   margin-right: 6rem;
-  /* margin-right: 2%; */
+  margin-right: 2%;
   margin-top: 3rem;
   margin-bottom: 1rem;
 }
