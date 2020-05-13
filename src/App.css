@@ -258,6 +258,11 @@ table {
 
   .calendar-page {
     display: flex;
+    justify-content: center;
+  }
+
+  .today {
+    margin-right: 1%;
   }
   
   .race {
@@ -321,7 +326,8 @@ table {
   }
 
   .race-tips {
-    width: 50%;
+    width: 30%;
+    margin: 1%;
   }
 
   .dayinfo {
@@ -732,6 +738,11 @@ table {
     border: solid black;
     font-weight: bold;
   }
+
+  .messages-div {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media only screen and (max-device-width: 500px) {
@@ -916,14 +927,7 @@ table {
     align-self: center;
   }
   
-  /* .submit-div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  } */
-  
   .race-name-input {
-    /* width: 50%; */
     height: 1.5rem;
     align-self: center;
     font-size: 1rem;
@@ -1015,8 +1019,6 @@ table {
 
   .dayinfo {
     margin: 1%;
-    /* height: 25rem; */
-    /* width: 30rem; */
   }
 
   .add-workout input {
@@ -1036,7 +1038,6 @@ table {
   }
 
   .all-users, .following-followers {
-    /* width: 30rem; */
     margin: 1%;
   }
 
@@ -1090,18 +1091,21 @@ table {
     border: solid black;
     font-weight: bold;
   }
+
+  .messages-div {
+    flex-direction: column;
+    align-items: center;
+  }
   
 }
 
 .header {
-  /* height: 12rem; */
   position: relative;
   background-color: black;
   z-index: 10;
   color: white;
   padding-top: 2rem;
   font-family: 'Bowlby One SC', cursive;
-  /* font-size: 6rem; */
 }
 
 .show-nav {
@@ -1109,62 +1113,6 @@ table {
   padding: 1rem;
   height: 4rem;
 }
-
-/* .navbutton {
-  margin-right: 95%;
-  width: 3rem;
-  height: 3rem;
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png');
-  background-position: center;
-  background-size: 100%;
-  border: none;
-}
-
-.navclose {
-  margin-right: 95%;
-  width: 3rem;
-  height: 3rem;
-  background-image: url('https://cdn3.iconfinder.com/data/icons/ui-icons-5/16/cross-small-01-512.png');
-  background-position: center;
-  background-size: 100%;
-  border: none;
-} */
-
-/* .navbar {
-  width: 10rem;
-  background-color: darkblue;
-  height: 12rem;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  font-family: 'Changa', sans-serif;
-  font-size: 1.2rem;
-  position: absolute;
-  overflow-y: hidden;
-  z-index: 2;
-  transform: translate(0, 0);
-  transition: 0.5s;
-}
-
-.slide {
-  transform: translate(0, -100%);
-  transition: 0.5s;
-}
-
-li {
-  margin: 1rem;
-  text-decoration: none;
-}
-
-.logout-button {
-  font-family: 'Changa', sans-serif;
-  border: none;
-  background-color: transparent;
-  color: black;
-  font-size: 1.5rem;
-  margin-left: 80rem;
-} */
 
 .profile {
   display: flex;
@@ -1177,7 +1125,6 @@ li {
   font-family: 'Sarabun', sans-serif;
   display: flex;
   flex-direction: column;
-  /* width: 18%; */
 }
 
 .no-photo, .has-photo {
@@ -1296,125 +1243,9 @@ li {
   font-size: 1.2rem;
 }
 
-/* .login-page-div {
-  display: flex;
-  justify-content: center;
-}
-
-.login-page-div div {
-  width: 50%
-} */
-
 .login-page-div li {
   font-family: 'Sarabun', sans-serif;
 }
-
-/* .login, .signup {
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1rem;
-  border: solid black 0.1rem;
-  width: 30rem;
-  height: 20rem;
-  font-family: 'Sarabun', sans-serif;
-  background-color: lightblue;
-}
-
-.login-input, .signup-input {
-  width: 24rem;
-  height: 2rem;
-  margin: 1%;
-  margin-top: 1.5%;
-  font-size: 1.5rem;
-  font-family: 'Sarabun', sans-serif;
-}
-
-.login-button {
-  border: none;
-  font-family: 'Sarabun', sans-serif;
-  font-weight: bold;
-  font-size: 1.2rem;
-  text-decoration: underline;
-  margin-top: 30%;
-  background-color: transparent;
-}
-
-.signup-button {
-  border: none;
-  font-family: 'Sarabun', sans-serif;
-  font-weight: bold;
-  font-size: 1.2rem;
-  text-decoration: underline;
-  background-color: transparent;
-}
-
-.form-button {
-  border: none;
-  font-family: 'Sarabun', sans-serif;
-  font-weight: bold;
-  font-size: 0.9rem;
-  text-decoration: underline;
-  background-color: transparent;
-} */
-
-/* .race-div {
-  display: flex;
-  justify-content: center;
-}
-
-.race-button {
-  cursor: pointer;
-  height: 1.5rem;
-  width: 9rem;
-  font-family: 'Sarabun', sans-serif;
-  font-size: 1.2rem;
-  border: solid black 0.2rem;
-  margin: 1rem;
-}
-
-.selected-race-button {
-  cursor: pointer;
-  height: 1.5rem;
-  width: 9rem;
-  font-family: 'Sarabun', sans-serif;
-  font-size: 1.2rem;
-  border: solid blue 0.2rem;
-  margin: 1rem;
-}
-
-.submit-race {
-  height: 10rem;
-  width: 10rem;
-  font-family: 'Sarabun', sans-serif;
-  font-size: 2rem;
-  align-self: center;
-}
-
-.submit-div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.race-name-input {
-  width: 30%;
-  height: 1.5rem;
-  align-self: center;
-  font-size: 1rem;
-  margin: 1%;
-} */
-
-/* .race-option, .another-race {
-  width: 10rem;
-  margin-top: 1%;
-  font-family: 'Sarabun', sans-serif;
-  font-weight: bold;
-  font-size: 1rem;
-  background-color: transparent
-} */
 
 .race-option, .another-race{
   cursor: pointer;
@@ -1431,13 +1262,6 @@ li {
   margin: 1%;
 }
 
-/* .user-race-div {
-  height: 50%;
-  margin: 1%;
-  width: 25rem;
-  overflow-y: auto;
-} */
-
 .completed-race {
   border: solid black;
   background-color: lightblue;
@@ -1449,7 +1273,6 @@ li {
 }
 
 .today {
-  width: 100%;
   align-content: center;
 }
 
@@ -1484,73 +1307,7 @@ li {
   font-weight: bold;
 }
 
-/* .calendar-page {
-  display: flex;
-}
-
-.race {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.race h1 {
-  font-family: 'Sarabun', sans-serif;
-  font-size: 2rem;
-  margin: 1%;
-}
-
-.week {
-  display: flex;
-  justify-self: center;
-  font-family: 'Sarabun', sans-serif;
-}
-
-.space {
-  width: 5rem;
-  border: solid black;
-  font-weight: bold;
-}
-
-.dayname {
-  width: 7rem;
-  height: 1.2rem;
-  border: solid black;
-  font-family: 'Sarabun', sans-serif;
-  font-weight: bold;
-}
-
-.day {
-  border: solid black;
-  align-content: center;
-  height: 3rem;
-  width: 7rem;
-}
-
-.completed {
-  background-image: url('https://images.onlinelabels.com/images/clip-art/qubodup/Green%20Checkmark%20_-312459.png');
-  background-position: center;
-  background-size: 20% 75%;
-  background-repeat: no-repeat;
-}
-
-.checkmark {
-  height: 1rem;
-  width: 1rem;
-}
-
-.complete-button {
-  font-size: 1.5rem;
-  border: none;
-  color: blue;
-  margin-bottom: 2%;
-} */
-
 .race-tips {
-  /* width: 68rem; */
-  /* width: 50%; */
   font-family: 'Sarabun', sans-serif;
   margin-right: 6rem;
   margin-right: 2%;
@@ -1569,23 +1326,11 @@ li {
   margin: 3%;
 }
 
-/* .goback {
-  font-family: 'Sarabun', sans-serif;
-  margin-left: 93%;
-  font-weight: bold;
-} */
-
 .dayshow {
   font-family: 'Sarabun', sans-serif;
   display: flex;
   justify-content: center;
 }
-
-/* .dayinfo {
-  margin: 3rem;
-  height: 25rem;
-  width: 30rem;
-} */
 
 .dayshow h2 {
   font-size: 2rem;
@@ -1608,14 +1353,6 @@ li {
   align-items: center;
 }
 
-/* .add-workout input {
-  width: 75%;
-  height: 2rem;
-  margin: 0.5rem;
-  font-family: 'Sarabun', sans-serif;
-  font-size: 1.5rem;
-} */
-
 .friends {
   display: flex;
   justify-content: center;
@@ -1627,11 +1364,6 @@ li {
   display: flex;
   flex-direction: column;
 }
-
-/* .all-users, .following-followers {
-  width: 30rem;
-  margin: 1%;
-} */
 
 .showfollowers {
   border: solid black;
@@ -1770,7 +1502,6 @@ li {
   font-family: 'Sarabun', sans-serif;
   border: solid black;
   background-color: lightblue;
-  /* width: 62rem; */
   height: 20rem;
   margin-left: auto;
   margin-right: auto;
@@ -1791,12 +1522,6 @@ li {
   cursor: pointer;
 }
 
-/* .same-race-div div {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-} */
-
 .same-race {
   align-self: center;
 }
@@ -1807,57 +1532,6 @@ li {
   overflow-y: auto;
   flex-flow: wrap;
 }
-
-/* .friend-schedule {
-  width: auto;
-  height: auto;
-  align-self: center;
-  margin-top: 1%;
-  margin-bottom: 1%;
-}
-
-.friend-race {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.user-race {
-  margin: 0;
-  height: auto;
-  width: auto;
-}
-
-.user-week {
-  display: flex;
-  font-family: 'Sarabun', sans-serif;
-  margin: 0;
-  height: max-content;
-}
-
-.user-week .dayname {
-  margin: 0;
-}
-
-.dayname-space {
-  width: 6rem;
-  height: 1.2rem;
-  border: solid black;
-}
-
-.user-week .day{
-  margin: 0;
-}
-
-.user-space {
-  margin: 0;
-  width: 6rem;
-  height: 3rem;
-  border: solid black;
-  font-weight: bold;
-} */
 
 .messages-div {
   display: flex;
