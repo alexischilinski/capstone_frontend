@@ -45,6 +45,14 @@ class CalendarPage extends Component {
         }
     }
 
+    findRace = (distance) => {
+        return this.props.userRaces.find(userRace =>
+            userRace["user"] == localStorage.user
+            && userRace["distance"] === distance
+            && !userRace["completed"]
+        )
+    }
+
     chooseRace = () => {
         const incompleteRaces = this.props.userRaces.filter(userRace=>!userRace["completed"])
         if(incompleteRaces.length === 0){
@@ -52,7 +60,7 @@ class CalendarPage extends Component {
             <p className="prompt">Go to your {<Link style={{color: 'blue', textDecoration: 'none'}} to="/">dashboard</Link>} to select a schedule.</p>]
         }else if(incompleteRaces.length === 1){
             if(incompleteRaces[0]["distance"] === "half marathon"){
-                const thisHalfMarathon = this.props.userRaces.find(userRace=>userRace["user"] == localStorage.user && userRace["distance"] === "half marathon" && !userRace["completed"])
+                const thisHalfMarathon = this.findRace("half marathon")
                 return <HalfMarathon history={this.props.history} race_name={thisHalfMarathon["race_name"]} activities={this.props.activities} workouts={this.props.workouts} userRaces={this.props.userRaces} completeRace={this.props.completeRace}/>
             }else if(incompleteRaces[0]["distance"] === "full marathon"){
                 const thisFullMarathon = this.props.userRaces.find(userRace=>userRace["user"] == localStorage.user && userRace["distance"] === "full marathon" && !userRace["completed"])

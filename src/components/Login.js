@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import Form from './Form'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
+const baseURL = 'https://capstone-ontrack.herokuapp.com/api/auth/'
+const registerURL = 'register'
+const loginURL = 'login'
+const blankMessage = "This field may not be blank."
+const userExists = "A user with that username already exists."
+
 class Login extends Component {
 
     state = {
@@ -12,7 +18,7 @@ class Login extends Component {
         }
 
     signUp = (user, history) => {
-        fetch('https://capstone-ontrack.herokuapp.com/api/auth/register', {
+        fetch(baseURL + registerURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -20,47 +26,40 @@ class Login extends Component {
             body:JSON.stringify(user)
         }).then(response=>response.json())
         .then(result=>{
-            if(result["username"] == "This field may not be blank."){
-                if(result["password"] == "This field may not be blank."){
+            if (result["username"] &&
+                result["username"].toString() === blankMessage){
+                    if (result["password"] && result["password"].toString() === blankMessage){
+                        this.setState({
+                            error: true,
+                            error_message: `USERNAME: ${result["username"]} PASSWORD: ${result["password"]}`
+                        })
+                    } else if (!result["password"]){
+                        this.setState({
+                            error: true,
+                            error_message: `USERNAME: ${result["username"]}`
+                        })
+                    }
+            } else if (result["password"] &&
+                result["password"].toString() === blankMessage){
+                    if (result["username"] &&
+                        result["username"].toString() === blankMessage){
+                            this.setState({
+                                error: true,
+                                error_message: `USERNAME: ${result["username"]}, PASSWORD: ${result["password"]}`
+                            })
+                    } else if (!result["username"]) {
+                        this.setState({
+                            error: true,
+                            error_message: `PASSWORD: ${result["password"]}`
+                        })
+                    }
+            } else if (result["username"] &&
+                result["username"].toString() === userExists){
                     this.setState({
                         error: true,
-                        error_message: `USERNAME: ${result["username"]} PASSWORD: ${result["password"]}`
+                        error_message: result["username"]
                     })
-                    // alert(`USERNAME: ${result["username"]}, PASSWORD: ${result["password"]}`)
-                    // history.push('/')
-                }else {
-                    this.setState({
-                        error: true,
-                        error_message: `USERNAME: ${result["username"]}`
-                    })
-                }
-                // alert(`USERNAME: ${result["username"]}`)
-                // history.push('/')
-            }else if(result["password"] == "This field may not be blank."){
-                if(result["username"] == "This field may not be blank."){
-                    this.setState({
-                        error: true,
-                        error_message: `USERNAME: ${result["username"]} PASSWORD: ${result["password"]}`
-                    })
-                    // alert(`USERNAME: ${result["username"]}, PASSWORD: ${result["password"]}`)
-                    // history.push('/')
-                }else {
-                    this.setState({
-                        error: true,
-                        error_message: `PASSWORD: ${result["password"]}`
-                    })
-                }
-                // alert(`PASSWORD: ${result["username"]}`)
-                // history.push('/')
-            }else if(result["username"] == "A user with that username already exists."){
-                this.setState({
-                    error: true,
-                    error_message: result["username"]
-                })
-                // alert(result["username"])
-                // history.push('/')
-            }else if(result["username"] != "This field may not be blank."){
-                if(result["password"] != "This field may not be blank."){
+            } else if (result["user"]){
                     localStorage.setItem('user', result.user.id)
                     localStorage.setItem('token', result.token)
                     localStorage.setItem('username', result.user.username)
@@ -69,34 +68,16 @@ class Login extends Component {
                         loggedin: true,
                         user: result
                     })
-                    this.props.fetchMessages()
                     this.props.addNewUser(result.user)
+                    this.props.fetchData()
                     history.push('/')
-                    }
-                }else if(result["password"] == "This field may not be blank."){
-                    this.setState({
-                        error: true,
-                        error_message: result["password"]
-                    })
-                    // alert(result["password"])
                 }
             })
-            // .then((result) => {
-            //     localStorage.setItem('user', result.user.id)
-            //     localStorage.setItem('token', result.token)
-            //     localStorage.setItem('username', result.user.username)
-            // })
-            // .then(()=>{this.props.toggleLogin()
-            //     this.setState({
-            //         loggedin: true,
-            //     })
-            //     history.push('/')
-            // })
     }
 
     logIn = (user, history) => {
 
-        fetch('https://capstone-ontrack.herokuapp.com/api/auth/login', {
+        fetch(baseURL + loginURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -104,42 +85,57 @@ class Login extends Component {
             body:JSON.stringify(user)
         }).then(response=>response.json())
         .then(result=>{
-            if(result["non_field_errors"]){
+            if (result["non_field_errors"]){
                 this.setState({
                     error: true,
                     error_message: result["non_field_errors"]
                 })
-                // alert(result["non_field_errors"])
-                // history.push('/')
-            }else if(!result["non_field_errors"]){
-                localStorage.setItem('user', result.user.id)
-                localStorage.setItem('token', result.token)
-                localStorage.setItem('username', result.user.username)
-                this.props.toggleLogin()
-                this.props.fetchMessages()
-                this.setState({
-                    loggedin: true,
-                    user: result
-                })
-                this.props.fetchMessages()
-                history.push('/')
-            }
+            } else if (result["username"] &&
+                result["username"].toString() === blankMessage){
+                    if (result["password"] && 
+                        result["password"].toString() === blankMessage){
+                            this.setState({
+                                error: true,
+                                error_message: `USERNAME: ${result["username"]} PASSWORD: ${result["password"]}`
+                            })
+                    } else {
+                        this.setState({
+                            error: true,
+                            error_message: `USERNAME: ${result["username"]}`
+                        })
+                    }
+            } else if (result["password"] &&
+                result["password"].toString() === blankMessage){
+                    if (result["username"] && 
+                        result["username"].toString() == blankMessage){
+                            this.setState({
+                                error: true,
+                                error_message: `USERNAME: ${result["username"]} PASSWORD: ${result["password"]}`
+                            })
+                    } else {
+                        this.setState({
+                            error: true,
+                            error_message: `PASSWORD: ${result["password"]}`
+                        })
+                    }
+            } else if (result["user"]){
+                    localStorage.setItem('user', result.user.id)
+                    localStorage.setItem('token', result.token)
+                    localStorage.setItem('username', result.user.username)
+                    this.props.toggleLogin()
+                    this.setState({
+                        loggedin: true,
+                        user: result
+                    })
+                    this.props.addNewUser(result.user)
+                    this.props.fetchData()
+                    history.push('/')
+                    }
         })
-            // .then((result) => {
-            //     localStorage.setItem('user', result.user.id)
-            //     localStorage.setItem('token', result.token)
-            //     localStorage.setItem('username', result.user.username)
-            // })
-            // .then(()=>{this.props.toggleLogin()
-            //     this.setState({
-            //         loggedin: true,
-            //     })
-            //     history.push('/')
-            // })
     }
 
     showComponent = () => {
-        if(!localStorage.token && !this.state.loggedin){
+        if (!localStorage.token && !this.state.loggedin){
             return [
                 <div className="description">
                     <p className="prompt-first">Welcome to OnTrack</p>
@@ -158,9 +154,21 @@ class Login extends Component {
                     </ul>
                 </div>,
                 <div>
-                    <p className="prompt-auth">Sign up or login to get started:</p>
-                    <Form history={this.props.history} loginreg={true} signUp={this.signUp} logIn={this.logIn}/>
-                    {this.state.error ? <p className="error">{this.state.error_message}</p> : null}
+                    <p 
+                        className="prompt-auth"
+                        >Sign up or login to get started:
+                    </p>
+                    <Form
+                        history={this.props.history}
+                        loginreg={true}
+                        signUp={this.signUp}
+                        logIn={this.logIn}
+                    />
+                    {this.state.error ? 
+                        <p className="error"
+                            >{this.state.error_message}
+                        </p>
+                    : null}
                 </div>
             ]
         }else return null
@@ -168,8 +176,9 @@ class Login extends Component {
 
     render(){
         return(
-            <div className="login-page-div">
-                    {this.showComponent()}
+            <div
+                className="login-page-div">
+                {this.showComponent()}
             </div>
         )
     }

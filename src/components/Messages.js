@@ -53,40 +53,44 @@ class Messages extends Component{
     }
 
     showInbox = () => {
-        return this.props.incomingMessages.sort(this.sortDate).map(incomingMessage=>{
-            if(incomingMessage["read"]){
-                const messageSender = this.props.users.find(user=>user["id"] == incomingMessage["sender"])
-                if(typeof messageSender !== "undefined"){
-                    return <div className="message-div">
-                        <p className="read-message">{messageSender["first_name"]} {messageSender["last_name"]}</p>
-                        <p className="read-message">{incomingMessage["subject"]}</p>
-                        <button onClick={this.handleClick} name={messageSender["id"]} id={incomingMessage["id"]} className="read" value={incomingMessage["message"]}>Read</button>
-                    </div>
+        if(this.props.incomingMessages.length > 0){
+            return this.props.incomingMessages.sort(this.sortDate).map(incomingMessage=>{
+                if(incomingMessage["read"]){
+                    const messageSender = this.props.users.find(user=>user["id"] == incomingMessage["sender"])
+                    if(typeof messageSender !== "undefined"){
+                        return <div className="message-div">
+                            <p className="read-message">{messageSender["first_name"]} {messageSender["last_name"]}</p>
+                            <p className="read-message">{incomingMessage["subject"]}</p>
+                            <button onClick={this.handleClick} name={messageSender["id"]} id={incomingMessage["id"]} className="read" value={incomingMessage["message"]}>Read</button>
+                        </div>
+                    }
+                }else {
+                    const messageSender = this.props.users.find(user=>user["id"] == incomingMessage["sender"])
+                    if(typeof messageSender != "undefined"){
+                        return <div className="message-div">
+                            <p className="unread-message">{messageSender["first_name"]} {messageSender["last_name"]}</p>
+                            <p className="unread-message">{incomingMessage["subject"]}</p>
+                            <button onClick={this.handleClick} name={messageSender["id"]} id={incomingMessage["id"]} className="read" value={incomingMessage["message"]}>Read</button>
+                        </div>
+                    }
                 }
-            }else {
-                const messageSender = this.props.users.find(user=>user["id"] == incomingMessage["sender"])
-                if(typeof messageSender != "undefined"){
-                    return <div className="message-div">
-                        <p className="unread-message">{messageSender["first_name"]} {messageSender["last_name"]}</p>
-                        <p className="unread-message">{incomingMessage["subject"]}</p>
-                        <button onClick={this.handleClick} name={messageSender["id"]} id={incomingMessage["id"]} className="read" value={incomingMessage["message"]}>Read</button>
-                    </div>
-                }
-            }
-        })
+            })
+        }
     }
 
     showOutbox = () => {
-        return this.props.outgoingMessages.sort(this.sortDate).map(outgoingMessage=>{
-            const messageRecipient = this.props.users.find(user=>user["id"] == outgoingMessage["receiver"])
-            if(typeof messageRecipient != "undefined"){
-                return <div className="message-div">
-                <p className="unread-message">{messageRecipient["first_name"]} {messageRecipient["last_name"]}</p>
-                <p className="unread-message">{outgoingMessage["subject"]}</p>
-                <button onClick={this.handleClick} id={outgoingMessage["id"]} className="outgoing-read" value={outgoingMessage["message"]}>Read</button>
-            </div>
-            }
-        })
+        if(this.props.outgoingMessages.length > 0){
+            return this.props.outgoingMessages.sort(this.sortDate).map(outgoingMessage=>{
+                const messageRecipient = this.props.users.find(user=>user["id"] == outgoingMessage["receiver"])
+                if(typeof messageRecipient != "undefined"){
+                    return <div className="message-div">
+                    <p className="unread-message">{messageRecipient["first_name"]} {messageRecipient["last_name"]}</p>
+                    <p className="unread-message">{outgoingMessage["subject"]}</p>
+                    <button onClick={this.handleClick} id={outgoingMessage["id"]} className="outgoing-read" value={outgoingMessage["message"]}>Read</button>
+                </div>
+                }
+            })
+        }
     }
 
     render(){
