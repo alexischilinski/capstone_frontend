@@ -880,8 +880,8 @@ table {
   }
 
   .user-photo {
-    align-content: center;
-    align-self: center;
+    /* align-content: center; */
+    /* align-self: center; */
     width: 70%;
   }
 
@@ -892,6 +892,7 @@ table {
     display: flex;
     flex-direction: column;
     align-items: center;
+    align-self: center;
   }
 
   .race-div {
