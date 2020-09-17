@@ -12,7 +12,15 @@ class FiveK extends Component {
     }
 
     showDayNames = () => {
-        const dayArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        const dayArray = [
+            "Monday", 
+            "Tuesday", 
+            "Wednesday", 
+            "Thursday", 
+            "Friday", 
+            "Saturday", 
+            "Sunday"
+        ]
         return dayArray.map(day=>{
             return <div className="dayname">{day}</div>
         })

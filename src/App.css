@@ -235,10 +235,9 @@ table {
   }
   
   .submit-race {
-    height: 10rem;
-    width: 10rem;
+    height: 1.8rem;
+    width: 4rem;
     font-family: 'Sarabun', sans-serif;
-    font-size: 2rem;
     align-self: center;
   }
   
@@ -572,10 +571,7 @@ table {
   }
   
   .submit-race {
-    height: 10rem;
-    width: 10rem;
     font-family: 'Sarabun', sans-serif;
-    font-size: 2rem;
     align-self: center;
   }
   
@@ -630,6 +626,10 @@ table {
     border: solid black;
     font-family: 'Sarabun', sans-serif;
     font-weight: bold;
+  }
+
+  .profile {
+    flex-direction: column;
   }
   
   .day {
@@ -920,8 +920,6 @@ table {
   }
   
   .submit-race {
-    height: 5rem;
-    width: 5rem;
     font-family: 'Sarabun', sans-serif;
     font-size: 1rem;
     align-self: center;
@@ -1125,6 +1123,8 @@ table {
   font-family: 'Sarabun', sans-serif;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  align-self: center;
 }
 
 .no-photo, .has-photo {

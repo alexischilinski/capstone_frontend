@@ -139,7 +139,7 @@ class Form extends Component {
                 duration,
                 location
             })
-        } else if (event.target.className === "distances"){
+        } else if (event.target.className === "distances") {
             event.preventDefault()
             if (!this.state.error){
                 const {
@@ -154,7 +154,7 @@ class Form extends Component {
                 })
                 this.props.toggleNewRace()
             }
-        } else if (event.target.className === "add-photo"){
+        } else if (event.target.className === "add-photo") {
             const {
                 user, 
                 photo
