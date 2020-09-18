@@ -27,17 +27,16 @@ const editScheduleURL = 'crudschedules/'
 const followingURL = 'following/'
 const editPhotosURL = 'crudphotos/'
 
-const authHeaders = {
-  'Content-Type': 'application/json', 
-  'Authorization': `Token ${localStorage.token}`
-}
-
 const parseJSON = (response) => {
   return response.json()
 }
 
-console.log(baseURL + activitiesURL + 1)
-console.log(`${baseURL}${activitiesURL}${1}/`)
+const getAuthHeaders = () => {
+  return {
+    'Content-Type': 'application/json', 
+    'Authorization': `Token ${localStorage.token}`
+  }
+}
 
 class App extends Component {
 
@@ -58,87 +57,56 @@ class App extends Component {
     this.fetchData()
   }
 
+  goFetch = (url, stateName) => {
+    fetch(baseURL + url)
+      .then(parseJSON)
+      .then(data=>this.setState({[stateName]: data}))
+  }
+
+  postFetch = (url, data, stateName) => {
+    fetch(baseURL + url, {
+      method: "POST",
+      headers: getAuthHeaders(),
+      body:JSON.stringify(data)
+    }).then(parseJSON)
+    .then(result =>
+      this.setState({
+        [stateName]: [...this.state[stateName], result]
+      })
+    )
+  }
+
+  fetchWithHeaders = (url, stateName) => {
+    fetch(baseURL + url, {
+      headers: getAuthHeaders()
+  }).then(response => response.json())
+    .then(data =>
+      this.setState({[stateName]: data})
+    )
+  }
+
   fetchData = () => {
-    fetch(baseURL + activitiesURL)
-      .then(response => response.json())
-      .then(activities =>
-        this.setState({activities})
-      )
-    fetch(baseURL + workoutsURL)
-      .then(response => response.json())
-      .then(workouts =>
-        this.setState({workouts})
-      )
-    fetch(baseURL + schedulesURL)
-      .then(response => response.json())
-      .then(userRaces =>
-        this.setState({userRaces})
-      )
-    fetch(baseURL + usersURL)
-      .then(response => response.json())
-      .then(users =>
-        this.setState({users})
-      )
-    fetch(baseURL + friendsURL)
-      .then(response => response.json())
-      .then(friends =>
-        this.setState({friends})
-      )
-    fetch(baseURL + photosURL)
-      .then(response => response.json())
-      .then(photos =>
-        this.setState({photos})
-      )
-      fetch(baseURL + incomingMessagesURL, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${localStorage.token}`
-        }
-    }).then(response => response.json())
-      .then(incomingMessages =>
-        this.setState({incomingMessages})
-      )
-      fetch(baseURL + outgoingMessagesURL, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${localStorage.token}`
-        }
-    }).then(response => response.json())
-      .then(outgoingMessages =>
-        this.setState({outgoingMessages})
-      )
+    this.goFetch(activitiesURL, 'activities')
+    this.goFetch(workoutsURL, 'workouts')
+    this.goFetch(schedulesURL, 'userRaces')
+    this.goFetch(usersURL, 'users')
+    this.goFetch(friendsURL, 'friends')
+    this.goFetch(photosURL, 'photos')
+    this.fetchWithHeaders(incomingMessagesURL, 'incomingMessages')
+    this.fetchWithHeaders(outgoingMessagesURL, 'outgoingMessages')
   }
 
   fetchMessages = () => {
-    fetch(baseURL + incomingMessagesURL, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      }
-    }).then(response => response.json())
-    .then(incomingMessages =>
-      this.setState({incomingMessages})
-    )
-    fetch(baseURL + outgoingMessagesURL, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      }
-    }).then(response => response.json())
-    .then(outgoingMessages =>
-      this.setState({outgoingMessages})
-    )
+    this.fetchWithHeaders(incomingMessagesURL, 'incomingMessages')
+    this.fetchWithHeaders(outgoingMessagesURL, 'outgoingMessages')
   }
 
   readMessage = (id) => {
-    fetch(`${baseURL}${incomingMessagesURL}${id}/`, {
+    fetch(baseURL + incomingMessagesURL + id + '/', {
       method: 'PUT',
-      headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${localStorage.token}`
-      },
+      headers: getAuthHeaders(),
       body:JSON.stringify({read: true})
-  }).then(response => response.json())
+  }).then(parseJSON)
   .then(result => {
     const newMessages = this.state.incomingMessages.filter(message =>
       message["id"] !== result["id"]
@@ -150,37 +118,8 @@ class App extends Component {
   }
 
   sendMessage = (message) => {
-    fetch(baseURL + outgoingMessagesURL, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      },
-      body:JSON.stringify(message)
-    }).then(response => response.json())
-    .then(result =>
-      this.setState({
-        outgoingMessages: [...this.state.outgoingMessages, result]
-      })
-    )
+    this.postFetch(outgoingMessagesURL, message, 'outgoingMessages')
   }
-
-  reply = (message) => {
-    fetch(baseURL + outgoingMessagesURL, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      },
-      body:JSON.stringify(message)
-    }).then(response => response.json())
-    .then(result => 
-      this.setState({
-        outgoingMessages: [...this.state.outgoingMessages, result]
-      })
-    )
-  }
-
 
   toggleNav = () => {
     this.setState({
@@ -203,10 +142,7 @@ class App extends Component {
   logOut = () => {
     fetch(baseURL + logoutURL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      }
+      headers: getAuthHeaders()
     })
     localStorage.removeItem('token')
     localStorage.removeItem('user')
@@ -226,49 +162,22 @@ class App extends Component {
   }
 
   addWorkout = (workout) => {
-    fetch(baseURL + addWorkoutURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      },
-      body:JSON.stringify(workout)
-    }).then(response => response.json())
-    .then(workout =>
-      this.setState({
-        workouts: [...this.state.workouts, workout]
-      })
-    )
+    this.postFetch(addWorkoutURL, workout, 'workouts')
   }
 
   addUserRace = (userRace) => {
-    fetch(`${baseURL}${editScheduleURL}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      },
-      body:JSON.stringify(userRace)
-    }).then(response => response.json())
-    .then(result =>
-      this.setState({
-        userRaces: [...this.state.userRaces, result]
-      })
-    )
+    this.postFetch(editScheduleURL, userRace, 'userRaces')
   }
 
   followUser = (userid) => {
     fetch(baseURL + followingURL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      },
+      headers: getAuthHeaders(),
       body:JSON.stringify({
         follower: localStorage.user,
         following: userid
       })
-    }).then(response => response.json())
+    }).then(parseJSON)
     .then(newFollow =>
       this.setState({
         friends: [...this.state.friends, newFollow]
@@ -277,12 +186,9 @@ class App extends Component {
   }
 
   unfollowUser = (id) => {
-    fetch(`${baseURL}${followingURL}${id}/`, {
+    fetch(baseURL + followingURL + id, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      },
+      headers: getAuthHeaders(),
     })
     const newFriends = this.state.friends.filter(friend => 
       friend["id"] != id
@@ -297,28 +203,15 @@ class App extends Component {
   }
 
   addPhoto = (photo) => {
-    fetch(baseURL + editPhotosURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      },
-      body:JSON.stringify(photo)
-    }).then(response=>response.json())
-    .then(newPhoto=>this.setState({
-      photos: [...this.state.photos, newPhoto]
-    }))
+    this.postFetch(editPhotosURL, photo, 'photos')
   }
 
   updatePhoto = (id, photo) => {
     fetch(`${baseURL}${editPhotosURL}${id}/`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      },
+      headers: getAuthHeaders(),
       body:JSON.stringify({photo})
-    }).then(response=>response.json())
+    }).then(parseJSON)
     .then(result=>{
       const newPhotos = this.state.photos.filter(photo =>
         photo["user"] != result["id"]
@@ -332,12 +225,9 @@ class App extends Component {
   completeRace = (id, completed, history) => {
     fetch(`${baseURL}${editScheduleURL}${id}/`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${localStorage.token}`
-      },
+      headers: getAuthHeaders(),
       body:JSON.stringify({completed})
-    }).then(response=>response.json())
+    }).then(parseJSON)
     .then(result=>{
       const newRaces = this.state.userRaces.filter(userRace =>
         userRace["id"] != result["id"]
@@ -457,7 +347,7 @@ class App extends Component {
               outgoingMessages={this.state.outgoingMessages}
               users={this.state.users}
               readMessage={this.readMessage}
-              reply={this.reply}
+              reply={this.sendMessage}
             />}
           />
         </div>
