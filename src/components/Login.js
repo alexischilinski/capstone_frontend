@@ -40,15 +40,25 @@ class Login extends Component {
       })
       .catch((error) => {
         error.json().then((body) => {
-          const errorMessage = ""
-          if(Object.entries(body).length > 1){
-            const newMessage = Object.entries(body).map(error => {
-              return (errorMessage + `${error[0]}: ${error[1][0]}`).toLowerCase()
-            })
+          const errorMessage = "";
+          if (Object.entries(body).length > 1) {
+            const newMessage = Object.entries(body).map((error) => {
+              return (
+                errorMessage + `${error[0]}: ${error[1][0]}`
+              ).toLowerCase();
+            });
             this.setState({
               error: true,
-              error_message: newMessage.join("\n\n")
-            })
+              error_message: newMessage.join("\n\n"),
+            });
+          } else {
+            const newMessage = `${Object.keys(body)}: ${Object.values(
+              body
+            )}`.toLowerCase();
+            this.setState({
+              error: true,
+              error_message: newMessage,
+            });
           }
         });
       });
