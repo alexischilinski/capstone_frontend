@@ -44,8 +44,7 @@ export const Friends = (props) => {
 
     const showRunners = () => {
         return props.users.map(user => {
-            if (user["username"] !== "alexischilinski" && 
-                user["username"] !== localStorage.username) {
+            if (user["username"] !== localStorage.username) {
                     const userPhoto = props.photos.find(photo =>
                         photo["user"] === user["id"]
                 )
